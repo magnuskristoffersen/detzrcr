@@ -1,0 +1,551 @@
+ui <- shiny::fluidPage(shiny::tabsetPanel(
+
+  # Start of data input tab
+  shiny::tabPanel('Data Input', shiny::sidebarLayout(
+    shiny::sidebarPanel(
+      shiny::conditionalPanel(
+        condition = 'input.example_data == false',
+        shiny::fileInput('file1', 'Choose CSV File',
+                         accept=c('text/csv',
+                                  'text/comma-separated-values,text/plain',
+                                  '.csv')),
+        shiny::tags$hr(),
+        shiny::radioButtons('sep', 'Separator',
+                            c(Comma=',',
+                              Semicolon=';',
+                              Tab='\t'),
+                            ','),
+        shiny::radioButtons('quote', 'Quote',
+                            c(None='',
+                              'Double Quote'='"',
+                              'Single Quote'="'"),
+                            '"'),
+        shiny::tags$hr(),
+        shiny::checkboxInput('disc',
+                             label = 'Remove discordant data',
+                             value = FALSE),
+        shiny::uiOutput('show_disc_limit'),
+        shiny::tags$hr()),
+      shiny::checkboxInput('example_data', 'Display example data', value=FALSE)
+    ),
+    shiny::mainPanel(
+      shiny::tableOutput('head')
+    )
+  )),
+
+  # Start of density distribution tab
+  shiny::tabPanel('Density Distribution ', shiny::sidebarLayout(
+    shiny::sidebarPanel(
+      shiny::radioButtons('type', 'Density distribution type',
+                   c(KDE='kde',
+                     PDD='pdd')),
+      shiny::checkboxInput('hist', label = 'Histogram', value = TRUE),
+      selectInput('dens_type', 'Plot type',
+                  c('All samples in one'='dens_facet',
+                    'Individual samples'='dens_ind',
+                    'Combine samples'='dens_combine')),
+      shiny::uiOutput('dens_switch'),
+      shiny::numericInput('binwidth', 'Binwidth', 50),
+      shiny::numericInput('bw', "Bandwidth", 30),
+      shiny::sliderInput("xlim", "X-axis range (Ma)",
+                  min = 0, max = 4560, value = c(200, 4000)),
+      shiny::numericInput('densWidth', 'Image Width (cm)', 29.8),
+      shiny::numericInput('densHeight', 'Image Height (cm)', 21),
+      shiny::downloadButton('downloadDensplot', 'Save Image')),
+    shiny::mainPanel(
+      shiny::plotOutput('dens_plot')
+    )
+  )),
+
+  # Start of ECDF tab
+  shiny::tabPanel('ECDF', shiny::sidebarLayout(
+    shiny::sidebarPanel(
+      shiny::radioButtons('ecdf_input_type', 'Type',
+                          c('Age'='age',
+                            'Model age'='t_dm2')),
+      selectInput('ecdf_type', 'Plot type',
+                  c('All samples in one'='same_plot',
+                    'Individual samples'='ind_plot',
+                    'Combine samples'='ecdf_combine_plot')),
+      shiny::uiOutput("ecdf_switch"),
+      shiny::checkboxInput('ecdf_conf', label='Confidence bands', value=FALSE),
+      shiny::sliderInput("ecdf_xlim", "X-axis range (Ma)",
+                  min = 0, max = 4560, value = c(200, 4000)),
+      shiny::checkboxInput("ecdf_legend", label = "Show legend", value = TRUE),
+      shiny::numericInput('ecdf_width', 'Image Width (cm)', 29.8),
+      shiny::numericInput('ecdf_height', 'Image Height (cm)', 21),
+      shiny::downloadButton('download_ecdf_plot', 'Save Image')
+    ),
+    shiny::mainPanel(
+      shiny::plotOutput(('ecdf_plot'))
+    )
+  )),
+
+  # Start of Hf tab
+  shiny::tabPanel('Lu-Hf plot', shiny::sidebarLayout(
+    shiny::sidebarPanel(
+      selectInput('hf_type', 'Plot type',
+                  c('Epsilon Hf'='ehf_plot',
+                    'Hf/Hf'='hfhf_plot',
+                    'Model age quantile'='quant_plot')),
+      shiny::uiOutput('hf_samples'),
+      shiny::sliderInput('hf_xlim', 'X-axis range (Ma)',
+                         min = 0, max = 4560, value = c(200, 4000)),
+      shiny::uiOutput("hf_switch"),
+      shiny::conditionalPanel(condition="input.hf_type != 'quant_plot'",
+                              shiny::tags$hr(),
+                              shiny::checkboxInput('add_contours',
+                                                   label='Add contours',
+                                                   value=FALSE),
+                              shiny::conditionalPanel(
+                                condition='input.add_contours == true',
+                                shiny::checkboxInput('combine_contours',
+                                                     label='Combine contours',
+                                                     value=FALSE)),
+                              shiny::uiOutput('contour_switch')),
+      shiny::conditionalPanel(condition="input.hf_type == 'quant_plot'",
+                              shiny::checkboxInput('quant_conf',
+                                                   label='Confidence limits',
+                                                   value=FALSE),
+                              shiny::checkboxInput('mixing_model',
+                                                   label='Add mixing model',
+                                                   value=FALSE)
+                              ),
+      shiny::conditionalPanel(
+        condition="input.mixing_model == true & input.hf_type == 'quant_plot'",
+        shiny::numericInput('mu1', 'First mean', value=500),
+        shiny::numericInput('sig1', 'First standard deviation',
+                            value=50),
+        shiny::numericInput('mu2', 'Second mean', value=1000),
+        shiny::numericInput('sig2', 'Second standard deviation',
+                            value=100)),
+      shiny::tags$hr(),
+      shiny::checkboxInput("hf_legend", label = "Show legend", value = TRUE),
+      shiny::numericInput('hf_width', 'Image Width (cm)', 29.8),
+      shiny::numericInput('hf_height', 'Image Height (cm)', 21),
+      shiny::downloadButton('download_hf_plot', 'Save Image'),
+      shiny::tags$hr(),
+      shiny::downloadButton('download_hf_table', 'Save Lu-Hf Table')
+    ),
+    shiny::mainPanel(
+      shiny::plotOutput(('hf'))
+    )
+  )),
+
+  # Start of likeness tab
+  shiny::tabPanel('Likeness', shiny::sidebarLayout(
+    shiny::sidebarPanel(
+      shiny::radioButtons('likeness_type', 'Type',
+                          c('1d (age)'='1d',
+                            '2d (age and eHf)'='2d')),
+      shiny::numericInput('likeness_age_bw', 'Age bandwidth', 30),
+      shiny::uiOutput('likeness_bw'),
+      shiny::downloadButton('download_likeness_table', 'Save Table')
+    ),
+    shiny::mainPanel(
+      shiny::tableOutput('likeness')
+    )
+  )),
+
+  # Start of O-parameter age tab
+  shiny::tabPanel('1-O', shiny::sidebarLayout(
+    shiny::sidebarPanel(
+      shiny::radioButtons('o_type', 'Type',
+                          c('Age'='age',
+                            'Model age'='tdm')),
+      shiny::downloadButton('download_o_table', 'Save Table')
+    ),
+    shiny::mainPanel(
+      shiny::tableOutput('o_table')
+    )
+  )),
+  # Start of Constants tab
+  shiny::tabPanel('Constants', shiny::fluidPage(
+    shiny::fluidRow(
+      column(4,
+             shiny::numericInput('lambda_lu',
+                                 '176Lu decay constant',
+                                 lambda_lu),
+             shiny::tags$hr(),
+             shiny::numericInput('luhf_chur',
+                                 '176Lu/177Hf CHUR',
+                                 luhf_chur),
+             shiny::numericInput('hfhf_chur',
+                                 '176Hf/177Hf CHUR',
+                                 hfhf_chur),
+             shiny::tags$hr(),
+             shiny::numericInput('luhf_dm',
+                                 '176Lu/177Hf DM',
+                                 luhf_dm),
+             shiny::numericInput('hfhf_dm',
+                                 '176hf/177Hf DM',
+                                 hfhf_dm),
+             shiny::numericInput('luhf_zrc',
+                                 '176Lu/177Hf',
+                                 luhf_zrc)
+      )
+    )
+  ))
+  ))
+
+server <- shiny::shinyServer(function(input, output) {
+  # Reactives
+  csv_data <- shiny::reactive({
+    if (input$example_data == FALSE) {
+      inFile <- input$file1
+      if (is.null(inFile)) {
+        return(NULL)
+      }
+      dat <- utils::read.csv(inFile$datapath,
+                      header=TRUE,
+                      sep=input$sep,
+                      quote=input$quote)
+      if (input$disc) {
+        dat <- check_conc(dat, llim=-input$disc_limit, ulim=input$disc_limit)
+      }
+    } else {
+      dat <- utils::read.csv(system.file("extdata", "Natal_group.csv",
+                                           package="detzrcr"))
+    }
+    return(dat)
+  })
+  likeness_table <- shiny::reactive({
+    new_data <- csv_data()
+    if (!is.null(new_data)) {
+      if (input$likeness_type == '1d') {
+        satkoski_1d_matrix(new_data, bw=input$likeness_age_bw)
+      } else {
+        if (input$likeness_type == '2d') {
+          hf_data <- calc_hf(new_data)
+          satkoski_2d_matrix(hf_data, bw=c(input$likeness_age_bw,
+                                           input$likeness_ehf_bw))
+        }
+      }
+    }
+  })
+  o_table <- shiny::reactive({
+    new_data <- csv_data()
+    if (!is.null(new_data)) {
+      if (input$o_type == 'age') {
+        o_param_matrix_age(new_data)
+      } else {
+        if (input$o_type == 'tdm') {
+          hf_data <- calc_hf(new_data)
+          o_param_matrix_tdm(hf_data)
+        }
+      }
+    }
+  })
+  hf_table <- shiny::reactive({
+    new_data <- csv_data()
+    constants <- c(
+      input$lambda_lu,
+      input$hfhf_chur,
+      input$luhf_chur,
+      input$hfhf_dm,
+      input$luhf_dm,
+      input$luhf_zrc
+    )
+    hf_data <- calc_hf(new_data, constants=constants)
+  })
+  dens_plot <- shiny::reactive({
+    new_data <- csv_data()
+    if (!is.null(new_data)) {
+       facet <- NULL
+      if (input$dens_type == 'dens_combine') {
+        facet <- FALSE
+        if (!is.null(input$dens_combine_choice)) {
+          new_data <- new_data[(new_data$sample %in%
+                                  input$dens_combine_choice) ,]
+        }
+      }
+      if (input$dens_type == 'dens_facet') {
+        facet <- TRUE
+        if (!is.null(input$dens_facet_choice)) {
+          new_data <- new_data[(new_data$sample %in% input$dens_facet_choice), ]
+          new_data$sample <- factor(new_data$sample,
+                                    levels = input$dens_facet_choice)
+        }
+      }
+      if (input$dens_type == 'dens_ind') {
+        facet <- FALSE
+        if (!is.null(input$dens_ind_choice)) {
+          new_data <- new_data[new_data$sample == input$dens_ind_choice, ]
+        }
+      }
+       if (input$hist == TRUE) {
+         p <- plot_dens_hist(new_data, binwidth=input$binwidth, bw=input$bw,
+                             type=input$type, age_range=input$xlim,
+                             facet=facet)
+       } else {
+         p <- plot_dens(new_data, bw=input$bw,
+                        type=input$type, age_range=input$xlim,
+                        facet=facet)
+       }
+    }
+  })
+  ecdf_plot <- shiny::reactive({
+    new_data <- csv_data()
+    if (!is.null(new_data)) {
+      mult_ecdf <- NULL
+      if (input$ecdf_input_type == 't_dm2') {
+        new_data <- calc_hf(new_data)
+      }
+      if (input$ecdf_type == 'ind_plot') {
+        mult_ecdf <- FALSE
+        if (!is.null(input$ecdf_ind_samples)) {
+          new_data <- new_data[new_data$sample == input$ecdf_ind_samples, ]
+        }
+      }
+      if (input$ecdf_type == 'same_plot') {
+        mult_ecdf <- TRUE
+        if (length(input$ecdf_mult_samples) > 0) {
+          new_data <- new_data[new_data$sample %in% input$ecdf_mult_samples, ]
+        }
+      }
+      if (input$ecdf_type == 'ecdf_combine_plot') {
+        mult_ecdf <- FALSE
+        if (!is.null(input$ecdf_comb_samples)) {
+          new_data <- new_data[new_data$sample %in% input$ecdf_comb_samples, ]
+        }
+      }
+      p <- plot_ecdf(new_data, mult_ecdf=mult_ecdf, conf=input$ecdf_conf,
+                     column=input$ecdf_input_type, guide=input$ecdf_legend) +
+        plot_axis_lim(xlim=input$ecdf_xlim)
+    }
+  })
+  hf_plot <- shiny::reactive({
+    new_data <- csv_data()
+    if (!is.null(new_data)) {
+      constants <- c(
+        input$lambda_lu,
+        input$hfhf_chur,
+        input$luhf_chur,
+        input$hfhf_dm,
+        input$luhf_dm,
+        input$luhf_zrc
+      )
+      new_data <- calc_hf(new_data, constants=constants)
+      if (input$hf_type == 'ehf_plot') {
+        contour_data <- NULL
+        if (input$add_contours) {
+          contour_data <- new_data[new_data$sample %in% input$contour_choice, ]
+        }
+        if(!is.null(input$hfhf_samples)) {
+          new_data <- new_data[new_data$sample %in% input$hfhf_samples, ]
+          new_data$sample <- factor(new_data$sample,
+                                    levels=input$hfhf_samples)
+        }
+        p <- plot_hf(new_data, guide=input$hf_legend,
+                     contours=input$add_contours, contour_data=contour_data,
+                     combine_contours=input$combine_contours,
+                     constants=constants) +
+          plot_axis_lim(xlim=input$hf_xlim,
+                        ylim=input$ehf_ylim)
+      } else {
+        if (input$hf_type == 'hfhf_plot') {
+          contour_data <- NULL
+          if (input$add_contours) {
+            contour_data <-
+              new_data[new_data$sample %in% input$contour_choice, ]
+          }
+          if(!is.null(input$hfhf_samples)) {
+            new_data <- new_data[new_data$sample %in% input$hfhf_samples, ]
+            new_data$sample <- factor(new_data$sample, levels=
+                                        input$hfhf_samples)
+          }
+          p <- plot_hf(new_data, plot_type = 'hfhf', guide=input$hf_legend,
+                       contours=input$add_contours, contour_data=contour_data,
+                       combine_contours=input$combine_contours,
+                       constants=constants) +
+            plot_axis_lim(xlim=input$hf_xlim, ylim=input$hf_ylim)
+        }  else {
+          if (input$hf_type == 'quant_plot') {
+            mix_data <- NULL
+            if (input$mixing_model) {
+              mix_data <- dzr_mix(input$mu1, input$sig1, input$mu2, input$sig2)
+            }
+            if (!is.null(input$hfhf_samples)) {
+              new_data <- new_data[new_data$sample %in% input$hfhf_samples, ]
+              new_data$sample <- factor(new_data$sample, levels=
+                                          input$hfhf_samples)
+            }
+            p <- plot_quantiles(new_data, guide=input$hf_legend,
+                                conf=input$quant_conf, mix=input$mixing_model,
+                                mix_data=mix_data) +
+              plot_axis_lim(xlim=input$hf_xlim,
+                            ylim=input$quant_ylim)
+          }
+        }
+      }
+    }
+  })
+  # Output
+  output$head <- shiny::renderTable({
+    new_data <- csv_data()
+    head(new_data)
+  })
+  output$dens_plot <- shiny::renderPlot({
+    print(dens_plot())
+  })
+  output$ecdf_plot <- shiny::renderPlot({
+    print(ecdf_plot())
+  })
+  output$downloadDensplot <- shiny::downloadHandler(
+    filename = function() {
+      paste('kde', '.pdf', sep='')
+    },
+    content = function(file) {
+      ggplot2::ggsave(file, plot = dens_plot(), width=input$densWidth,
+                      height=input$densHeight, colormodel='cmyk')
+    }
+  )
+  output$download_ecdf_plot <- shiny::downloadHandler(
+    filename = function() {
+      paste('ecdf', '.pdf', sep='')
+    },
+    content = function(file) {
+      ggplot2::ggsave(file, plot = ecdf_plot(), width=input$ecdf_width,
+                      height=input$ecdf_height, colormodel='cmyk')
+    }
+  )
+  output$download_hf_plot <- shiny::downloadHandler(
+    filename = function() {
+      paste('hf', '.pdf', sep='')
+    },
+    content = function(file) {
+      ggplot2::ggsave(file, plot = hf_plot(), width=input$hf_width,
+                      height=input$hf_height, colormodel='cmyk')
+    }
+  )
+  output$download_likeness_table <- shiny::downloadHandler(
+    filename = function() {
+      paste('likeness', '.csv', sep='')
+    },
+    content = function(file) {
+      write.csv(likeness_table(), file)
+    }
+  )
+  output$download_satkoski_2d <- shiny::downloadHandler(
+    filename = function() {
+      paste('L2', '.csv', sep='')
+    },
+    content = function(file) {
+      write.csv(satkoski_2d_table(), file)
+    }
+  )
+  output$download_o_table <- shiny::downloadHandler(
+    filename = function() {
+      paste('otable', '.csv', sep='')
+    },
+    content = function(file) {
+      write.csv(o_table(), file)
+    }
+  )
+  output$download_hf_table <- shiny::downloadHandler(
+    filename = function() {
+      paste('hf', '.csv', sep='')
+    },
+    content = function(file) {
+      write.csv(hf_table(), file)
+    }
+  )
+  output$dens_facet_select <- shiny::renderUI({
+    new_data <- csv_data()
+    samples <- as.vector(unique(new_data$sample))
+    selectInput('dens_facet_choice', 'Choose samples', samples,
+                multiple=TRUE, selectize=TRUE)
+  })
+  output$show_disc_limit <- shiny::renderUI({
+    if (input$disc) {
+      shiny::numericInput('disc_limit', 'Discordancy limit (%)', 10,
+                          min=0, max=100)
+      }
+  })
+  # Dynamic UI density tab
+  output$dens_switch <- shiny::renderUI({
+    new_data <- csv_data()
+    samples <- as.vector(unique(new_data$sample))
+    if (input$dens_type == 'dens_facet') {
+      selectInput('dens_facet_choice', 'Choose samples', samples,
+                  multiple=TRUE, selectize=TRUE)
+    } else {
+      if (input$dens_type == 'dens_ind') {
+        selectInput('dens_ind_choice', 'Choose sample', samples)
+      } else {
+      if (input$dens_type == 'dens_combine') {
+        selectInput('dens_combine_choice', 'Choose samples', samples,
+                    multiple=TRUE, selectize=TRUE)
+      }
+      }
+    }
+  })
+  # Dynamic UI ecdf tab
+  output$ecdf_switch <- shiny::renderUI({
+    new_data <- csv_data()
+    samples <- as.vector(unique(new_data$sample))
+    if (input$ecdf_type == 'same_plot') {
+      selectInput('ecdf_mult_samples', 'Choose samples', samples,
+                  multiple=TRUE, selectize=TRUE)
+    } else {
+      if (input$ecdf_type == 'ind_plot') {
+        selectInput('ecdf_ind_samples', 'Choose sample', samples)
+      } else {
+        if (input$ecdf_type == 'ecdf_combine_plot') {
+          selectInput('ecdf_comb_samples', 'Choose samples', samples,
+                      multiple=TRUE, selectize=TRUE)
+        }
+      }
+    }
+  })
+  # Dynamic UI Lu-Hf tab
+  output$hf_switch <- shiny::renderUI({
+    new_data <- csv_data()
+    samples <- as.vector(unique(new_data$sample))
+    if (input$hf_type == 'ehf_plot') {
+      shiny::sliderInput('ehf_ylim', 'Y-axis range',
+                         min=-50, max=50, value = c(-20, 20))
+    } else {
+      if (input$hf_type == 'hfhf_plot') {
+        shiny::sliderInput('hf_ylim', 'Y-axis range',
+                           min=0.279, max=0.283, value = c(0.28, 0.283))
+      } else {
+        if (input$hf_type == 'quant_plot') {
+          shiny::sliderInput('quant_ylim', 'Y-axis range',
+                             min=0, max=4560, value=c(200, 4000))
+          }
+        }
+      }
+  })
+  output$contour_switch <- shiny::renderUI({
+    new_data <- csv_data()
+    samples <- as.vector(unique(new_data$sample))
+    if (input$add_contours) {
+      selectInput('contour_choice', 'Choose samples to contour', samples,
+                  multiple=TRUE, selectize=TRUE)
+    }
+  })
+  output$hf_samples <- shiny::renderUI({
+    new_data <- csv_data()
+    samples <- as.vector(unique(new_data$sample))
+    shiny::selectInput('hfhf_samples', 'Choose samples', samples,
+                       multiple=TRUE, selectize=TRUE)
+  })
+  output$hf <- shiny::renderPlot({
+    print(hf_plot())
+  })
+  output$likeness <- shiny::renderTable({
+    likeness_table()
+  })
+  output$likeness_bw <- shiny::renderUI({
+    if (input$likeness_type == '2d') {
+      shiny::numericInput('likeness_ehf_bw', 'Epsilon-Hf bandwidth', 2.5)
+    }
+  })
+  output$o_table <- shiny::renderTable({
+    o_table()
+  })
+})
+
+# Run the application
+shiny::shinyApp(ui = ui, server = server)

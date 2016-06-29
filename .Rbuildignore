@@ -1,0 +1,8 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^.Rhistory$
+^.DS_Store$
+^\.gitignore$
+^\.git/$
+^cran-comments\.md$
+^\.travis\.yml$
