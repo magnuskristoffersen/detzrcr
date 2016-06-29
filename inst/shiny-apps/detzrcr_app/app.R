@@ -423,7 +423,7 @@ server <- shiny::shinyServer(function(input, output) {
       paste('likeness', '.csv', sep='')
     },
     content = function(file) {
-      write.csv(likeness_table(), file)
+      utils::write.csv(likeness_table(), file)
     }
   )
   output$download_satkoski_2d <- shiny::downloadHandler(
@@ -431,7 +431,7 @@ server <- shiny::shinyServer(function(input, output) {
       paste('L2', '.csv', sep='')
     },
     content = function(file) {
-      write.csv(satkoski_2d_table(), file)
+      utils::write.csv(satkoski_2d_table(), file)
     }
   )
   output$download_o_table <- shiny::downloadHandler(
@@ -439,7 +439,7 @@ server <- shiny::shinyServer(function(input, output) {
       paste('otable', '.csv', sep='')
     },
     content = function(file) {
-      write.csv(o_table(), file)
+      utils::write.csv(o_table(), file)
     }
   )
   output$download_hf_table <- shiny::downloadHandler(
@@ -447,7 +447,7 @@ server <- shiny::shinyServer(function(input, output) {
       paste('hf', '.csv', sep='')
     },
     content = function(file) {
-      write.csv(hf_table(), file)
+      utils::write.csv(hf_table(), file)
     }
   )
   output$dens_facet_select <- shiny::renderUI({
