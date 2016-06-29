@@ -5,3 +5,8 @@ sudo: false
 cache: packages
 r_binary_packages:
  - r-cran-ggplot2
+ - r-cran-httpuv
+ - r-cran-mime
+ - r-cran-jsonlite
+ - r-cran-xtable
+ - r-cran-digest
