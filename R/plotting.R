@@ -7,7 +7,7 @@
 #' @param type 'kde': traditional KDE 'pdd': detrial zircon PDD
 #' @param age_range range over which to calculate density
 #' @param facet logical, facet samples?
-#'
+#' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens <- function(dat, bw=30, type='kde',
                            age_range=c(0, 4560), facet=FALSE) {
@@ -44,7 +44,7 @@ plot_dens <- function(dat, bw=30, type='kde',
 #' @param type 'kde': traditional KDE 'pdd': detrial zircon PDD
 #' @param age_range range over which to calculate density
 #' @param facet logical, facet samples?
-#'
+#' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
                               age_range=c(0, 4560), facet=FALSE) {
@@ -89,7 +89,7 @@ plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
 #'
 #' @param xlab X-axis label
 #' @param ylab Y-axis label
-#'
+#' @export
 #' @return Returns ggplot2 labels
 plot_labels <- function(xlab = 'Age (Ma)', ylab = 'Density') {
    p_labels <- list(ggplot2::xlab(xlab),
@@ -112,7 +112,7 @@ plot_axis_lim <- function(xlim = c(0, 4560), ylim=NULL) {
 }
 
 #' Stripped down theme for ggplot2
-#'
+#' @export
 #' @return Returns ggplot2 theme
 plot_bw_theme <- function() {
   p_bw_theme <- ggplot2::theme_bw() +

@@ -199,7 +199,6 @@ satkoski_2d_matrix <- function(dat, bw=c(30, 2.5), digits=3) {
 #'
 #' @return Populated matrix
 #' @export
-#'
 populate_matrix <- function(dat, FUN, ...) {
   n <- length(unique(dat$sample))
   name <- as.character(unique(dat$sample))
