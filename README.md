@@ -11,13 +11,8 @@ and produces publication quality figures using ggplot2.
 
 ## Installation
 
-Install from CRAN
-
-```R
-install.packages("detzrcr")
-```
-
-or install development version
+The CRAN version is currently not working so please install the development
+version
 
 ```R
 # install.packages("devtools")
