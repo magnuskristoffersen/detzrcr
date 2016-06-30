@@ -17,7 +17,7 @@ Install from CRAN
 install.packages("detzrcr")
 ```
 
-Install development version from github
+or install development version
 
 ```R
 # install.packages("devtools")
