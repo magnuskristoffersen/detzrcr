@@ -212,11 +212,19 @@ server <- shiny::shinyServer(function(input, output) {
   likeness_table <- shiny::reactive({
     new_data <- csv_data()
     if (!is.null(new_data)) {
+      constants <- c(
+        input$lambda_lu,
+        input$hfhf_chur,
+        input$luhf_chur,
+        input$hfhf_dm,
+        input$luhf_dm,
+        input$luhf_zrc
+      )
       if (input$likeness_type == '1d') {
         satkoski_1d_matrix(new_data, bw=input$likeness_age_bw)
       } else {
         if (input$likeness_type == '2d') {
-          hf_data <- calc_hf(new_data)
+          hf_data <- calc_hf(new_data, constants=constants)
           satkoski_2d_matrix(hf_data, bw=c(input$likeness_age_bw,
                                            input$likeness_ehf_bw))
         }
@@ -226,11 +234,19 @@ server <- shiny::shinyServer(function(input, output) {
   o_table <- shiny::reactive({
     new_data <- csv_data()
     if (!is.null(new_data)) {
+      constants <- c(
+        input$lambda_lu,
+        input$hfhf_chur,
+        input$luhf_chur,
+        input$hfhf_dm,
+        input$luhf_dm,
+        input$luhf_zrc
+      )
       if (input$o_type == 'age') {
         o_param_matrix_age(new_data)
       } else {
         if (input$o_type == 'tdm') {
-          hf_data <- calc_hf(new_data)
+          hf_data <- calc_hf(new_data, constants=constants)
           o_param_matrix_tdm(hf_data)
         }
       }
@@ -288,8 +304,16 @@ server <- shiny::shinyServer(function(input, output) {
     new_data <- csv_data()
     if (!is.null(new_data)) {
       mult_ecdf <- NULL
+      constants <- c(
+        input$lambda_lu,
+        input$hfhf_chur,
+        input$luhf_chur,
+        input$hfhf_dm,
+        input$luhf_dm,
+        input$luhf_zrc
+      )
       if (input$ecdf_input_type == 't_dm2') {
-        new_data <- calc_hf(new_data)
+        new_data <- calc_hf(new_data, constants=constants)
       }
       if (input$ecdf_type == 'ind_plot') {
         mult_ecdf <- FALSE
