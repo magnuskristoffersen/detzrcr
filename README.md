@@ -29,7 +29,8 @@ devtools::install_github("magnuskristoffersen/detzrcr")
 Launch user interface with
 
 ```R
-detzrcr::run_detzrcr()
+library("detzrcr")
+run_detzrcr()
 ```
 
 For the sake of simplicity input data is required to be a csv-file which
