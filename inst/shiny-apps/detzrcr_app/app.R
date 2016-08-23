@@ -407,7 +407,7 @@ server <- shiny::shinyServer(function(input, output) {
   # Output
   output$head <- shiny::renderTable({
     new_data <- csv_data()
-    head(new_data)
+    utils::head(new_data)
   })
   output$dens_plot <- shiny::renderPlot({
     print(dens_plot())
