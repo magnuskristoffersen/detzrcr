@@ -1,20 +1,19 @@
 ## Test environments
-local osx install (10.11.5), R 3.3.1
+local osx install (10.11.6), R 3.3.1
 
-docker image rocker/r-devel, R Under development (unstable) (2016-05-31 r70688)
+docker image rocker/r-devel, R Under development (unstable) (2016-07-31 r71015)
 
-winbuilder (devel, R Under development (unstable) (2016-05-31 r70688))
+winbuilder (devel, R Under development (unstable) (2016-08-22 r71129))
 
-ubuntu 12.04.5 LTS (on travis-ci), R 3.3.1 and R-devel (R Under development
-(unstable) (2016-05-31 r70688))
+ubuntu 12.04.5 LTS (on travis-ci), R 3.3.1
 
 ## R CMD check --as-cran results
-There were no ERRORS or WARNINGS. There was 1 NOTE: 
-"checking CRAN incoming feasibility ... NOTE".
-
-I suspect that this NOTE is shown because of the very short time since last
-submission. If this is the case please let me know and I'll submit after waiting
-the appropriate amount of time.
+There were no ERRORS or WARNINGS.
+There was 1 NOTE: "checking CRAN incoming feasibility ... NOTE". Which,
+according to this r-devel mailing list answer
+https://stat.ethz.ch/pipermail/r-devel/2014-March/068497.html, is a note to the
+CRAN maintainers to check that the package are submitted by the package
+maintainer and not anybody else.
 
 ## Downstream dependencies
 There are currently no downstream dependencies on this package.
