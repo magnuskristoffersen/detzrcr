@@ -1,3 +1,6 @@
+# detzrcr 0.1.1.9000
+* Minor fixes.
+
 # detzrcr 0.1.1
 * User interface now actually works.
 
