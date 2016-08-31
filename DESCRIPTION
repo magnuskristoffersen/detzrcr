@@ -4,7 +4,7 @@ Authors@R: c(
     role=c("aut", "cre")))
 Type: Package
 Title: Compare Detrital Zircon Suites
-Version: 0.1.1
+Version: 0.1.1.9000
 Description: Compare detrital zircon suites by uploading univariate,
       U-Pb age, or bivariate, U-Pb age and Lu-Hf data, in a shiny-based
       user-interface. Outputs publication quality figures using ggplot2, and
