@@ -5,7 +5,7 @@
 \title{Plot 1d density}
 \usage{
 plot_dens(dat, bw = 30, type = "kde", age_range = c(0, 4560),
-  facet = FALSE)
+  facet = FALSE, step = 200)
 }
 \arguments{
 \item{dat}{data.frame}
@@ -17,6 +17,8 @@ plot_dens(dat, bw = 30, type = "kde", age_range = c(0, 4560),
 \item{age_range}{range over which to calculate density}
 
 \item{facet}{logical, facet samples?}
+
+\item{step}{specify x-axis steps}
 }
 \value{
 ggplot2 1d density plot with histogram

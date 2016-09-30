@@ -7,6 +7,7 @@
 #' @param type 'kde': traditional KDE 'pdd': detrial zircon PDD
 #' @param age_range range over which to calculate density
 #' @param facet logical, facet samples?
+#' @param step specify x-axis steps
 #' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens <- function(dat, bw=30, type='kde',
@@ -44,6 +45,7 @@ plot_dens <- function(dat, bw=30, type='kde',
 #' @param type 'kde': traditional KDE 'pdd': detrial zircon PDD
 #' @param age_range range over which to calculate density
 #' @param facet logical, facet samples?
+#' @param step specify x-axis steps
 #' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
@@ -102,8 +104,7 @@ plot_labels <- function(xlab = 'Age (Ma)', ylab = 'Density') {
 #' Convenience function to change axes limits for ggplot2
 #'
 #' @param xlim x-axis limit
-#' @param ylim y-axis limit
-#'
+#' @param step specify x-axis steps
 #' @return list of ggplot2::coord_cartesian object
 #' @export
 #'
