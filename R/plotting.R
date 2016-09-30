@@ -10,7 +10,7 @@
 #' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens <- function(dat, bw=30, type='kde',
-                           age_range=c(0, 4560), facet=FALSE) {
+                           age_range=c(0, 4560), facet=FALSE, step=200) {
   if (facet) {
     l <- lapply(split(dat, factor(dat$sample)), calc_dens, bw=bw,
                 type=type, age_range=age_range)
@@ -20,7 +20,7 @@ plot_dens <- function(dat, bw=30, type='kde',
                                         ggplot2::aes_string(x='x', y='y'))
     gplot <- gplot + ggplot2::facet_grid(sample ~ ., scale='free_y')
     gplot <- gplot + plot_labels(ylab = 'Density') + plot_bw_theme() +
-      plot_axis_lim(xlim=age_range)
+      plot_axis_lim(xlim=age_range, step=step)
     return(gplot)
   } else {
     dens <- calc_dens(dat, bw=bw, type=type,
@@ -29,7 +29,7 @@ plot_dens <- function(dat, bw=30, type='kde',
     gplot <- gplot + ggplot2::geom_path(data=dens,
                                         ggplot2::aes_string(x='x', y='y'))
     gplot <- gplot + plot_labels(ylab = 'Density') + plot_bw_theme() +
-      plot_axis_lim(xlim=age_range)
+      plot_axis_lim(xlim=age_range, step=step)
     return(gplot)
   }
 }
@@ -47,7 +47,7 @@ plot_dens <- function(dat, bw=30, type='kde',
 #' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
-                              age_range=c(0, 4560), facet=FALSE) {
+                              age_range=c(0, 4560), facet=FALSE, step=step) {
   if (facet) {
     l <- lapply(split(dat, factor(dat$sample)), calc_dens_hist, bw=bw,
                 binwidth=binwidth, type=type, age_range=age_range)
@@ -63,7 +63,7 @@ plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
     gplot <- gplot + ggplot2::geom_path(data=dens,
                                         ggplot2::aes_string(x='x', y='y'))
     gplot <- gplot + plot_labels(ylab = 'Count') + plot_bw_theme() +
-      plot_axis_lim(xlim=age_range)
+      plot_axis_lim(xlim=age_range, step=step)
     return(gplot)
     } else {
       dens <- calc_dens_hist(dat, binwidth=binwidth, bw=bw, type=type,
@@ -78,7 +78,7 @@ plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
       gplot <- gplot + ggplot2::geom_path(data=dens,
                                           ggplot2::aes_string(x='x', y='y'))
       gplot <- gplot + plot_labels(ylab = 'Count') + plot_bw_theme() +
-        plot_axis_lim(xlim=age_range)
+        plot_axis_lim(xlim=age_range, step=step)
       return(gplot)
   }
 }
@@ -107,8 +107,9 @@ plot_labels <- function(xlab = 'Age (Ma)', ylab = 'Density') {
 #' @return list of ggplot2::coord_cartesian object
 #' @export
 #'
-plot_axis_lim <- function(xlim = c(0, 4560), ylim=NULL) {
-  p_x_lim <- list(ggplot2::coord_cartesian(xlim=xlim, ylim=ylim))
+plot_axis_lim <- function(xlim = c(0, 4560), step=200) {
+  p_x_lim <- list(ggplot2::scale_x_continuous(limits=xlim,
+                                           breaks=seq(xlim[1], xlim[2], step)))
 }
 
 #' Stripped down theme for ggplot2

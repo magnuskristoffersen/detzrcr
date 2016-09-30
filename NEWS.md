@@ -1,5 +1,5 @@
 # detzrcr 0.1.1.9000
-* Minor fixes.
+* Added option to specify x-axis breaks for density plots.
 
 # detzrcr 0.1.1
 * User interface now actually works.

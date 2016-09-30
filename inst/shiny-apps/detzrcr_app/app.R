@@ -49,6 +49,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
       shiny::numericInput('bw', "Bandwidth", 30),
       shiny::sliderInput("xlim", "X-axis range (Ma)",
                   min = 0, max = 4560, value = c(200, 4000)),
+      shiny::numericInput('xstep', 'X step', 200),
       shiny::numericInput('densWidth', 'Image Width (cm)', 29.8),
       shiny::numericInput('densHeight', 'Image Height (cm)', 21),
       shiny::downloadButton('downloadDensplot', 'Save Image')),
@@ -292,11 +293,11 @@ server <- shiny::shinyServer(function(input, output) {
        if (input$hist == TRUE) {
          p <- plot_dens_hist(new_data, binwidth=input$binwidth, bw=input$bw,
                              type=input$type, age_range=input$xlim,
-                             facet=facet)
+                             facet=facet, step=input$xstep)
        } else {
          p <- plot_dens(new_data, bw=input$bw,
                         type=input$type, age_range=input$xlim,
-                        facet=facet)
+                        facet=facet, step=input$xstep)
        }
     }
   })
