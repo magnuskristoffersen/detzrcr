@@ -567,7 +567,7 @@ server <- shiny::shinyServer(function(input, output) {
   })
   output$likeness <- shiny::renderTable({
     likeness_table()
-  })
+  }, rownames=TRUE)
   output$likeness_bw <- shiny::renderUI({
     if (input$likeness_type == '2d') {
       shiny::numericInput('likeness_ehf_bw', 'Epsilon-Hf bandwidth', 2.5)
@@ -575,7 +575,7 @@ server <- shiny::shinyServer(function(input, output) {
   })
   output$o_table <- shiny::renderTable({
     o_table()
-  })
+  }, rownames=TRUE)
 })
 
 # Run the application
