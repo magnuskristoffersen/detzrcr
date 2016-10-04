@@ -38,7 +38,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
     shiny::sidebarPanel(
       shiny::radioButtons('type', 'Density distribution type',
                    c(KDE='kde',
-                     PDD='pdd')),
+                     PDP='pdd')),
       shiny::checkboxInput('hist', label = 'Histogram', value = TRUE),
       selectInput('dens_type', 'Plot type',
                   c('All samples in one'='dens_facet',
