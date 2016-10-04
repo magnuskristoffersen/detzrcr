@@ -72,6 +72,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
       shiny::checkboxInput('ecdf_conf', label='Confidence bands', value=FALSE),
       shiny::sliderInput("ecdf_xlim", "X-axis range (Ma)",
                   min = 0, max = 4560, value = c(200, 4000)),
+      shiny::numericInput('ecdf_xstep', 'X step', 200),
       shiny::checkboxInput("ecdf_legend", label = "Show legend", value = TRUE),
       shiny::numericInput('ecdf_width', 'Image Width (cm)', 29.8),
       shiny::numericInput('ecdf_height', 'Image Height (cm)', 21),
@@ -92,6 +93,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
       shiny::uiOutput('hf_samples'),
       shiny::sliderInput('hf_xlim', 'X-axis range (Ma)',
                          min = 0, max = 4560, value = c(200, 4000)),
+      shiny::numericInput('hf_xstep', 'X step', 200),
       shiny::uiOutput("hf_switch"),
       shiny::conditionalPanel(condition="input.hf_type != 'quant_plot'",
                               shiny::tags$hr(),
@@ -336,7 +338,7 @@ server <- shiny::shinyServer(function(input, output) {
       }
       p <- plot_ecdf(new_data, mult_ecdf=mult_ecdf, conf=input$ecdf_conf,
                      column=input$ecdf_input_type, guide=input$ecdf_legend) +
-        plot_axis_lim(xlim=input$ecdf_xlim)
+        plot_axis_lim(xlim=input$ecdf_xlim, step=input$ecdf_xstep)
     }
   })
   hf_plot <- shiny::reactive({
@@ -366,7 +368,8 @@ server <- shiny::shinyServer(function(input, output) {
                      combine_contours=input$combine_contours,
                      constants=constants) +
           plot_axis_lim(xlim=input$hf_xlim,
-                        ylim=input$ehf_ylim)
+                        ylim=input$ehf_ylim,
+                        step=input$hf_xstep)
       } else {
         if (input$hf_type == 'hfhf_plot') {
           contour_data <- NULL
@@ -383,7 +386,9 @@ server <- shiny::shinyServer(function(input, output) {
                        contours=input$add_contours, contour_data=contour_data,
                        combine_contours=input$combine_contours,
                        constants=constants) +
-            plot_axis_lim(xlim=input$hf_xlim, ylim=input$hf_ylim)
+            plot_axis_lim(xlim=input$hf_xlim,
+                          ylim=input$hf_ylim,
+                          step=input$hf_xstep)
         }  else {
           if (input$hf_type == 'quant_plot') {
             mix_data <- NULL
@@ -399,7 +404,8 @@ server <- shiny::shinyServer(function(input, output) {
                                 conf=input$quant_conf, mix=input$mixing_model,
                                 mix_data=mix_data) +
               plot_axis_lim(xlim=input$hf_xlim,
-                            ylim=input$quant_ylim)
+                            ylim=input$quant_ylim,
+                            step=input$hf_xstep)
           }
         }
       }

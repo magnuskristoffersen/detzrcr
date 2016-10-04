@@ -104,13 +104,16 @@ plot_labels <- function(xlab = 'Age (Ma)', ylab = 'Density') {
 #' Convenience function to change axes limits for ggplot2
 #'
 #' @param xlim x-axis limit
+#' @param ylim y-axis limit
 #' @param step specify x-axis steps
 #' @return list of ggplot2::coord_cartesian object
 #' @export
 #'
-plot_axis_lim <- function(xlim = c(0, 4560), step=200) {
+plot_axis_lim <- function(xlim = c(0, 4560), step=200, ylim=NULL) {
   p_x_lim <- list(ggplot2::scale_x_continuous(limits=xlim,
-                                           breaks=seq(xlim[1], xlim[2], step)))
+                                           breaks=seq(xlim[1], xlim[2], step),
+                                           expand=c(0, 0)),
+                  ggplot2::scale_y_continuous(limits=ylim))
 }
 
 #' Stripped down theme for ggplot2

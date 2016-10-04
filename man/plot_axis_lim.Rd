@@ -4,12 +4,14 @@
 \alias{plot_axis_lim}
 \title{Axes limits for ggplot2}
 \usage{
-plot_axis_lim(xlim = c(0, 4560), step = 200)
+plot_axis_lim(xlim = c(0, 4560), step = 200, ylim = NULL)
 }
 \arguments{
 \item{xlim}{x-axis limit}
 
 \item{step}{specify x-axis steps}
+
+\item{ylim}{y-axis limit}
 }
 \value{
 list of ggplot2::coord_cartesian object
