@@ -50,8 +50,8 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
       shiny::sliderInput("xlim", "X-axis range (Ma)",
                   min = 0, max = 4560, value = c(200, 4000)),
       shiny::numericInput('xstep', 'X step', 200),
-      shiny::numericInput('densWidth', 'Image Width (cm)', 29.8),
-      shiny::numericInput('densHeight', 'Image Height (cm)', 21),
+      shiny::numericInput('densWidth', 'Image Width (cm)', 15),
+      shiny::numericInput('densHeight', 'Image Height (cm)', 15),
       shiny::downloadButton('downloadDensplot', 'Save Image')),
     shiny::mainPanel(
       shiny::plotOutput('dens_plot')
@@ -74,8 +74,8 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                   min = 0, max = 4560, value = c(200, 4000)),
       shiny::numericInput('ecdf_xstep', 'X step', 200),
       shiny::checkboxInput("ecdf_legend", label = "Show legend", value = TRUE),
-      shiny::numericInput('ecdf_width', 'Image Width (cm)', 29.8),
-      shiny::numericInput('ecdf_height', 'Image Height (cm)', 21),
+      shiny::numericInput('ecdf_width', 'Image Width (cm)', 15),
+      shiny::numericInput('ecdf_height', 'Image Height (cm)', 15),
       shiny::downloadButton('download_ecdf_plot', 'Save Image')
     ),
     shiny::mainPanel(
@@ -111,8 +111,8 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                             value=100)),
       shiny::tags$hr(),
       shiny::checkboxInput("uqlq_legend", label = "Show legend", value = TRUE),
-      shiny::numericInput('uqlq_width', 'Image Width (cm)', 29.8),
-      shiny::numericInput('uqlq_height', 'Image Height (cm)', 21),
+      shiny::numericInput('uqlq_width', 'Image Width (cm)', 15),
+      shiny::numericInput('uqlq_height', 'Image Height (cm)', 15),
       shiny::downloadButton('download_uqlq_plot', 'Save Image'),
       shiny::tags$hr()
     ),
@@ -145,8 +145,8 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
       shiny::uiOutput('contour_switch'),
       shiny::tags$hr(),
       shiny::checkboxInput("hf_legend", label = "Show legend", value = TRUE),
-      shiny::numericInput('hf_width', 'Image Width (cm)', 29.8),
-      shiny::numericInput('hf_height', 'Image Height (cm)', 21),
+      shiny::numericInput('hf_width', 'Image Width (cm)', 15),
+      shiny::numericInput('hf_height', 'Image Height (cm)', 15),
       shiny::downloadButton('download_hf_plot', 'Save Image'),
       shiny::tags$hr(),
       shiny::downloadButton('download_hf_table', 'Save Lu-Hf Table')
