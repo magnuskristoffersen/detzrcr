@@ -234,10 +234,11 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
     gplot <- gplot +
       ggplot2::geom_point(data=dat,
                           ggplot2::aes_string(x='age', y='ehf_i',
-                                              fill='sample'),
-                          shape=21,
+                                              fill='sample',
+                                              shape='sample'),
                           color='black',
                           size=3)
+    gplot <- gplot + plot_point_scale()
     gplot <- gplot + ggplot2::guides(linetype=FALSE)
   } else {
     if (plot_type == 'hfhf') {
@@ -275,8 +276,10 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
         ggplot2::geom_point(data=dat,
                             ggplot2::aes_string(x='age',
                                                 y='hf_i',
-                                                fill='sample'),
-                            color='black', shape=21, size=3)
+                                                fill='sample',
+                                                shape='sample'),
+                            color='black', size=3)
+      gplot <- gplot + plot_point_scale()
       gplot <- gplot + ggplot2::guides(linetype=FALSE)
       }
   }
@@ -329,14 +332,24 @@ plot_quantiles <- function(dat, column='t_dm2', conf=FALSE, alpha=0.05, type=8,
   gplot <- gplot +
     ggplot2::geom_point(data=quants, ggplot2::aes_string(x='twentyfive',
                                                          y='seventyfive',
-                                                         fill='sample'),
+                                                         fill='sample',
+                                                         shape='sample'),
                         color='black',
-                        shape=21,
                         size=3)
   gplot <- gplot + plot_bw_theme() + plot_labels(xlab='Lower quartile (Ma)',
                                                  ylab='Upper quartile (Ma)')
+    gplot <- gplot + plot_point_scale()
   if (guide == FALSE) {
     gplot <- gplot + ggplot2::guides(fill=FALSE)
   }
   gplot
+}
+
+#' Add manual shape scale to scatter plot
+#'
+#' @export
+#'
+plot_point_scale <- function() {
+  point_scale <- list(ggplot2::scale_shape_manual(values=rep(c(21, 22, 23, 24,
+                                                               25), 5)))
 }
