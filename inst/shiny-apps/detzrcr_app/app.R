@@ -487,6 +487,15 @@ server <- shiny::shinyServer(function(input, output) {
                       height=input$hf_height, colormodel='cmyk', units='cm')
     }
   )
+  output$download_uqlq_plot <- shiny::downloadHandler(
+    filename = function() {
+      paste('uqlq', '.pdf', sep='')
+    },
+    content = function(file) {
+      ggplot2::ggsave(file, plot = uqlq_plot(), width=input$uqlq_width,
+                      height=input$uqlq_height, colormodel='cmyk', units='cm')
+    }
+  )
   output$download_likeness_table <- shiny::downloadHandler(
     filename = function() {
       paste('likeness', '.csv', sep='')
