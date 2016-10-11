@@ -466,7 +466,7 @@ server <- shiny::shinyServer(function(input, output) {
     },
     content = function(file) {
       ggplot2::ggsave(file, plot = dens_plot(), width=input$densWidth,
-                      height=input$densHeight, colormodel='cmyk')
+                      height=input$densHeight, colormodel='cmyk', units='cm')
     }
   )
   output$download_ecdf_plot <- shiny::downloadHandler(
@@ -475,7 +475,7 @@ server <- shiny::shinyServer(function(input, output) {
     },
     content = function(file) {
       ggplot2::ggsave(file, plot = ecdf_plot(), width=input$ecdf_width,
-                      height=input$ecdf_height, colormodel='cmyk')
+                      height=input$ecdf_height, colormodel='cmyk', units='cm')
     }
   )
   output$download_hf_plot <- shiny::downloadHandler(
@@ -484,7 +484,7 @@ server <- shiny::shinyServer(function(input, output) {
     },
     content = function(file) {
       ggplot2::ggsave(file, plot = hf_plot(), width=input$hf_width,
-                      height=input$hf_height, colormodel='cmyk')
+                      height=input$hf_height, colormodel='cmyk', units='cm')
     }
   )
   output$download_likeness_table <- shiny::downloadHandler(
