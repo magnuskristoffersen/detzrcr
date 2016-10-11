@@ -484,7 +484,8 @@ server <- shiny::shinyServer(function(input, output) {
     },
     content = function(file) {
       ggplot2::ggsave(file, plot = hf_plot(), width=input$hf_width,
-                      height=input$hf_height, colormodel='cmyk', units='cm')
+                      height=input$hf_height, colormodel='cmyk', units='cm',
+                      useDingbats=FALSE)
     }
   )
   output$download_uqlq_plot <- shiny::downloadHandler(
@@ -493,7 +494,8 @@ server <- shiny::shinyServer(function(input, output) {
     },
     content = function(file) {
       ggplot2::ggsave(file, plot = uqlq_plot(), width=input$uqlq_width,
-                      height=input$uqlq_height, colormodel='cmyk', units='cm')
+                      height=input$uqlq_height, colormodel='cmyk', units='cm',
+                      useDingbats=FALSE)
     }
   )
   output$download_likeness_table <- shiny::downloadHandler(
