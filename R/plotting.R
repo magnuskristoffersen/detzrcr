@@ -284,7 +284,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
       }
   }
   if (guide == FALSE) {
-    gplot <- gplot + ggplot2::guides(fill=FALSE)
+    gplot <- gplot + ggplot2::guides(fill=FALSE, shape=FALSE)
   }
   gplot
 }
@@ -340,7 +340,7 @@ plot_quantiles <- function(dat, column='t_dm2', conf=FALSE, alpha=0.05, type=8,
                                                  ylab='Upper quartile (Ma)')
     gplot <- gplot + plot_point_scale()
   if (guide == FALSE) {
-    gplot <- gplot + ggplot2::guides(fill=FALSE)
+    gplot <- gplot + ggplot2::guides(fill=FALSE, shape=FALSE)
   }
   gplot
 }
