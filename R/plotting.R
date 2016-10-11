@@ -112,8 +112,10 @@ plot_labels <- function(xlab = 'Age (Ma)', ylab = 'Density') {
 plot_axis_lim <- function(xlim = c(0, 4560), step=200, ylim=NULL) {
   p_x_lim <- list(ggplot2::scale_x_continuous(limits=xlim,
                                            breaks=seq(xlim[1], xlim[2], step),
-                                           expand=c(0, 0)),
-                  ggplot2::scale_y_continuous(limits=ylim))
+                                           expand=c(0, 0)
+                                           ),
+                  ggplot2::scale_y_continuous(limits=ylim, expand=c(0, 0))
+  )
 }
 
 #' Stripped down theme for ggplot2
@@ -300,7 +302,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
 plot_quantiles <- function(dat, column='t_dm2', conf=FALSE, alpha=0.05, type=8,
                            guide=TRUE, mix=FALSE, mix_data=NULL) {
   quants <- calc_quantiles(dat=dat, column=column, alpha=alpha, type=type)
-  line <- data.frame(x=c(0, 4560), y=c(0, 4560))
+  line <- data.frame(x=seq(0, 4560), y=seq(0, 4560))
   gplot <- ggplot2::ggplot() +
     ggplot2::geom_line(data=line, ggplot2::aes_string(x='x', y='y'))
   if (mix & !is.null(mix_data)) {

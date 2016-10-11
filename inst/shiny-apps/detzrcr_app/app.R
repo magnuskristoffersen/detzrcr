@@ -83,45 +83,66 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
     )
   )),
 
-  # Start of Hf tab
-  shiny::tabPanel('Lu-Hf plot', shiny::sidebarLayout(
+  # Start of UQ vs. tLQ tab
+  shiny::tabPanel('UQ vs. LQ', shiny::sidebarLayout(
     shiny::sidebarPanel(
-      selectInput('hf_type', 'Plot type',
-                  c('Epsilon Hf'='ehf_plot',
-                    'Hf/Hf'='hfhf_plot',
-                    'Model age quantile'='quant_plot')),
-      shiny::uiOutput('hf_samples'),
-      shiny::sliderInput('hf_xlim', 'X-axis range (Ma)',
+      shiny::radioButtons('uqlq_type', 'UQ vs. LQ type',
+                          c('Age'='uqlq_age',
+                            'Model age'='uqlq_tdm')),
+      shiny::uiOutput('uqlq_samples'),
+      shiny::sliderInput('uqlq_xlim', 'X-axis range (Ma)',
                          min = 0, max = 4560, value = c(200, 4000)),
-      shiny::numericInput('hf_xstep', 'X step', 200),
-      shiny::uiOutput("hf_switch"),
-      shiny::conditionalPanel(condition="input.hf_type != 'quant_plot'",
-                              shiny::tags$hr(),
-                              shiny::checkboxInput('add_contours',
-                                                   label='Add contours',
-                                                   value=FALSE),
-                              shiny::conditionalPanel(
-                                condition='input.add_contours == true',
-                                shiny::checkboxInput('combine_contours',
-                                                     label='Combine contours',
-                                                     value=FALSE)),
-                              shiny::uiOutput('contour_switch')),
-      shiny::conditionalPanel(condition="input.hf_type == 'quant_plot'",
-                              shiny::checkboxInput('quant_conf',
-                                                   label='Confidence limits',
-                                                   value=FALSE),
-                              shiny::checkboxInput('mixing_model',
-                                                   label='Add mixing model',
-                                                   value=FALSE)
-                              ),
+      shiny::sliderInput('uqlq_ylim', 'Y-axis range (Ma)',
+                         min = 0, max = 4560, value = c(200, 4000)),
+      shiny::numericInput('uqlq_xstep', 'X step', 500),
+      shiny::checkboxInput('uqlq_conf',
+                           label='Confidence limits',
+                           value=FALSE),
+      shiny::checkboxInput('mixing_model',
+                           label='Add mixing model',
+                           value=FALSE),
       shiny::conditionalPanel(
-        condition="input.mixing_model == true & input.hf_type == 'quant_plot'",
+        condition="input.mixing_model == true",
         shiny::numericInput('mu1', 'First mean', value=500),
         shiny::numericInput('sig1', 'First standard deviation',
                             value=50),
         shiny::numericInput('mu2', 'Second mean', value=1000),
         shiny::numericInput('sig2', 'Second standard deviation',
                             value=100)),
+      shiny::tags$hr(),
+      shiny::checkboxInput("uqlq_legend", label = "Show legend", value = TRUE),
+      shiny::numericInput('uqlq_width', 'Image Width (cm)', 29.8),
+      shiny::numericInput('uqlq_height', 'Image Height (cm)', 21),
+      shiny::downloadButton('download_uqlq_plot', 'Save Image'),
+      shiny::tags$hr()
+    ),
+    shiny::mainPanel(
+      shiny::plotOutput(('uqlq'))
+    )
+  )),
+
+  # Start of Hf tab
+  shiny::tabPanel('Lu-Hf', shiny::sidebarLayout(
+    shiny::sidebarPanel(
+      shiny::radioButtons('hf_type', 'Type',
+                          c('Epsilon Hf'='ehf_plot',
+                            'Hf/Hf'='hfhf_plot')),
+      shiny::uiOutput('hf_samples'),
+      shiny::sliderInput('hf_xlim', 'X-axis range (Ma)',
+                         min = 0, max = 4560, value = c(200, 4000)),
+      shiny::numericInput('hf_xstep', 'X step', 200),
+      shiny::uiOutput("hf_switch"),
+      shiny::tags$hr(),
+      shiny::checkboxInput('add_contours',
+                           label = 'Add contours',
+                           value = FALSE),
+      shiny::conditionalPanel(
+        condition = 'input.add_contours == true',
+        shiny::checkboxInput('combine_contours',
+                             label = 'Combine contours',
+                             value = FALSE)
+      ),
+      shiny::uiOutput('contour_switch'),
       shiny::tags$hr(),
       shiny::checkboxInput("hf_legend", label = "Show legend", value = TRUE),
       shiny::numericInput('hf_width', 'Image Width (cm)', 29.8),
@@ -389,26 +410,43 @@ server <- shiny::shinyServer(function(input, output) {
             plot_axis_lim(xlim=input$hf_xlim,
                           ylim=input$hf_ylim,
                           step=input$hf_xstep)
-        }  else {
-          if (input$hf_type == 'quant_plot') {
-            mix_data <- NULL
-            if (input$mixing_model) {
-              mix_data <- dzr_mix(input$mu1, input$sig1, input$mu2, input$sig2)
-            }
-            if (!is.null(input$hfhf_samples)) {
-              new_data <- new_data[new_data$sample %in% input$hfhf_samples, ]
-              new_data$sample <- factor(new_data$sample, levels=
-                                          input$hfhf_samples)
-            }
-            p <- plot_quantiles(new_data, guide=input$hf_legend,
-                                conf=input$quant_conf, mix=input$mixing_model,
-                                mix_data=mix_data) +
-              plot_axis_lim(xlim=input$hf_xlim,
-                            ylim=input$quant_ylim,
-                            step=input$hf_xstep)
-          }
         }
       }
+    }
+  })
+
+  uqlq_plot <- shiny::reactive({
+    new_data <- csv_data()
+    if (!is.null(new_data)) {
+      constants <- c(
+        input$lambda_lu,
+        input$hfhf_chur,
+        input$luhf_chur,
+        input$hfhf_dm,
+        input$luhf_dm,
+        input$luhf_zrc
+      )
+      mix_data = NULL
+      if (input$mixing_model) {
+        mix_data <- dzr_mix(input$mu1, input$sig1, input$mu2, input$sig2)
+      }
+      if(!is.null(input$quant_samples)) {
+        new_data <- new_data[new_data$sample %in% input$quant_samples, ]
+        new_data$sample <- factor(new_data$sample,
+                                  levels=input$quant_samples)
+      }
+      if (input$uqlq_type == 'uqlq_age') {
+        column = 'age'
+      }
+      if (input$uqlq_type == 'uqlq_tdm') {
+        new_data <- calc_hf(new_data, constants=constants)
+        column = 't_dm2'
+      }
+      p <- plot_quantiles(new_data, column=column, guide=input$uqlq_legend,
+                          conf=input$uqlq_conf, mix=input$mixing_model,
+                          mix_data=mix_data)
+      p <- p + plot_axis_lim(xlim=input$uqlq_xlim, step=input$uqlq_xstep,
+                             ylim=input$uqlq_ylim)
     }
   })
   # Output
@@ -564,6 +602,15 @@ server <- shiny::shinyServer(function(input, output) {
   })
   output$hf <- shiny::renderPlot({
     print(hf_plot())
+  })
+  output$uqlq_samples <- shiny::renderUI({
+    new_data <- csv_data()
+    samples <- as.vector(unique(new_data$sample))
+    shiny::selectInput('quant_samples', 'Choose samples', samples,
+                       multiple=TRUE, selectize=TRUE)
+  })
+  output$uqlq <- shiny::renderPlot({
+    print(uqlq_plot())
   })
   output$likeness <- shiny::renderTable({
     likeness_table()
