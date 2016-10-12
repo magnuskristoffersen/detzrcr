@@ -152,6 +152,8 @@ satkoski_2d <- function(x, y, bw=c(30, 2.5), digits=3) {
   n <- 100
   bw <- bw * 4
   lims <- c(0, 4560, -30, 30)
+  x <- x[!is.na(x$ehf_i), ]
+  y <- y[!is.na(y$ehf_i), ]
   a <- MASS::kde2d(x=x$age, y=x$ehf_i, h=bw, n=n, lims=lims)$z
   b <- MASS::kde2d(x=y$age, y=y$ehf_i, h=bw, n=n, lims=lims)$z
   a <- a / sum(a)
@@ -488,8 +490,8 @@ quant_bounds <- function(dat, column='t_dm2', alpha=0.05) {
   ul <- stats::approx(x=sort_age_high$y, y=sort_age_high$x, xout=c(0.25))$y
   if(is.na(ul)) ul <- min(sort_age_high$x)
   uu <- stats::approx(x=sort_age_high$y, y=sort_age_high$x, xout=c(0.75))$y
-  lq_dist <- stats::quantile(column, probs=c(0.25), type=8)
-  uq_dist <- stats::quantile(column, probs=c(0.75), type=8)
+  lq_dist <- stats::quantile(column, probs=c(0.25), type=8, na.rm=TRUE)
+  uq_dist <- stats::quantile(column, probs=c(0.75), type=8, na.rm=TRUE)
   sample <- dat$sample[1]
   data.frame(x=lq_dist, y=uq_dist, ymin=ll, ymax=lu, xmin=ul, xmax=uu, sample)
 }
