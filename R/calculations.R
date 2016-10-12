@@ -308,6 +308,7 @@ calc_dkw <- function(dat, column='age', alpha=0.05) {
     sample_name <- NA
   }
   x <- dat[, column]
+  x <- x[!is.na(x)]
   y <- stats::ecdf(x)(sort(x))
   n <- length(x)
   epsilon <- sqrt(log(2 / alpha) / (2 * n))
@@ -455,7 +456,7 @@ hf_lines <- function(range=c(0, 4560), plot_type='ehf', constants) {
 calc_quantiles <- function(dat, column='t_dm2', alpha=0.05, type=8) {
   x <- dat[, column]
   quantiles <- stats::aggregate(x=x, by=list(dat$sample),
-                                FUN=stats::quantile, type=type)
+                                FUN=stats::quantile, type=type, na.rm=TRUE)
   x <- as.data.frame(quantiles$x)
   x$iqr <- x$`75%` - x$`25%`
   x$sample <- quantiles$Group.1
