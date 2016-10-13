@@ -244,7 +244,7 @@ server <- shiny::shinyServer(function(input, output) {
                       sep=input$sep,
                       quote=input$quote)
       if (input$disc) {
-        dat <- check_conc(dat, llim=-input$disc_limit, ulim=input$disc_limit)
+        dat <- check_conc(dat, disc_lim=input$disc_limit)
       }
     } else {
       dat <- utils::read.csv(system.file("extdata", "Natal_group.csv",

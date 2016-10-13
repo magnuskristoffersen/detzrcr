@@ -4,12 +4,13 @@
 #' discordancy limit.
 #'
 #' @param dat data.frame containing at least ages and percentage of discordancy
-#' @param llim Lower disconcordancy limit
-#' @param ulim Upper disconcordancy limit
+#' @param disc_lim Discordancy limit
 #' @return Concordant data
 #' @export
-check_conc <- function(dat, llim=-10, ulim=10) {
+check_conc <- function(dat, disc_lim = 10) {
   if ('disc' %in% names(dat)) {
+    llim <- -disc_lim
+    ulim <- disc_lim
     conc <- dat[(dat$disc >= llim & dat$disc <= ulim), ]
   } else {
     stop('Requires column with name disc')

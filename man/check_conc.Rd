@@ -4,14 +4,12 @@
 \alias{check_conc}
 \title{Check concordancy of input ages}
 \usage{
-check_conc(dat, llim = -10, ulim = 10)
+check_conc(dat, disc_lim = 10)
 }
 \arguments{
 \item{dat}{data.frame containing at least ages and percentage of discordancy}
 
-\item{llim}{Lower disconcordancy limit}
-
-\item{ulim}{Upper disconcordancy limit}
+\item{disc_lim}{Discordancy limit}
 }
 \value{
 Concordant data
