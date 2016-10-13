@@ -118,6 +118,28 @@ plot_axis_lim <- function(xlim = c(0, 4560), step=200, ylim=NULL) {
   )
 }
 
+#' Modify text options of plots
+#'
+#' @param font_name Name of font to use
+#' @param title_size Font size of x- and y-axis titles
+#' @param label_size Font size of x- and y-axis tick labels
+#' @param legend_size Font size of legend
+#' @param strip_text_y_size Font size of vertical panel text
+#'
+#' @export
+#'
+plot_text_options <- function(font_name = 'Helvetica', title_size = 10,
+                              label_size = 7, legend_size = 10,
+                              strip_text_y_size = 8) {
+  text_options <- list(ggplot2::theme(
+    text=ggplot2::element_text(family=font_name),
+    axis.title=ggplot2::element_text(size=title_size),
+    axis.text=ggplot2::element_text(size=label_size),
+    legend.text=ggplot2::element_text(size=legend_size),
+    legend.title=ggplot2::element_blank(),
+    strip.text.y=ggplot2::element_text(size=strip_text_y_size)))
+}
+
 #' Stripped down theme for ggplot2
 #' @export
 #' @return Returns ggplot2 theme

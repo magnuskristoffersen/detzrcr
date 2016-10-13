@@ -209,6 +209,25 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                                  luhf_zrc)
       )
     )
+  )),
+  # Start of Plot options tab
+  shiny::tabPanel('Plot options', shiny::fluidPage(
+    shiny::fluidRow(
+      column(4,
+             shiny::selectInput('font_name', 'Font',
+                                c('Helvetica', 'Courier', 'Times')),
+             shiny::tags$hr(),
+             shiny::sliderInput('title_size', 'Axes title size (pts)',
+                                min = 5, max = 20, value = 10),
+             shiny::sliderInput('label_size', 'Axes label size (pts)',
+                                min = 5, max = 20, value = 7),
+             shiny::sliderInput('legend_size', 'Legend text size (pts)',
+                                min = 5, max = 20, value = 10),
+             shiny::sliderInput('strip_size', 'Panel text size (pts)',
+                                min = 5, max = 20, value = 7),
+             shiny::tags$hr()
+      )
+    )
   ))
   ))
 
@@ -316,11 +335,21 @@ server <- shiny::shinyServer(function(input, output) {
        if (input$hist == TRUE) {
          p <- plot_dens_hist(new_data, binwidth=input$binwidth, bw=input$bw,
                              type=input$type, age_range=input$xlim,
-                             facet=facet, step=input$xstep)
+                             facet=facet, step=input$xstep) +
+           plot_text_options(font_name = input$font_name,
+                             title_size = input$title_size,
+                             label_size = input$label_size,
+                             legend_size = input$legend_size,
+                             strip_text_y_size = input$strip_size)
        } else {
          p <- plot_dens(new_data, bw=input$bw,
                         type=input$type, age_range=input$xlim,
-                        facet=facet, step=input$xstep)
+                        facet=facet, step=input$xstep) +
+           plot_text_options(font_name = input$font_name,
+                             title_size = input$title_size,
+                             label_size = input$label_size,
+                             legend_size = input$legend_size,
+                             strip_text_y_size = input$strip_size)
        }
     }
   })
@@ -359,7 +388,11 @@ server <- shiny::shinyServer(function(input, output) {
       }
       p <- plot_ecdf(new_data, mult_ecdf=mult_ecdf, conf=input$ecdf_conf,
                      column=input$ecdf_input_type, guide=input$ecdf_legend) +
-        plot_axis_lim(xlim=input$ecdf_xlim, step=input$ecdf_xstep)
+        plot_axis_lim(xlim=input$ecdf_xlim, step=input$ecdf_xstep) +
+        plot_text_options(font_name = input$font_name,
+                            title_size = input$title_size,
+                            label_size = input$label_size,
+                            legend_size = input$legend_size)
     }
   })
   hf_plot <- shiny::reactive({
@@ -390,7 +423,11 @@ server <- shiny::shinyServer(function(input, output) {
                      constants=constants) +
           plot_axis_lim(xlim=input$hf_xlim,
                         ylim=input$ehf_ylim,
-                        step=input$hf_xstep)
+                        step=input$hf_xstep) +
+          plot_text_options(font_name = input$font_name,
+                            title_size = input$title_size,
+                            label_size = input$label_size,
+                            legend_size = input$legend_size)
       } else {
         if (input$hf_type == 'hfhf_plot') {
           contour_data <- NULL
@@ -409,7 +446,11 @@ server <- shiny::shinyServer(function(input, output) {
                        constants=constants) +
             plot_axis_lim(xlim=input$hf_xlim,
                           ylim=input$hf_ylim,
-                          step=input$hf_xstep)
+                          step=input$hf_xstep) +
+            plot_text_options(font_name = input$font_name,
+                                title_size = input$title_size,
+                                label_size = input$label_size,
+                                legend_size = input$legend_size)
         }
       }
     }
@@ -447,6 +488,10 @@ server <- shiny::shinyServer(function(input, output) {
                           mix_data=mix_data)
       p <- p + plot_axis_lim(xlim=input$uqlq_xlim, step=input$uqlq_xstep,
                              ylim=input$uqlq_ylim)
+      p <- p + plot_text_options(font_name = input$font_name,
+                                 title_size = input$title_size,
+                                 label_size = input$label_size,
+                                 legend_size = input$legend_size)
     }
   })
   # Output
