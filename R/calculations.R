@@ -339,11 +339,8 @@ calc_dkw <- function(dat, column='age', alpha=0.05) {
 calc_o_param <- function(dat1, dat2, column, alpha=0.05, digits=3) {
   x <- dat1[, column]
   y <- dat2[, column]
-  length_x <- length(x)
-  length_y <- length(y)
-  epsilon_one <-sqrt(log(2 / alpha) / (2 * length_x))
-  epsilon_two <- sqrt(log(2 / alpha) / (2 * length_y))
-  delta <- epsilon_one + epsilon_two
+  epsilon_one <- sqrt(log(2 / alpha) / (2 * length(x)))
+  epsilon_two <- sqrt(log(2 / alpha) / (2 * length(y)))
   x_sort <- sort(x)
   x_y <- stats::ecdf(x_sort)(x_sort)
   y_sort <- sort(y)
@@ -355,9 +352,20 @@ calc_o_param <- function(dat1, dat2, column, alpha=0.05, digits=3) {
   x_out <- seq(0, 4560)
   interpolated_one <- stats::approx(x_sort, x_y, xout=x_out)$y
   interpolated_two <- stats::approx(y_sort, y_y, xout=x_out)$y
-  absolute <- pmax((abs(interpolated_one - interpolated_two) - delta), 0)
-  absolute <- absolute[absolute != 0]
-  round(1 - length(absolute) / length(x_out), digits)
+  interpolated_one_low <- pmax(interpolated_one - epsilon_one, 0)
+  interpolated_one_up <- pmin(interpolated_one + epsilon_one, 1)
+  interpolated_two_low <- pmax(interpolated_two - epsilon_two, 0)
+  interpolated_two_up <- pmin(interpolated_two + epsilon_two, 1)
+  up <- ifelse((((interpolated_two_up <= interpolated_one_up) &
+                     (interpolated_two_up >= interpolated_one_low)) |
+                    ((interpolated_one_up <= interpolated_two_up) &
+                       (interpolated_one_up >= interpolated_two_low))), 1, 0)
+  low <- ifelse((((interpolated_two_low >= interpolated_one_low) &
+                    (interpolated_two_low <= interpolated_one_up)) |
+                   ((interpolated_one_low >= interpolated_two_low) &
+                      (interpolated_one_low <= interpolated_two_up))), 1, 0)
+  O <- (length(up[up == 1]) + length(low[low == 1])) / (2 * length(x_out))
+  round(1 - O, digits = 2)
 }
 
 #' Populate matrix with age 1-O
