@@ -49,7 +49,7 @@ plot_dens <- function(dat, bw=30, type='kde',
 #' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
-                              age_range=c(0, 4560), facet=FALSE, step=step) {
+                              age_range=c(0, 4560), facet=FALSE, step=200) {
   if (facet) {
     l <- lapply(split(dat, factor(dat$sample)), calc_dens_hist, bw=bw,
                 binwidth=binwidth, type=type, age_range=age_range)
