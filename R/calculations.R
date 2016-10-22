@@ -206,9 +206,9 @@ populate_matrix <- function(dat, FUN, ...) {
   n <- length(unique(dat$sample))
   name <- as.character(unique(dat$sample))
   len <- length(name)
-  mat <- as.data.frame(matrix(nrow=n, ncol=n))
-  names(mat) <- name
-  row.names(mat) <- name
+  mat <- matrix(nrow=n, ncol=n)
+  colnames(mat) <- name
+  rownames(mat) <- name
   for (i in 1:(len - 1)) {
     for (j in 2:len) {
       if (!(i == j) & ((is.na(mat[i, j])) | is.na(mat[j, i]))) {
@@ -538,4 +538,51 @@ dzr_mix <- function(mu1, sig1, mu2, sig2) {
     }
   }
   data.frame(lq=rowMeans(lq), uq=rowMeans(uq))
+}
+
+#' Ready 1-O matrix for tile plot
+#'
+#' @param x 1-O parameter vector
+#'
+#' @export
+tile_func <- function(x) {
+  if (is.na(x)) {
+    return(NA)
+  }
+  if (x >= 0.05) {
+    return(2)
+  }
+  if (x > 0 & x < 0.05) {
+    return(1)
+  } else {
+    return(x)
+  }
+}
+
+#' Apply tile_func to vector
+#'
+#' @param z 1-O parameter vector
+#'
+#' @export
+#'
+tiling <- function(z) {
+  sapply(z, tile_func)
+}
+
+#' Produce data.frame of 1-O matrix suitable for geom_tile
+#'
+#' @param dat data.frame
+#' @param column Column to use; 'age' or 't_dm2'
+#'
+#' @export
+#'
+make_tiling <- function(dat, column) {
+  if (column == 'age') {
+    mat <- o_param_matrix_age(dat)
+  }
+  if (column == 't_dm2') {
+    mat <- o_param_matrix_tdm(dat)
+  }
+  tile_mat <- data.frame(x=rownames(mat)[row(mat)], y=colnames(mat)[col(mat)],
+                         z=as.factor(tiling(c(mat))))
 }

@@ -375,3 +375,24 @@ plot_point_scale <- function() {
   point_scale <- list(ggplot2::scale_shape_manual(values=rep(c(21, 22, 23, 24,
                                                                25), 5)))
 }
+
+#' Tile plot of 1-O matrix
+#'
+#' @param dat data.frame
+#' @param column Column to use; 'age' or 't_dm2
+#'
+#' @export
+#'
+plot_tile <- function(dat, column) {
+  tiles <- make_tiling(dat, column=column)
+  gplot <- ggplot2::ggplot(data=tiles) +
+    ggplot2::geom_tile(ggplot2::aes_string(x='x', y='y', fill='z'),
+                       color='black') +
+    plot_labels(xlab='', ylab='') +
+    ggplot2::guides(fill=FALSE) +
+    ggplot2::scale_fill_manual(values=c('#1a9641', 'white', '#d7191c'),
+                      na.value='grey80') +
+    plot_bw_theme() + ggplot2::theme(axis.text.x =
+                                       ggplot2::element_text(angle = 90,
+                                                             hjust = 1))
+}

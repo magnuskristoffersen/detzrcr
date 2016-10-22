@@ -5,7 +5,7 @@
 \title{Plot 1d density with histogram}
 \usage{
 plot_dens_hist(dat, bw = 30, binwidth = 50, type = "kde",
-  age_range = c(0, 4560), facet = FALSE, step = step)
+  age_range = c(0, 4560), facet = FALSE, step = 200)
 }
 \arguments{
 \item{dat}{data.frame}
