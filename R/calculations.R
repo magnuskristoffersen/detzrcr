@@ -336,7 +336,7 @@ calc_dkw <- function(dat, column='age', alpha=0.05) {
 #' in eastern South Africa. J. Geol. Soc. London. 2006-2015.
 #' doi:10.1144/jgs2015-006
 #'
-calc_o_param <- function(dat1, dat2, column, alpha=0.05, digits=3) {
+calc_o_param <- function(dat1, dat2, column, alpha=0.05, digits=2) {
   x <- dat1[, column]
   y <- dat2[, column]
   epsilon_one <- sqrt(log(2 / alpha) / (2 * length(x)))
@@ -365,7 +365,11 @@ calc_o_param <- function(dat1, dat2, column, alpha=0.05, digits=3) {
                    ((interpolated_one_low >= interpolated_two_low) &
                       (interpolated_one_low <= interpolated_two_up))), 1, 0)
   O <- (length(up[up == 1]) + length(low[low == 1])) / (2 * length(x_out))
-  round(1 - O, digits = 2)
+  round(1 - O, digits)
+  # delta <- epsilon_one + epsilon_two
+  # absolute <- pmax((abs(interpolated_one - interpolated_two) - delta), 0)
+  # absolute <- absolute[absolute != 0]
+  # round(1- (1 - length(absolute) / length(x_out)), digits)
 }
 
 #' Populate matrix with age 1-O
@@ -380,7 +384,7 @@ calc_o_param <- function(dat1, dat2, column, alpha=0.05, digits=3) {
 #' U-Pb and LuHf zircon data in young sediments reflect sedimentary recycling
 #' in eastern South Africa. J. Geol. Soc. London. 2006-2015.
 #' doi:10.1144/jgs2015-006
-o_param_matrix_age <- function(dat, alpha=0.05, digits=3) {
+o_param_matrix_age <- function(dat, alpha=0.05, digits=2) {
   populate_matrix(dat, FUN=calc_o_param, column='age', alpha=alpha,
                   digits=digits)
 }
@@ -397,7 +401,7 @@ o_param_matrix_age <- function(dat, alpha=0.05, digits=3) {
 #' U-Pb and Lu-Hf zircon data in young sediments reflect sedimentary recycling
 #' in eastern South Africa. J. Geol. Soc. London. 2006-2015.
 #' doi:10.1144/jgs2015-006
-o_param_matrix_tdm <- function(dat, alpha=0.05, digits=3) {
+o_param_matrix_tdm <- function(dat, alpha=0.05, digits=2) {
   populate_matrix(dat, FUN=calc_o_param, column='t_dm2', alpha=alpha,
                   digits=digits)
 }
