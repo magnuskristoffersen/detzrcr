@@ -4,7 +4,7 @@
 \alias{o_param_matrix_tdm}
 \title{Populate matrix with model age 1-O}
 \usage{
-o_param_matrix_tdm(dat, alpha = 0.05, digits = 3)
+o_param_matrix_tdm(dat, alpha = 0.05, digits = 2)
 }
 \arguments{
 \item{dat}{data.frame}

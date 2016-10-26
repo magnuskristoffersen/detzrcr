@@ -4,12 +4,12 @@
 \alias{plot_tile}
 \title{Tile plot of 1-O matrix}
 \usage{
-plot_tile(dat, column)
+plot_tile(dat, type)
 }
 \arguments{
 \item{dat}{data.frame}
 
-\item{column}{Column to use; 'age' or 't_dm2}
+\item{type}{What to plot}
 }
 \description{
 Tile plot of 1-O matrix

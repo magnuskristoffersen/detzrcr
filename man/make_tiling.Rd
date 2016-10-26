@@ -4,12 +4,12 @@
 \alias{make_tiling}
 \title{Produce data.frame of 1-O matrix suitable for geom_tile}
 \usage{
-make_tiling(dat, column)
+make_tiling(dat, type)
 }
 \arguments{
 \item{dat}{data.frame}
 
-\item{column}{Column to use; 'age' or 't_dm2'}
+\item{type}{What to calculate}
 }
 \description{
 Produce data.frame of 1-O matrix suitable for geom_tile

@@ -165,6 +165,9 @@ plot_bw_theme <- function() {
 #'
 plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
                       guide=TRUE, alpha=0.05) {
+  if (column == 't_dm2') {
+    dat <- dat[!is.na(dat$ehf_i), ]
+  }
   if (mult_ecdf) {
     l <- lapply(split(dat, factor(dat$sample)), calc_dkw, column=column,
                 alpha=alpha)
@@ -379,12 +382,12 @@ plot_point_scale <- function() {
 #' Tile plot of 1-O matrix
 #'
 #' @param dat data.frame
-#' @param column Column to use; 'age' or 't_dm2
+#' @param type What to plot
 #'
 #' @export
 #'
-plot_tile <- function(dat, column) {
-  tiles <- make_tiling(dat, column=column)
+plot_tile <- function(dat, type) {
+  tiles <- make_tiling(dat, type=type)
   gplot <- ggplot2::ggplot(data=tiles) +
     ggplot2::geom_tile(ggplot2::aes_string(x='x', y='y', fill='z'),
                        color='black') +

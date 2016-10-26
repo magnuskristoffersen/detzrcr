@@ -4,7 +4,7 @@
 \alias{calc_o_param}
 \title{Calculate 1-O}
 \usage{
-calc_o_param(dat1, dat2, column, alpha = 0.05, digits = 3)
+calc_o_param(dat1, dat2, column, alpha = 0.05, digits = 2)
 }
 \arguments{
 \item{dat1}{data.frame}

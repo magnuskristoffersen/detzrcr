@@ -176,11 +176,24 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
     shiny::sidebarPanel(
       shiny::radioButtons('o_type', 'Type',
                           c('Age'='age',
-                            'Model age'='tdm')),
-      shiny::downloadButton('download_o_table', 'Save Table')
+                            'Model age'='tdm',
+                            'Combine' ='combine')),
+      shiny::fluidRow(
+        column(4,
+      shiny::downloadButton('download_o_table', 'Save Table'),
+      shiny::tags$hr(),
+      shiny::checkboxInput("o_fig", label = "Graphical", value = FALSE),
+      shiny::conditionalPanel(
+        condition = 'input.o_fig == true',
+        shiny::numericInput('o_width', 'Image Width (cm)', 15),
+        shiny::numericInput('o_height', 'Image Height (cm)', 15),
+        shiny::downloadButton('download_o_plot', 'Save Image')
+      )
+        )
+      )
     ),
     shiny::mainPanel(
-      shiny::tableOutput('o_table')
+      shiny::uiOutput('o_switch')
     )
   )),
   # Start of Constants tab
@@ -285,16 +298,43 @@ server <- shiny::shinyServer(function(input, output) {
         input$luhf_dm,
         input$luhf_zrc
       )
-      if (input$o_type == 'age') {
-        o_param_matrix_age(new_data)
+      hf_data <- calc_hf(new_data, constants=constants)
+      if (input$o_type == 'combine') {
+        combine_matrices(o_param_matrix_age(hf_data),
+                         o_param_matrix_tdm(hf_data))
       } else {
-        if (input$o_type == 'tdm') {
-          hf_data <- calc_hf(new_data, constants=constants)
-          o_param_matrix_tdm(hf_data)
+        if (input$o_type == 'age') {
+          o_param_matrix_age(hf_data)
+        } else {
+          if (input$o_type == 'tdm') {
+            o_param_matrix_tdm(hf_data)
+          }
         }
       }
     }
   })
+
+  o_plot <- shiny::reactive({
+    new_data <- csv_data()
+    if (!is.null(new_data)) {
+      constants <- c(
+        input$lambda_lu,
+        input$hfhf_chur,
+        input$luhf_chur,
+        input$hfhf_dm,
+        input$luhf_dm,
+        input$luhf_zrc
+      )
+      new_data <- calc_hf(new_data, constants=constants)
+      plot_tile(new_data, type=input$o_type) +
+        plot_text_options(font_name = input$font_name,
+                          title_size = input$title_size,
+                          label_size = input$label_size,
+                          legend_size = input$legend_size,
+                          strip_text_y_size = input$strip_size)
+    }
+  })
+
   hf_table <- shiny::reactive({
     new_data <- csv_data()
     constants <- c(
@@ -567,6 +607,16 @@ server <- shiny::shinyServer(function(input, output) {
       utils::write.csv(o_table(), file)
     }
   )
+  output$download_o_plot <- shiny::downloadHandler(
+    filename = function() {
+      paste('oplot', '.pdf', sep='')
+    },
+    content = function(file) {
+      ggplot2::ggsave(file, plot = o_plot(), width=input$o_width,
+                      height=input$o_height, colormodel='cmyk', units='cm')
+    }
+
+  )
   output$download_hf_table <- shiny::downloadHandler(
     filename = function() {
       paste('hf', '.csv', sep='')
@@ -642,6 +692,17 @@ server <- shiny::shinyServer(function(input, output) {
         }
       }
   })
+  # Dynamic UI O-tab
+  output$o_switch <- shiny::renderUI({
+    if (input$o_fig) {
+      shiny::verticalLayout(
+        shiny::tableOutput('o_table'),
+        shiny::plotOutput('o_plot')
+      )
+    } else {
+      shiny::tableOutput('o_table')
+    }
+  })
   output$contour_switch <- shiny::renderUI({
     new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
@@ -675,6 +736,9 @@ server <- shiny::shinyServer(function(input, output) {
     if (input$likeness_type == '2d') {
       shiny::numericInput('likeness_ehf_bw', 'Epsilon-Hf bandwidth', 2.5)
     }
+  })
+  output$o_plot <- shiny::renderPlot({
+    print(o_plot())
   })
   output$o_table <- shiny::renderTable({
     o_table()

@@ -150,17 +150,21 @@ satkoski_1d <- function(x, y, bw=30, digits=3) {
 #' age frequency data in time and space. GSA Bulletin 125, 1783-1799.
 #' @export
 satkoski_2d <- function(x, y, bw=c(30, 2.5), digits=3) {
-  n <- 100
-  bw <- bw * 4
-  lims <- c(0, 4560, -30, 30)
-  x <- x[!is.na(x$ehf_i), ]
-  y <- y[!is.na(y$ehf_i), ]
-  a <- MASS::kde2d(x=x$age, y=x$ehf_i, h=bw, n=n, lims=lims)$z
-  b <- MASS::kde2d(x=y$age, y=y$ehf_i, h=bw, n=n, lims=lims)$z
-  a <- a / sum(a)
-  b <- b / sum(b)
-  L <- 1 - (sum(abs(a - b)) / 2)
-  round(L, digits)
+  if (all(is.na(x$ehf_i)) | all(is.na(y$ehf_i))) {
+    return(NA)
+  } else {
+    n <- 100
+    bw <- bw * 4
+    lims <- c(0, 4560, -30, 30)
+    x <- x[!is.na(x$ehf_i), ]
+    y <- y[!is.na(y$ehf_i), ]
+    a <- MASS::kde2d(x=x$age, y=x$ehf_i, h=bw, n=n, lims=lims)$z
+    b <- MASS::kde2d(x=y$age, y=y$ehf_i, h=bw, n=n, lims=lims)$z
+    a <- a / sum(a)
+    b <- b / sum(b)
+    L <- 1 - (sum(abs(a - b)) / 2)
+    round(L, digits)
+  }
 }
 
 #' Pairwise Satkoski likeness
@@ -339,33 +343,38 @@ calc_dkw <- function(dat, column='age', alpha=0.05) {
 calc_o_param <- function(dat1, dat2, column, alpha=0.05, digits=2) {
   x <- dat1[, column]
   y <- dat2[, column]
-  epsilon_one <- sqrt(log(2 / alpha) / (2 * length(x)))
-  epsilon_two <- sqrt(log(2 / alpha) / (2 * length(y)))
-  x_sort <- sort(x)
-  x_y <- stats::ecdf(x_sort)(x_sort)
-  y_sort <- sort(y)
-  y_y <- stats::ecdf(y_sort)(y_sort)
-  x_sort <- c(0, x_sort, 4560)
-  x_y <- c(0, x_y, 1)
-  y_sort <- c(0, y_sort, 4560)
-  y_y <- c(0, y_y, 1)
-  x_out <- seq(0, 4560)
-  interpolated_one <- stats::approx(x_sort, x_y, xout=x_out)$y
-  interpolated_two <- stats::approx(y_sort, y_y, xout=x_out)$y
-  interpolated_one_low <- pmax(interpolated_one - epsilon_one, 0)
-  interpolated_one_up <- pmin(interpolated_one + epsilon_one, 1)
-  interpolated_two_low <- pmax(interpolated_two - epsilon_two, 0)
-  interpolated_two_up <- pmin(interpolated_two + epsilon_two, 1)
-  up <- ifelse((((interpolated_two_up <= interpolated_one_up) &
+  if (all(is.na(x)) | all(is.na(y))) {
+    return(NA)
+  }
+  else {
+    epsilon_one <- sqrt(log(2 / alpha) / (2 * length(x)))
+    epsilon_two <- sqrt(log(2 / alpha) / (2 * length(y)))
+    x_sort <- sort(x)
+    x_y <- stats::ecdf(x_sort)(x_sort)
+    y_sort <- sort(y)
+    y_y <- stats::ecdf(y_sort)(y_sort)
+    x_sort <- c(0, x_sort, 4560)
+    x_y <- c(0, x_y, 1)
+    y_sort <- c(0, y_sort, 4560)
+    y_y <- c(0, y_y, 1)
+    x_out <- seq(0, 4560)
+    interpolated_one <- stats::approx(x_sort, x_y, xout=x_out)$y
+    interpolated_two <- stats::approx(y_sort, y_y, xout=x_out)$y
+    interpolated_one_low <- pmax(interpolated_one - epsilon_one, 0)
+    interpolated_one_up <- pmin(interpolated_one + epsilon_one, 1)
+    interpolated_two_low <- pmax(interpolated_two - epsilon_two, 0)
+    interpolated_two_up <- pmin(interpolated_two + epsilon_two, 1)
+    up <- ifelse((((interpolated_two_up <= interpolated_one_up) &
                      (interpolated_two_up >= interpolated_one_low)) |
                     ((interpolated_one_up <= interpolated_two_up) &
                        (interpolated_one_up >= interpolated_two_low))), 1, 0)
-  low <- ifelse((((interpolated_two_low >= interpolated_one_low) &
-                    (interpolated_two_low <= interpolated_one_up)) |
-                   ((interpolated_one_low >= interpolated_two_low) &
-                      (interpolated_one_low <= interpolated_two_up))), 1, 0)
-  O <- (length(up[up == 1]) + length(low[low == 1])) / (2 * length(x_out))
-  round(1 - O, digits)
+    low <- ifelse((((interpolated_two_low >= interpolated_one_low) &
+                      (interpolated_two_low <= interpolated_one_up)) |
+                     ((interpolated_one_low >= interpolated_two_low) &
+                        (interpolated_one_low <= interpolated_two_up))), 1, 0)
+    O <- (length(up[up == 1]) + length(low[low == 1])) / (2 * length(x_out))
+    round(1 - O, digits)
+  }
   # delta <- epsilon_one + epsilon_two
   # absolute <- pmax((abs(interpolated_one - interpolated_two) - delta), 0)
   # absolute <- absolute[absolute != 0]
@@ -404,6 +413,19 @@ o_param_matrix_age <- function(dat, alpha=0.05, digits=2) {
 o_param_matrix_tdm <- function(dat, alpha=0.05, digits=2) {
   populate_matrix(dat, FUN=calc_o_param, column='t_dm2', alpha=alpha,
                   digits=digits)
+}
+
+#' Combine two square matrices
+#'
+#' @param mat1 Matrix for upper triangle
+#' @param mat2 Matrix for lower triangle
+#'
+#' @export
+#'
+combine_matrices <- function(mat1, mat2) {
+  mat1[lower.tri(mat1)] <- NA
+  mat1[is.na(mat1)] <- mat2[is.na(mat1)]
+  mat1
 }
 
 #' Produce CHUR and DM lines
@@ -576,17 +598,39 @@ tiling <- function(z) {
 #' Produce data.frame of 1-O matrix suitable for geom_tile
 #'
 #' @param dat data.frame
-#' @param column Column to use; 'age' or 't_dm2'
+#' @param type What to calculate
 #'
 #' @export
 #'
-make_tiling <- function(dat, column) {
-  if (column == 'age') {
+make_tiling <- function(dat, type) {
+  if (type == 'age') {
     mat <- o_param_matrix_age(dat)
+    mat <- mat[, rev(seq_len(ncol(mat)))]
+    tile_mat <- data.frame(x=rownames(mat)[row(mat)], y=colnames(mat)[col(mat)],
+                           z=as.factor(tiling(c(mat))))
+    tile_mat$x <- factor(tile_mat$x, levels=rownames(mat))
+    tile_mat$y <- factor(tile_mat$y, levels=colnames(mat))
   }
-  if (column == 't_dm2') {
+  if (type == 'tdm') {
     mat <- o_param_matrix_tdm(dat)
+    mat <- mat[, rev(seq_len(ncol(mat)))]
+    tile_mat <- data.frame(x=rownames(mat)[row(mat)], y=colnames(mat)[col(mat)],
+                           z=as.factor(tiling(c(mat))))
+    tile_mat$x <- factor(tile_mat$x, levels=rownames(mat))
+    tile_mat$y <- factor(tile_mat$y, levels=colnames(mat))
   }
-  tile_mat <- data.frame(x=rownames(mat)[row(mat)], y=colnames(mat)[col(mat)],
-                         z=as.factor(tiling(c(mat))))
+  if (type == 'combine') {
+    mat_age <- o_param_matrix_age(dat)
+    mat_tdm <- o_param_matrix_tdm(dat)
+    mat_age[lower.tri(mat_age)] <- NA
+    mat <- mat_age
+    mat[is.na(mat)] <- mat_tdm[is.na(mat)]
+    mat <- t(mat)
+    mat <- mat[, rev(seq_len(ncol(mat)))]
+    tile_mat <- data.frame(x=rownames(mat)[row(mat)], y=colnames(mat)[col(mat)],
+                           z=as.factor(tiling(c(mat))))
+    tile_mat$x <- factor(tile_mat$x, levels=rownames(mat))
+    tile_mat$y <- factor(tile_mat$y, levels=colnames(mat))
+  }
+  tile_mat
 }
