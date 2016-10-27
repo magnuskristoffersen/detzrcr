@@ -111,8 +111,8 @@ plot_labels <- function(xlab = 'Age (Ma)', ylab = 'Density') {
 #'
 plot_axis_lim <- function(xlim = c(0, 4560), step=200, ylim=NULL) {
   p_x_lim <- list(ggplot2::scale_x_continuous(limits=xlim,
-                                           breaks=seq(xlim[1], xlim[2], step)#,
-                                           #expand=c(0, 0)
+                                           breaks=seq(xlim[1], xlim[2], step),
+                                           expand=c(0, 0)
                                            ),
                   ggplot2::scale_y_continuous(limits=ylim)
   )
@@ -397,5 +397,7 @@ plot_tile <- function(dat, type) {
                       na.value='grey80') +
     plot_bw_theme() + ggplot2::theme(axis.text.x =
                                        ggplot2::element_text(angle = 90,
-                                                             hjust = 1))
+                                                             hjust = 1)) +
+    ggplot2::scale_x_discrete(expand=c(0, 0)) +
+    ggplot2::scale_y_discrete(expand=c(0, 0))
 }
