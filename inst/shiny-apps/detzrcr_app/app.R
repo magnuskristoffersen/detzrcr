@@ -161,7 +161,8 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
     shiny::sidebarPanel(
       shiny::radioButtons('likeness_type', 'Type',
                           c('1d (age)'='1d',
-                            '2d (age and eHf)'='2d')),
+                            '2d (age and eHf)'='2d',
+                            'Combine'='combine')),
       shiny::numericInput('likeness_age_bw', 'Age bandwidth', 30),
       shiny::uiOutput('likeness_bw'),
       shiny::downloadButton('download_likeness_table', 'Save Table')
@@ -283,6 +284,14 @@ server <- shiny::shinyServer(function(input, output) {
           hf_data <- calc_hf(new_data, constants=constants)
           satkoski_2d_matrix(hf_data, bw=c(input$likeness_age_bw,
                                            input$likeness_ehf_bw))
+        } else {
+          if (input$likeness_type == 'combine') {
+            hf_data <- calc_hf(new_data, constants=constants)
+            one_d <- satkoski_1d_matrix(new_data, bw=input$likeness_age_bw)
+            two_d <- satkoski_2d_matrix(hf_data, bw=c(input$likeness_age_bw,
+                                                   input$likeness_ehf_bw))
+            combine_matrices(one_d, two_d)
+          }
         }
       }
     }
