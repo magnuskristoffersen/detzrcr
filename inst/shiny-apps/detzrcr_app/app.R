@@ -179,8 +179,6 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                           c('Age'='age',
                             'Model age'='tdm',
                             'Combine' ='combine')),
-      shiny::fluidRow(
-        column(4,
       shiny::downloadButton('download_o_table', 'Save Table'),
       shiny::tags$hr(),
       shiny::checkboxInput("o_fig", label = "Graphical", value = FALSE),
@@ -189,8 +187,6 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
         shiny::numericInput('o_width', 'Image Width (cm)', 15),
         shiny::numericInput('o_height', 'Image Height (cm)', 15),
         shiny::downloadButton('download_o_plot', 'Save Image')
-      )
-        )
       )
     ),
     shiny::mainPanel(
