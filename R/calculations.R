@@ -318,11 +318,15 @@ calc_dkw <- function(dat, column='age', alpha=0.05) {
   x <- x[!is.na(x)]
   y <- stats::ecdf(x)(sort(x))
   n <- length(x)
+  x <- c(0, sort(x), 4560)
+  y <- c(0, y, 1)
+  x_out <- seq(0, 4560)
+  y <- stats::approx(x, y, xout=x_out)$y
   epsilon <- sqrt(log(2 / alpha) / (2 * n))
   low <- pmax(y - epsilon, 0)
   high <- pmin(y + epsilon, 1)
-  sample <- rep(sample_name, n)
-  data.frame(x=sort(x), y=y, low=low, high=high, sample=sample)
+  sample <- rep(sample_name, length(x_out))
+  data.frame(x=x_out, y=y, low=low, high=high, sample=sample)
 }
 
 #' Calculate 1-O
