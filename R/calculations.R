@@ -516,23 +516,27 @@ calc_quantiles <- function(dat, column='t_dm2', alpha=0.05, type=8) {
 #'
 quant_bounds <- function(dat, column='t_dm2', alpha=0.05) {
   column <- dat[, column]
-  sort_column <- sort(column)
-  y <- stats::ecdf(column)(sort(column))
-  epsilon <- sqrt(log(2 / alpha) / (2 * length(column)))
-  low <- pmax(y - epsilon, 0)
-  high <- pmin(y + epsilon, 1)
-  sort_age_low <- data.frame(x=sort(column), y=low)
-  sort_age_high <- data.frame(x=sort(column), y=high)
-  ll <- stats::approx(x=sort_age_low$y, y=sort_age_low$x, xout=c(0.25))$y
-  lu <- stats::approx(x=sort_age_low$y, y=sort_age_low$x, xout=c(0.75))$y
-  if(is.na(lu)) lu <- max(sort_age_low$x)
-  ul <- stats::approx(x=sort_age_high$y, y=sort_age_high$x, xout=c(0.25))$y
-  if(is.na(ul)) ul <- min(sort_age_high$x)
-  uu <- stats::approx(x=sort_age_high$y, y=sort_age_high$x, xout=c(0.75))$y
-  lq_dist <- stats::quantile(column, probs=c(0.25), type=8, na.rm=TRUE)
-  uq_dist <- stats::quantile(column, probs=c(0.75), type=8, na.rm=TRUE)
   sample <- dat$sample[1]
-  data.frame(x=lq_dist, y=uq_dist, ymin=ll, ymax=lu, xmin=ul, xmax=uu, sample)
+  if (all(is.na(column))) {
+    data.frame(x=NA, y=NA, ymin=NA, ymax=NA, xmin=NA, xmax=NA, sample=sample)
+  } else {
+    sort_column <- sort(column)
+    y <- stats::ecdf(column)(sort(column))
+    epsilon <- sqrt(log(2 / alpha) / (2 * length(column)))
+    low <- pmax(y - epsilon, 0)
+    high <- pmin(y + epsilon, 1)
+    sort_age_low <- data.frame(x=sort(column), y=low)
+    sort_age_high <- data.frame(x=sort(column), y=high)
+    ll <- stats::approx(x=sort_age_low$y, y=sort_age_low$x, xout=c(0.25))$y
+    lu <- stats::approx(x=sort_age_low$y, y=sort_age_low$x, xout=c(0.75))$y
+    if(is.na(lu)) lu <- max(sort_age_low$x)
+    ul <- stats::approx(x=sort_age_high$y, y=sort_age_high$x, xout=c(0.25))$y
+    if(is.na(ul)) ul <- min(sort_age_high$x)
+    uu <- stats::approx(x=sort_age_high$y, y=sort_age_high$x, xout=c(0.75))$y
+    lq_dist <- stats::quantile(column, probs=c(0.25), type=8, na.rm=TRUE)
+    uq_dist <- stats::quantile(column, probs=c(0.75), type=8, na.rm=TRUE)
+    data.frame(x=lq_dist, y=uq_dist, ymin=ll, ymax=lu, xmin=ul, xmax=uu, sample)
+  }
 }
 
 #' Calculate mixing model
