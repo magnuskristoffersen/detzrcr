@@ -1,3 +1,9 @@
+## Resubmission
+This is a resubmission:
+
+Put names of r-packages ggplot2 and shiny in DESCRIPTION file in single
+quotes.
+
 ## Test environments
 local osx install (10.12.1), R 3.3.1
 
