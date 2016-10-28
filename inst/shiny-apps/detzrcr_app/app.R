@@ -163,6 +163,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                           c('1d (age)'='1d',
                             '2d (age and eHf)'='2d',
                             'Combine'='combine')),
+      shiny::uiOutput('likeness_samples'),
       shiny::numericInput('likeness_age_bw', 'Age bandwidth', 30),
       shiny::uiOutput('likeness_bw'),
       shiny::downloadButton('download_likeness_table', 'Save Table')
@@ -179,6 +180,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                           c('Age'='age',
                             'Model age'='tdm',
                             'Combine' ='combine')),
+      shiny::uiOutput('o_samples'),
       shiny::downloadButton('download_o_table', 'Save Table'),
       shiny::tags$hr(),
       shiny::checkboxInput("o_fig", label = "Graphical", value = FALSE),
@@ -273,6 +275,11 @@ server <- shiny::shinyServer(function(input, output) {
         input$luhf_dm,
         input$luhf_zrc
       )
+      if(!is.null(input$likeness_samples)) {
+        new_data <- new_data[new_data$sample %in% input$likeness_samples, ]
+        new_data$sample <- factor(new_data$sample,
+                                  levels=input$likeness_samples)
+      }
       if (input$likeness_type == '1d') {
         satkoski_1d_matrix(new_data, bw=input$likeness_age_bw)
       } else {
@@ -304,6 +311,11 @@ server <- shiny::shinyServer(function(input, output) {
         input$luhf_zrc
       )
       hf_data <- calc_hf(new_data, constants=constants)
+      if(!is.null(input$o_samples)) {
+        hf_data <- hf_data[hf_data$sample %in% input$o_samples, ]
+        hf_data$sample <- factor(hf_data$sample,
+                                  levels=input$o_samples)
+      }
       if (input$o_type == 'combine') {
         combine_matrices(o_param_matrix_age(hf_data),
                          o_param_matrix_tdm(hf_data))
@@ -331,6 +343,11 @@ server <- shiny::shinyServer(function(input, output) {
         input$luhf_zrc
       )
       new_data <- calc_hf(new_data, constants=constants)
+      if(!is.null(input$o_samples)) {
+        new_data <- new_data[new_data$sample %in% input$o_samples, ]
+        new_data$sample <- factor(new_data$sample,
+                                  levels=input$o_samples)
+      }
       plot_tile(new_data, type=input$o_type) +
         plot_text_options(font_name = input$font_name,
                           title_size = input$title_size,
@@ -729,6 +746,34 @@ server <- shiny::shinyServer(function(input, output) {
     new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
     shiny::selectInput('quant_samples', 'Choose samples', samples,
+                       multiple=TRUE, selectize=TRUE)
+  })
+  output$o_samples <- shiny::renderUI({
+    constants <- c(
+      input$lambda_lu,
+      input$hfhf_chur,
+      input$luhf_chur,
+      input$hfhf_dm,
+      input$luhf_dm,
+      input$luhf_zrc
+    )
+    new_data <- calc_hf(csv_data(), constants=constants)
+    samples <- as.vector(unique(new_data$sample))
+    shiny::selectInput('o_samples', 'Choose samples', samples,
+                       multiple=TRUE, selectize=TRUE)
+  })
+  output$likeness_samples <- shiny::renderUI({
+    constants <- c(
+      input$lambda_lu,
+      input$hfhf_chur,
+      input$luhf_chur,
+      input$hfhf_dm,
+      input$luhf_dm,
+      input$luhf_zrc
+    )
+    new_data <- calc_hf(csv_data(), constants=constants)
+    samples <- as.vector(unique(new_data$sample))
+    shiny::selectInput('likeness_samples', 'Choose samples', samples,
                        multiple=TRUE, selectize=TRUE)
   })
   output$uqlq <- shiny::renderPlot({

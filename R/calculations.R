@@ -208,6 +208,7 @@ satkoski_2d_matrix <- function(dat, bw=c(30, 2.5), digits=3) {
 #' @export
 populate_matrix <- function(dat, FUN, ...) {
   n <- length(unique(dat$sample))
+  if (n < 2) stop('Select more samples')
   name <- as.character(unique(dat$sample))
   len <- length(name)
   mat <- matrix(nrow=n, ncol=n)
