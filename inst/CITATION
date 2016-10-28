@@ -4,12 +4,12 @@ citEntry(entry = "Manual",
          title        = "detzrcr: An R-package for comparing detrital zircon samples",
          author       = personList(as.person("Magnus Kristoffersen")),
          year         = "2016",
-         note         = "R package version 0.1.1.9000",
+         note         = "R package version 0.1.2",
          url          = "https://github.com/magnuskristoffersen/detzrcr",
 
          textVersion  =
            paste("Magnus Kristoffersen (2016).",
                  "detzrcr: An R-package for comparing detrital zircon samples.",
-                 "R package version 0.1.1.9000.",
+                 "R package version 0.1.2.",
                  "https://github.com/magnuskristoffersen/detzrcr.")
 )
