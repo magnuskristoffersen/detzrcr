@@ -5,7 +5,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
     shiny::sidebarPanel(
       shiny::conditionalPanel(
         condition = 'input.example_data == false',
-        shiny::fileInput('file1', 'Choose CSV File',
+        shiny::fileInput('file1', 'Select CSV File',
                          accept=c('text/csv',
                                   'text/comma-separated-values,text/plain',
                                   '.csv')),
@@ -650,7 +650,7 @@ server <- shiny::shinyServer(function(input, output) {
   output$dens_facet_select <- shiny::renderUI({
     new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
-    selectInput('dens_facet_choice', 'Choose samples', samples,
+    selectInput('dens_facet_choice', 'Select samples', samples,
                 multiple=TRUE, selectize=TRUE)
   })
   output$show_disc_limit <- shiny::renderUI({
@@ -664,14 +664,14 @@ server <- shiny::shinyServer(function(input, output) {
     new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
     if (input$dens_type == 'dens_facet') {
-      selectInput('dens_facet_choice', 'Choose samples', samples,
+      selectInput('dens_facet_choice', 'Select samples', samples,
                   multiple=TRUE, selectize=TRUE)
     } else {
       if (input$dens_type == 'dens_ind') {
-        selectInput('dens_ind_choice', 'Choose sample', samples)
+        selectInput('dens_ind_choice', 'Select sample', samples)
       } else {
       if (input$dens_type == 'dens_combine') {
-        selectInput('dens_combine_choice', 'Choose samples', samples,
+        selectInput('dens_combine_choice', 'Select samples', samples,
                     multiple=TRUE, selectize=TRUE)
       }
       }
@@ -682,14 +682,14 @@ server <- shiny::shinyServer(function(input, output) {
     new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
     if (input$ecdf_type == 'same_plot') {
-      selectInput('ecdf_mult_samples', 'Choose samples', samples,
+      selectInput('ecdf_mult_samples', 'Select samples', samples,
                   multiple=TRUE, selectize=TRUE)
     } else {
       if (input$ecdf_type == 'ind_plot') {
-        selectInput('ecdf_ind_samples', 'Choose sample', samples)
+        selectInput('ecdf_ind_samples', 'Select sample', samples)
       } else {
         if (input$ecdf_type == 'ecdf_combine_plot') {
-          selectInput('ecdf_comb_samples', 'Choose samples', samples,
+          selectInput('ecdf_comb_samples', 'Select samples', samples,
                       multiple=TRUE, selectize=TRUE)
         }
       }
@@ -729,14 +729,14 @@ server <- shiny::shinyServer(function(input, output) {
     new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
     if (input$add_contours) {
-      selectInput('contour_choice', 'Choose samples to contour', samples,
+      selectInput('contour_choice', 'Select samples to contour', samples,
                   multiple=TRUE, selectize=TRUE)
     }
   })
   output$hf_samples <- shiny::renderUI({
     new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
-    shiny::selectInput('hfhf_samples', 'Choose samples', samples,
+    shiny::selectInput('hfhf_samples', 'Select samples', samples,
                        multiple=TRUE, selectize=TRUE)
   })
   output$hf <- shiny::renderPlot({
@@ -745,7 +745,7 @@ server <- shiny::shinyServer(function(input, output) {
   output$uqlq_samples <- shiny::renderUI({
     new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
-    shiny::selectInput('quant_samples', 'Choose samples', samples,
+    shiny::selectInput('quant_samples', 'Select samples', samples,
                        multiple=TRUE, selectize=TRUE)
   })
   output$o_samples <- shiny::renderUI({
@@ -759,7 +759,7 @@ server <- shiny::shinyServer(function(input, output) {
     )
     new_data <- calc_hf(csv_data(), constants=constants)
     samples <- as.vector(unique(new_data$sample))
-    shiny::selectInput('o_samples', 'Choose samples', samples,
+    shiny::selectInput('o_samples', 'Select samples', samples,
                        multiple=TRUE, selectize=TRUE)
   })
   output$likeness_samples <- shiny::renderUI({
@@ -773,7 +773,7 @@ server <- shiny::shinyServer(function(input, output) {
     )
     new_data <- calc_hf(csv_data(), constants=constants)
     samples <- as.vector(unique(new_data$sample))
-    shiny::selectInput('likeness_samples', 'Choose samples', samples,
+    shiny::selectInput('likeness_samples', 'Select samples', samples,
                        multiple=TRUE, selectize=TRUE)
   })
   output$uqlq <- shiny::renderPlot({
