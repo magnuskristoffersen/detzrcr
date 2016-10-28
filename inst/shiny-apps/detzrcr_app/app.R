@@ -738,7 +738,7 @@ server <- shiny::shinyServer(function(input, output) {
     likeness_table()
   }, rownames=TRUE)
   output$likeness_bw <- shiny::renderUI({
-    if (input$likeness_type == '2d') {
+    if (input$likeness_type == '2d' | input$likeness_type == 'combine') {
       shiny::numericInput('likeness_ehf_bw', 'Epsilon-Hf bandwidth', 2.5)
     }
   })
