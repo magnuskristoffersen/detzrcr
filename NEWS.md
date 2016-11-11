@@ -1,4 +1,6 @@
 # detzrcr 0.1.2.9000
+* Fixed error in likeness and 1-O tables occuring if in-data did not include
+Hf-data.
 
 # detzrcr 0.1.2
 * Added option to specify x-axis breaks for plots.
