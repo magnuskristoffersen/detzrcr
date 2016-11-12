@@ -20,12 +20,12 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                               'Double Quote'='"',
                               'Single Quote'="'"),
                             '"'),
-        shiny::tags$hr(),
-        shiny::checkboxInput('disc',
-                             label = 'Remove discordant data',
-                             value = FALSE),
-        shiny::uiOutput('show_disc_limit'),
         shiny::tags$hr()),
+      shiny::checkboxInput('disc',
+                           label = 'Remove discordant data',
+                           value = FALSE),
+      shiny::uiOutput('show_disc_limit'),
+      shiny::tags$hr(),
       shiny::checkboxInput('example_data', 'Display example data', value=FALSE)
     ),
     shiny::mainPanel(
@@ -261,6 +261,9 @@ server <- shiny::shinyServer(function(input, output) {
     } else {
       dat <- utils::read.csv(system.file("extdata", "Natal_group.csv",
                                            package="detzrcr"))
+      if (input$disc) {
+        dat <- check_conc(dat, disc_lim=input$disc_limit)
+      }
     }
     return(dat)
   })
