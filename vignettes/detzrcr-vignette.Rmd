@@ -2,20 +2,16 @@
 title: "detzrcr user guide"
 author: "Magnus Kristoffersen"
 date: "`r Sys.Date()`"
-output: 
-  pdf_document:
-    fig_caption: yes
-    fig_width: 4
-    includes:
-      in_header: detzrcr.sty
-    keep_tex: yes
-fontsize: 12pt
+output:
+    rmarkdown::html_document:
+      fig_width: 2
+      fig_height: 2
+      fig_caption: true
 vignette: >
   %\VignetteIndexEntry{detzrcr user guide}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
-
 ## Installing and running the package
 
 The latest version of [R](https://r-project.org) must be installed and
@@ -42,9 +38,9 @@ run_detzrcr()
 ## Required input format
 
 The data must be input in a csv-file which is uploaded to the `Data input` tab
-(Fig. \ref{fig1}) in the *shiny* interface. 
+(Fig. 1) in the *shiny* interface. 
 
-![Data input tab\label{fig1}](data_input.png)
+![Fig. 1: Data input tab](data_input.png)
 
 This file has certain requirements
 
@@ -64,8 +60,7 @@ required name for this column but it can be **point**, **analysis** etc.
 
 ```{r, echo=FALSE, results='asis'}
 dat <- read.csv('karoo.csv')
-dat <- detzrcr::check_conc(dat)
-knitr::kable(head(dat, 10), format='pandoc', caption='Example input format')
+knitr::kable(head(dat, 5), format='pandoc', caption='Example input format')
 ```
 
 ## Features
@@ -98,18 +93,18 @@ user interface. By selecting the `Density distribution` tab the user can
 plot the U-Pb age data as KDEs (user selectable fixed bandwidth) or PDPs
 (local variable bandwidth based on the absolute $1\sigma$ uncertainty). Which
 samples to plot and in what order can be selected from the `Select sample` menu
-(Fig. \ref{fig2}). This feature is also available for all other plot and table options.
+(Fig. fig2). This feature is also available for all other plot and table options.
 
-![Density distribution tab\label{fig2}](kde.png)
+![Fig. 2: Density distribution tab](kde.png)
 
 ECDFs of U-Pb age data as well as Hf model age data can be plotted from the
 `ECDF` tab, 95% confidence bands calculated using the Dvoretzky-Kiefer-Wolfowitz
 (DKW) inequality (Dvoretzky et al. 1956) can be added.
 In the `UQ vs. LQ` tab U-Pb age data and Hf model age data is plotted in UQ vs.
 LQ space where (95% DWK) confidence limits and a gaussian mixture model can be
-added (Fig. \ref{fig3}).
+added (Fig. 3).
 
-![UQ vs. LQ with mixture model\label{fig3}](uqlq.png)
+![Fig. 3: UQ vs. LQ with mixture model](uqlq.png)
 
 Hf data can be plotted from the `Lu-Hf` tab as initial $\epsilon$Hf vs. age or
 initial $^{176}$Hf/$^{177}$Hf vs. age, where sample contours can be added.
@@ -119,15 +114,15 @@ parameters are calculated and displayed. Likeness can be calculated in both 1
 dimension (U-Pb age only) and 2 dimensions (U-Pb age and initial $\epsilon$Hf).
 1-O can be calculated for U-Pb age and Hf model age. In each of these panels the
 two options can be combined into one table with U-Pb data in the upper triangle
-and Hf data in the lower triangle (Fig. \ref{fig4}). All tables can be saved to
+and Hf data in the lower triangle (Fig. 4). All tables can be saved to
 csv-files.
 
-![1-O table\label{fig4}](1-o.png)
+![Fig. 4: 1-O table](1-o.png)
 
-The 1-O table can also be displayed graphically (Fig. \ref{fig5}) where red indicates
+The 1-O table can also be displayed graphically (Fig. 5) where red indicates
 $1-O \geq 0.05$, white $0 < 1-O < 0.05$ and green $1-O = 0$.
 
-![1-O table as figure\label{fig5}](oplot.pdf)
+![Fig. 5: 1-O table as figure](oplot.png)
 
 Constants used in Hf calculations can be changed in the `Constants` tab.
 Default values are as follows
