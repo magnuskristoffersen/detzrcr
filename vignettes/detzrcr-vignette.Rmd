@@ -138,16 +138,16 @@ the aformentioned decay constant and CHUR values)
 ### References
 Andersen, T., Elburg, M., Cawthorn-Blazeby, A., 2016. U–Pb and Lu–Hf zircon data
 in young sediments reflect sedimentary recycling in eastern South Africa. J.
-Geol. Soc. London. 173, 337–351. doi:10.1144/jgs2015-006
+Geol. Soc. London. 173, 337–351. https://dx.doi.org/10.1144/jgs2015-006
 
 Bouvier, A., Vervoort, J.D., Patchett, P.J., 2008. The Lu-Hf and Sm-Nd isotopic
 composition of CHUR: Constraints from unequilibrated chondrites and implications
 for the bulk composition of terrestrial planets. Earth Planet. Sci. Lett. 273,
-48–57. doi:10.1016/j.epsl.2008.06.010
+48–57. https://dx.doi.org/10.1016/j.epsl.2008.06.010
 
 Dvoretzky, A., Kiefer, J., Wolfowitz, J., 1956. Asymptotic Minimax Character of
 the Sample Distribution Function and of the Classical Multinomial Estimator.
-Ann. Math. Stat. 27, 642–669. doi:10.1214/aoms/1177728174
+Ann. Math. Stat. 27, 642–669. https://dx.doi.org/10.1214/aoms/1177728174
 
 Griffin, W.L., Belousova, E.A., Shee, S.R., Pearson, N.J., O’Reilly, S.Y., 2004.
 Archean crustal evolution in the northern Yilgam Craton: U-Pb and Hf-isotope
@@ -155,9 +155,9 @@ evidence from detrital zircons. Precambrian Res. 131, 231–282.
 
 Satkoski, A.M., Wilkinson, B.H., Hietpas, J., Samson, S.D., 2013. Likeness among
 detrital zircon populations — An approach to the comparison of age frequency
-data in time and space. GSA Bull. 125, 1783–1799. doi:10.1130/B30888.1
+data in time and space. GSA Bull. 125, 1783–1799. https://dx.doi.org/10.1130/B30888.1
 
 Söderlund, U., Patchett, P.J., Vervoort, J.D., Isachsen, C.E., 2004. The 176Lu
 decay constant determined by Lu-Hf and U-Pb isotope systematics of Precambrian
 mafic intrusions. Earth Planet. Sci. Lett. 219, 311–324.
-doi:10.1016/S0012-821X(04)00012-3
+https://dx.doi.org/10.1016/S0012-821X(04)00012-3
