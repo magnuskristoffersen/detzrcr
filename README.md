@@ -54,4 +54,4 @@ South Africa (Kristoffersen et al. 2016) are included in the package.
 Kristoffersen, M., Andersen, T., Elburg, M.A., Watkeys, M.K., 2016.
 Detrital zircon in a supercontinental setting: locally derived and 
 far-transported components in the Ordovician Natal Group, South Africa. 
-J. Geol. Soc. London. 173, 203-215. doi:10.1144/jgs2015-012
+J. Geol. Soc. London. 173, 203-215. https://dx.doi.org/10.1144/jgs2015-012
