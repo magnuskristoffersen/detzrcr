@@ -26,4 +26,3 @@ ggplot2 1d density plot with histogram
 \description{
 Creates density for U-Pb data.
 }
-

@@ -9,4 +9,3 @@ plot_point_scale()
 \description{
 Add manual shape scale to scatter plot
 }
-

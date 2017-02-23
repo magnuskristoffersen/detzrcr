@@ -21,4 +21,3 @@ plot_text_options(font_name = "Helvetica", title_size = 10,
 \description{
 Modify text options of plots
 }
-

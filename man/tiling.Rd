@@ -12,4 +12,3 @@ tiling(z)
 \description{
 Apply tile_func to vector
 }
-

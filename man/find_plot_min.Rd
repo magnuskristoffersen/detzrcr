@@ -14,4 +14,3 @@ find_plot_min(x, accuracy = 100)
 \description{
 Find the minumum value for histogram plotting.
 }
-

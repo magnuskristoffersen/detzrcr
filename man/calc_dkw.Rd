@@ -26,4 +26,3 @@ Minimax Character of the Sample Distribution Function and of the Classical
 Multinomial Estimator. Ann. Math. Stat. 27, 642-669.
 doi:10.1214/aoms/1177728174
 }
-

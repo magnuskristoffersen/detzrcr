@@ -27,4 +27,3 @@ plot_quantiles(dat, column = "t_dm2", conf = FALSE, alpha = 0.05,
 \description{
 Plot quantiles
 }
-

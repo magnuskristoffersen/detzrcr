@@ -17,4 +17,3 @@ Returns vector of minimum and maximum plotting values
 \description{
 Find the minimum and maximum values for histogram plotting.
 }
-

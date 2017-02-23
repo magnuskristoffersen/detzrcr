@@ -22,4 +22,3 @@ quantile plot
 \examples{
 dzr_mix(500, 50, 1000, 100)
 }
-

@@ -14,4 +14,3 @@ make_tiling(dat, type)
 \description{
 Produce data.frame of 1-O matrix suitable for geom_tile
 }
-

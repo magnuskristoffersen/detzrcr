@@ -18,4 +18,3 @@ systematics of Precambrian mafic intrusions. Earth and Planetary Science
 Letters 219, 311-324.
 }
 \keyword{datasets}
-

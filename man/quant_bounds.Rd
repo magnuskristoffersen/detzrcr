@@ -16,4 +16,3 @@ quant_bounds(dat, column = "t_dm2", alpha = 0.05)
 \description{
 Calculate confidence bands for lower and upper quartile
 }
-

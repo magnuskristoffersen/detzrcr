@@ -14,4 +14,3 @@ combine_matrices(mat1, mat2)
 \description{
 Combine two square matrices
 }
-

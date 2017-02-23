@@ -18,4 +18,3 @@ Concordant data
 Check the concordancy of the U-Pb data and return the data within the desired
 discordancy limit.
 }
-

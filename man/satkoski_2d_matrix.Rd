@@ -21,4 +21,3 @@ Satkoski, A.M., Wilkinson, B.H., Hietpas, J., Samson, S.D., 2013.
 Likeness among detrital zircon populations - An approach to the comparison of
 age frequency data in time and space. GSA Bulletin 125, 1783-1799.
 }
-

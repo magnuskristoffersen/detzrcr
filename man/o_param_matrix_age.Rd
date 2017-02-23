@@ -25,4 +25,3 @@ U-Pb and LuHf zircon data in young sediments reflect sedimentary recycling
 in eastern South Africa. J. Geol. Soc. London. 2006-2015.
 doi:10.1144/jgs2015-006
 }
-

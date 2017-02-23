@@ -17,4 +17,3 @@ CONVENTION ON USE OF DECAY CONSTANTS IN GEOCHRONOLOGY AND COSMOCHRONOLOGY.
 Earth And Planetary Science Letters 36(3), 359-362.
 }
 \keyword{datasets}
-

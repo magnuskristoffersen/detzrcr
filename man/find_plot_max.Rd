@@ -14,4 +14,3 @@ find_plot_max(x, accuracy = 100)
 \description{
 Find the maximum value for histogram plotting.
 }
-

@@ -23,4 +23,3 @@ plot_ecdf(dat, mult_ecdf = FALSE, column = "age", conf = FALSE,
 \description{
 Plot ecdf for U-Pb age or Lu-Hf model age data.
 }
-

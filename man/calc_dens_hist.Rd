@@ -25,4 +25,3 @@ Returns density
 Calculates 1d density of age data and scales it so that it can be plotted
 in the same plot of a histogram of the age data
 }
-

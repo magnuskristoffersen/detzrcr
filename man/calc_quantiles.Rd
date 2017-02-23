@@ -18,4 +18,3 @@ calc_quantiles(dat, column = "t_dm2", alpha = 0.05, type = 8)
 \description{
 Split up data.frame by sample-column and calculate quantiles
 }
-

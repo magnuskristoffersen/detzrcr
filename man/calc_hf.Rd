@@ -35,4 +35,3 @@ Soderlund, U., Patchett, J., Vervoort, J. & Isachsen, C. 2004.
 The Lu-176 decay constant determined by Lu-Hf and U-Pb isotope systematics of Precambrian mafic intrusions.
 Earth And Planetary Science Letters 219(3-4), 311-324.
 }
-

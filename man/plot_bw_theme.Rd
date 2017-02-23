@@ -12,4 +12,3 @@ Returns ggplot2 theme
 \description{
 Stripped down theme for ggplot2
 }
-

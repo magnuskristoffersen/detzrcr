@@ -21,4 +21,3 @@ Density
 \description{
 Calculate the 1d density of U-Pb age data using KDE or PDD.
 }
-

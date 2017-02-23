@@ -14,4 +14,3 @@ plot_tile(dat, type)
 \description{
 Tile plot of 1-O matrix
 }
-

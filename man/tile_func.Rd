@@ -12,4 +12,3 @@ tile_func(x)
 \description{
 Ready 1-O matrix for tile plot
 }
-

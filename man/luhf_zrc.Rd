@@ -18,4 +18,3 @@ U-Pb and Hf-isotope evidence from detrital zircons. Precambrian Research,
 231-282.
 }
 \keyword{datasets}
-

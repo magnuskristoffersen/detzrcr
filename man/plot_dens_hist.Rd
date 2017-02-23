@@ -28,4 +28,3 @@ ggplot2 1d density plot with histogram
 \description{
 Creates density and histogram plot of U-Pb data.
 }
-

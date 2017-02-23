@@ -17,4 +17,3 @@ Returns ggplot2 labels
 \description{
 Convenience function to label ggplot2
 }
-

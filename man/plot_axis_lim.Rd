@@ -19,4 +19,3 @@ list of ggplot2::coord_cartesian object
 \description{
 Convenience function to change axes limits for ggplot2
 }
-
