@@ -16,7 +16,7 @@ vignette: >
 
 The latest version of [R](https://r-project.org) must be installed and
 [Rstudio](https://rstudio.com) is recommended.
-The released version of the package can be installed from [CRAN](https://cran.r-project.org/web/packages/detzrcr/index.html)
+The released version of the package can be installed from [CRAN](https://CRAN.R-project.org/package=detzrcr)
 
 ```{r, eval=FALSE}
 install.packages("detzrcr")
