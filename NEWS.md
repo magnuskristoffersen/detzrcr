@@ -1,6 +1,8 @@
-# detzrcr 0.1.2.9000
+# detzrcr 0.1.3
 * Fixed error in likeness and 1-O tables occuring if in-data did not include
 Hf-data.
+* Fixed display error of graphical 1-O table if not all categories are present in the data.
+* Added vignette.
 
 # detzrcr 0.1.2
 * Added option to specify x-axis breaks for plots.

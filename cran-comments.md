@@ -1,17 +1,11 @@
-## Resubmission
-This is a resubmission:
-
-Put names of r-packages ggplot2 and shiny in DESCRIPTION file in single
-quotes.
-
 ## Test environments
-local osx install (10.12.1), R 3.3.1
+local osx install (10.12.3), R 3.3.2
 
-docker image rocker/r-devel, R Under development (unstable) (2016-10-17 r71531)
+docker image rocker/r-devel, R Under development (unstable) (2017-01-18 r72010)
 
 winbuilder (devel, R Under development (unstable) (2016-08-22 r71129))
 
-ubuntu 12.04.5 LTS (on travis-ci), R 3.3.1
+ubuntu 12.04.5 LTS (on travis-ci), R 3.3.2
 
 ## R CMD check --as-cran results
 There were no ERRORs or WARNINGs.
@@ -23,6 +17,3 @@ maintainer and not anybody else.
 
 ## Downstream dependencies
 There are currently no downstream dependencies on this package.
-
-## Additional comments
-Fixed calculations and added plotting options.
