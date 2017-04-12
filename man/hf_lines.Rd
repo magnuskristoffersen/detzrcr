@@ -27,7 +27,7 @@ LAM-MC-ICPMS analysis of zircon megacrysts in kimberlites.
 Geochimica et Cosmochimica Acta 64(1), 133-147.
 
 Soderlund, U., Jonathan Patchett, P., Vervoort, J.D. and Isachsen
-C.E. 2004. The 176Lu decay constant determined by Lu^Hf and U^Pb isotope
+C.E. 2004. The 176Lu decay constant determined by Lu-Hf and U-Pb isotope
 systematics of Precambrian mafic intrusions. Earth and Planetary Science
 Letters 219, 311-324.
 
