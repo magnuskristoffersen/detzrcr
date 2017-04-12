@@ -1,3 +1,6 @@
+# detzrcr 0.1.3.9000
+* Updated citation file.
+
 # detzrcr 0.1.3
 * Fixed error in likeness and 1-O tables occuring if in-data did not include
 Hf-data.
