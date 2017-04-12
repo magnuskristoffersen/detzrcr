@@ -2,7 +2,8 @@
 % Please edit documentation in R/calculations.R
 \name{reimink}
 \alias{reimink}
-\title{Calculate upper and lower concordia intercepts from discordant detrital zircon data}
+\title{Calculate upper and lower concordia intercepts from discordant detrital
+zircon data}
 \usage{
 reimink(dat, step = 5)
 }
@@ -12,10 +13,12 @@ reimink(dat, step = 5)
 \item{step}{Chord spacing}
 }
 \description{
-Calculate upper and lower concordia intercepts from discordant detrital zircon data
+Calculate upper and lower concordia intercepts from discordant detrital
+zircon data
 }
 \references{
-Reimink, J. R., Davies, J. H. F. L., Waldron, J. W. F., & Rojas, X. (2016).
-Dealing with discordance: a novel approach for analysing U–Pb detrital zircon datasets.
-Journal of the Geological Society, 2015–114. https://doi.org/10.1144/jgs2015-114
+Reimink, J.R., Davies, J.H.F.L., Waldron, J.W.F., Rojas, X.
+(2016). Dealing with discordance: a novel approach for analysing U-Pb
+detrital zircon datasets. Journal of the Geological Society.
+doi: 10.1144/jgs2015-114
 }

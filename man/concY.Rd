@@ -7,7 +7,7 @@
 concY(age)
 }
 \arguments{
-\item{age}{}
+\item{age}{input age}
 }
 \description{
 Calculate U238 at given age

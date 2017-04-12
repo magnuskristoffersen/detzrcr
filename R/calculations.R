@@ -645,16 +645,19 @@ make_tiling <- function(dat, type) {
   tile_mat
 }
 
-#' Calculate upper and lower concordia intercepts from discordant detrital zircon data
+#' Calculate upper and lower concordia intercepts from discordant detrital
+#' zircon data
 #'
 #' @param dat data.frame
 #' @param step Chord spacing
 #'
 #' @export
 #'
-#'@references Reimink, J. R., Davies, J. H. F. L., Waldron, J. W. F., & Rojas, X. (2016).
-#' Dealing with discordance: a novel approach for analysing U–Pb detrital zircon datasets.
-#' Journal of the Geological Society, 2015–114. https://doi.org/10.1144/jgs2015-114
+#' @references Reimink, J.R., Davies, J.H.F.L., Waldron, J.W.F., Rojas, X.
+#' (2016). Dealing with discordance: a novel approach for analysing U-Pb
+#' detrital zircon datasets. Journal of the Geological Society.
+#' doi: 10.1144/jgs2015-114
+#'
 reimink <- function(dat, step=5) {
   t1 <- seq(0, 4500 - step, step)
   t2 <- seq(step, 4500, step)
@@ -663,8 +666,8 @@ reimink <- function(dat, step=5) {
   dat$sigma75 <- mean(dat$sigma75)
   dat$sigma68 <- mean(dat$sigma68)
   result <- calc_p_apply(dat, grid$Var2, grid$Var1)
-  lower <- aggregate(result$p_disc, by=list(result$t1), max)
-  upper <- aggregate(result$p_disc, by=list(result$t2), max)
+  lower <- stats::aggregate(result$p_disc, by=list(result$t1), max)
+  upper <- stats::aggregate(result$p_disc, by=list(result$t2), max)
   names(lower) <- c('x', 'y')
   names(upper) <- c('x', 'y')
   lower$x <- as.numeric(as.character(lower$x))
@@ -744,7 +747,7 @@ concX <- function(age) {
 
 #' Calculate U238 at given age
 #'
-#' @param age
+#' @param age input age
 #'
 #' @export
 #'
