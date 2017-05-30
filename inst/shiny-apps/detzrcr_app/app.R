@@ -8,7 +8,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
         shiny::fileInput('file1', 'Select CSV File',
                          accept=c('text/csv',
                                   'text/comma-separated-values,text/plain',
-                                  '.csv')),
+                                  '.csv'), multiple = TRUE),
         shiny::tags$hr(),
         shiny::radioButtons('sep', 'Separator',
                             c(Comma=',',
@@ -251,10 +251,21 @@ server <- shiny::shinyServer(function(input, output) {
       if (is.null(inFile)) {
         return(NULL)
       }
-      dat <- utils::read.csv(inFile$datapath,
-                      header=TRUE,
-                      sep=input$sep,
-                      quote=input$quote)
+      n <- dim(inFile)[1]
+      if (n == 1) {
+        dat <- utils::read.csv(inFile$datapath, header=TRUE, sep=input$sep,
+                               quote=input$quote)
+      }
+      if (n > 1) {
+        dat <- utils::read.csv(inFile[[1, 'datapath']], header=TRUE,
+                               sep=input$sep, quote=input$quote)
+        for (i in seq(2, n)) {
+          csv <- utils::read.csv(inFile[[i, 'datapath']], header=TRUE,
+                          sep=input$sep, quote=input$quote)
+          dat <- merge(dat, csv, all = TRUE)
+
+        }
+      }
       if (input$disc) {
         dat <- check_conc(dat, disc_lim=input$disc_limit)
       }
