@@ -405,13 +405,14 @@ plot_tile <- function(dat, type) {
 #' Plot likelihood of intercept ages
 #'
 #' @param dat data.frame
-#' @param type Chord step to use in intercept calculation
+#' @param step Chord step to use in intercept calculation
 #'
 #' @export
 #'
 plot_reimink <- function(dat, step) {
   dat <- reimink(dat, step)
-  gplot <- ggplot2::ggplot(data=dat, ggplot2::aes(x, y, color=type)) +
+  gplot <- ggplot2::ggplot(data=dat, ggplot2::aes_string(x='x', y='y',
+                                                         color='type')) +
     ggplot2::geom_line() + ggplot2::geom_point() + plot_bw_theme() +
     plot_labels(xlab='Age (Ma)', ylab = 'Likelihood')
 }

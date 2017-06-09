@@ -9,7 +9,7 @@ plot_reimink(dat, step)
 \arguments{
 \item{dat}{data.frame}
 
-\item{type}{Chord step to use in intercept calculation}
+\item{step}{Chord step to use in intercept calculation}
 }
 \description{
 Plot likelihood of intercept ages
