@@ -757,3 +757,15 @@ concY <- function(age) {
   cy <- exp(lambda238*age) - 1
   return(cy)
 }
+
+#' Find maxima.
+#'
+#'
+#' @param dist distribution.
+#' @param xmin minimum value of distribution.
+#' @param inc increment.
+find_maxima <- function(dist, xmin, inc) {
+  difference <- c(0, diff(dist))
+  difference2 <- c(difference[2:length(difference)], 0)
+  maximadata <- ((which(difference > 0 & difference2 <= 0) * inc) + xmin - 1)
+}
