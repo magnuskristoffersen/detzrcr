@@ -395,14 +395,9 @@ server <- shiny::shinyServer(function(input, output) {
   })
 
   reimink_plot <- shiny::reactive({
-    new_data <- csv_data()
+    new_data <- reimink_table()
     if (!is.null(new_data)) {
-      if(!is.null(input$reimink_samples)) {
-        new_data <- new_data[new_data$sample %in% input$reimink_samples, ]
-        new_data$sample <- factor(new_data$sample,
-                                  levels=input$reimink_samples)
-      }
-      plot_reimink(new_data, input$reimink_step) +
+      plot_reimink(new_data) +
         plot_text_options(font_name = input$font_name,
                           title_size = input$title_size,
                           label_size = input$label_size,
@@ -886,35 +881,19 @@ server <- shiny::shinyServer(function(input, output) {
                        multiple=FALSE, selectize=FALSE)
   })
   output$reimink_maxima_lower <- renderText({
-    new_data <- csv_data()
-    if (!is.null(new_data)) {
-      if(!is.null(input$reimink_samples)) {
-        new_data <- new_data[new_data$sample %in% input$reimink_samples, ]
-        new_data$sample <- factor(new_data$sample,
-                                  levels=input$reimink_samples)
-        reimink_data <- reimink(new_data, input$reimink_step)
+    reimink_data <- reimink_table()
+    if (!is.null(reimink_data)) {
         lower <- reimink_data[reimink_data$type == 'lower',]
-        #upper <- reimink_data[reimink_data$type == 'upper',]
         lower_maxima <- find_maxima(lower$y, 0, 1)
-        #upper_maxima <- find_maxima(upper$y, 0, 1)
         lower[lower_maxima, ]$x
-      }
     }
   })
   output$reimink_maxima_upper <- renderText({
-    new_data <- csv_data()
-    if (!is.null(new_data)) {
-      if(!is.null(input$reimink_samples)) {
-        new_data <- new_data[new_data$sample %in% input$reimink_samples, ]
-        new_data$sample <- factor(new_data$sample,
-                                  levels=input$reimink_samples)
-        reimink_data <- reimink(new_data, input$reimink_step)
-        #lower <- reimink_data[reimink_data$type == 'lower',]
+    reimink_data <- reimink_table()
+    if (!is.null(reimink_data)) {
         upper <- reimink_data[reimink_data$type == 'upper',]
-        #lower_maxima <- find_maxima(lower$y, 0, 1)
         upper_maxima <- find_maxima(upper$y, 0, 1)
         upper[upper_maxima, ]$x
-      }
     }
   })
 })
