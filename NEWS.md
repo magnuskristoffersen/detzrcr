@@ -1,4 +1,4 @@
-# detzrcr 0.1.3.9000
+# detzrcr 0.2.0
 * Updated citation file.
 * Added Reimink et al. (2016) intercept calculation and plot.
 

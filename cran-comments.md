@@ -3,7 +3,7 @@ local osx install (10.12.3), R 3.3.2
 
 docker image rocker/r-devel, R Under development (unstable) (2017-01-18 r72010)
 
-winbuilder (devel, R Under development (unstable) (2017-02-22 r72246))
+winbuilder (devel, R Under development (unstable) (2017-06-10 r72776))
 
 ubuntu 12.04.5 LTS (on travis-ci), R 3.3.2
 

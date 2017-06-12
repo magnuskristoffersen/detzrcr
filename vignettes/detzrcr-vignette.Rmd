@@ -135,6 +135,11 @@ $^{176}$Hf/$^{177}$Hf$=0.28325$ (from Griffin et al. (2004) modified to
 the aformentioned decay constant and CHUR values)
 * $^{176}$Lu/$^{177}$Hf value used in two step depleted model age $=0.015$
 
+## Reimink intercepts
+
+The method of Reimink et al. (2016) to find the most likely time of lead loss in
+suites of discordant detrital zircon is added to the package. To use this feature the input data must include $^{207}Pb/^{235}U$, $1\sigma$ absolute error of $^{207}Pb/^{235}U$, $^{206}Pb/^{238}U$, $1\sigma$ absolute error of $^{206}Pb/^{238}U$, and error correlation with the column names r75, sigma75, r68, sigma68 and rho, respectively.
+
 ### References
 Andersen, T., Elburg, M., Cawthorn-Blazeby, A., 2016. U–Pb and Lu–Hf zircon data
 in young sediments reflect sedimentary recycling in eastern South Africa. J.
@@ -152,6 +157,8 @@ Ann. Math. Stat. 27, 642–669. https://dx.doi.org/10.1214/aoms/1177728174
 Griffin, W.L., Belousova, E.A., Shee, S.R., Pearson, N.J., O’Reilly, S.Y., 2004.
 Archean crustal evolution in the northern Yilgam Craton: U-Pb and Hf-isotope
 evidence from detrital zircons. Precambrian Res. 131, 231–282.
+
+Reimink, J. R., Davies, J. H. F. L., Waldron, J. W. F., & Rojas, X. (2016). Dealing with discordance: a novel approach for analysing U-Pb detrital zircon datasets. Journal of the Geological Society, 2015-114. https://doi.org/10.1144/jgs2015-114
 
 Satkoski, A.M., Wilkinson, B.H., Hietpas, J., Samson, S.D., 2013. Likeness among
 detrital zircon populations — An approach to the comparison of age frequency
