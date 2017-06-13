@@ -16,7 +16,7 @@ satkoski_2d(x, y, bw = c(30, 2.5), digits = 3)
 \item{digits}{number, round result to significant digits}
 }
 \description{
-Calculates the likeness of detrital zircon populationsin 2 dimensions after
+Calculates the likeness of detrital zircon populations in 2 dimensions after
 Satoski et al. (2013).
 }
 \references{

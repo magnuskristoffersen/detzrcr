@@ -12,5 +12,5 @@ find_plot_min(x, accuracy = 100)
 \item{accuracy}{round to nearest}
 }
 \description{
-Find the minumum value for histogram plotting.
+Find the minimum value for histogram plotting.
 }

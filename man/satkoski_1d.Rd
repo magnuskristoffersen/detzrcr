@@ -16,8 +16,8 @@ satkoski_1d(x, y, bw = 30, digits = 3)
 \item{digits}{number, round result to significant digits}
 }
 \description{
-Calculates the likeness of detrital zircon populations in 1 dimenson after
-Satoski et al. (2013).
+Calculates the likeness of detrital zircon populations in 1 dimension after
+Satkoski et al. (2013).
 }
 \references{
 Satkoski, A.M., Wilkinson, B.H., Hietpas, J., Samson, S.D., 2013.

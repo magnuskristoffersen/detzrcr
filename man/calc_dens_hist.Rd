@@ -12,7 +12,7 @@ calc_dens_hist(dat, binwidth = 50, bw = 30, type = "kde",
 
 \item{binwidth}{Histogram binwidth}
 
-\item{bw}{Density Bandwith}
+\item{bw}{Density bandwidth}
 
 \item{type}{'kde': KDE; 'pdd': detrital zircon PDD}
 

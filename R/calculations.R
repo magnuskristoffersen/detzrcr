@@ -58,7 +58,7 @@ calc_dens <- function(dat, bw=30, type='kde', age_range=c(0, 4560)) {
 #'
 #' @param dat data.frame
 #' @param binwidth Histogram binwidth
-#' @param bw Density Bandwith
+#' @param bw Density bandwidth
 #' @param type 'kde': KDE; 'pdd': detrital zircon PDD
 #' @param age_range Age range to calculated density over
 #'
@@ -79,7 +79,7 @@ calc_dens_hist <- function(dat, binwidth=50, bw=30, type='kde',
 
 #' Find minimum value for plotting
 #'
-#' Find the minumum value for histogram plotting.
+#' Find the minimum value for histogram plotting.
 #'
 #' @param x vector of values
 #' @param accuracy round to nearest
@@ -114,8 +114,8 @@ find_plot_min_max <- function(x, accuracy=100) {
 
 #' Calculate 1d likeness of detrital zircon populations
 #'
-#' Calculates the likeness of detrital zircon populations in 1 dimenson after
-#' Satoski et al. (2013).
+#' Calculates the likeness of detrital zircon populations in 1 dimension after
+#' Satkoski et al. (2013).
 #'
 #' @param x vector
 #' @param y vector
@@ -137,7 +137,7 @@ satkoski_1d <- function(x, y, bw=30, digits=3) {
 
 #' Calculate 2d (age and Lu-Hf) likeness of detrital zircon populations
 #'
-#' Calculates the likeness of detrital zircon populationsin 2 dimensions after
+#' Calculates the likeness of detrital zircon populations in 2 dimensions after
 #' Satoski et al. (2013).
 #'
 #' @param x vector
