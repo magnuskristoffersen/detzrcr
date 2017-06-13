@@ -1,11 +1,11 @@
 ## Test environments
-local osx install (10.12.3), R 3.3.2
+local osx install (10.12.5), R 3.4.0
 
-docker image rocker/r-devel, R Under development (unstable) (2017-01-18 r72010)
+docker image rocker/r-devel, R Under development (unstable) (2017-05-12 r72670)
 
-winbuilder (devel, R Under development (unstable) (2017-06-10 r72776))
+winbuilder, R Under development (unstable) (2017-06-10 r72776)
 
-ubuntu 12.04.5 LTS (on travis-ci), R 3.3.2
+ubuntu 12.04.5 LTS (on travis-ci), R 3.4.0
 
 ## R CMD check --as-cran results
 There were no ERRORs or WARNINGs.
