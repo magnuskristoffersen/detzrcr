@@ -176,7 +176,7 @@ plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
       ggplot2::geom_line(data=conf_data,
                          ggplot2::aes_string(x='x', y='y',
                                              color='sample')) +
-      plot_bw_theme() + plot_labels(ylab = 'Probabilty')
+      plot_bw_theme() + plot_labels(ylab = 'Probability')
     if (conf) {
       gplot <- gplot +
         ggplot2::geom_line(data=conf_data,
@@ -191,7 +191,7 @@ plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
     gplot <- ggplot2::ggplot()
     gplot <- gplot + ggplot2::geom_line(data=conf_data,
                                 ggplot2::aes_string(x='x', y='y')) +
-      plot_bw_theme() + plot_labels(ylab = 'Probabilty')
+      plot_bw_theme() + plot_labels(ylab = 'Probability')
     if (conf) {
       gplot <- gplot +
         ggplot2::geom_line(data=conf_data,
