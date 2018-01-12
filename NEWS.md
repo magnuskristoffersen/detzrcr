@@ -1,3 +1,6 @@
+# detzrc 0.2.1
+* Fixed misspelling in ECDF plot
+
 # detzrcr 0.2.0
 * Updated citation file.
 * Added Reimink et al. (2016) intercept calculation and plot.
