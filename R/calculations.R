@@ -764,6 +764,8 @@ concY <- function(age) {
 #' @param dist distribution.
 #' @param xmin minimum value of distribution.
 #' @param inc increment.
+#'
+#' @export
 find_maxima <- function(dist, xmin, inc) {
   difference <- c(0, diff(dist))
   difference2 <- c(difference[2:length(difference)], 0)
