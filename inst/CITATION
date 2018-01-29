@@ -4,12 +4,14 @@ citEntry(entry = "Article",
          title        = "Visualizing, interpreting and comparing detrital zircon age and Hf isotope data in basin analysis - a graphical approach",
          author       = personList(as.person("Tom Andersen, Magnus Kristoffersen, Marlina Elburg")),
          journal      = "Basin Research",
-         year         = "2017",
+         year         = 2018,
+         volume       = 30,
+         pages        = "132-147",
          note         = "doi: 10.1111/bre.12245",
 
          textVersion  =
-           paste("Tom Andersen, Magnus Kristoffersen & Marlina Elburg (2017).",
+           paste("Tom Andersen, Magnus Kristoffersen & Marlina Elburg (2018).",
                  "Visualizing, interpreting and comparing detrital zircon age and Hf isotope data in basin analysis - a graphical approach.",
-                 "Basin Research.",
+                 "Basin Research 30: 132-147.",
                  "doi: 10.1111/bre.12245")
 )
