@@ -1,5 +1,7 @@
 # detzrc 0.2.1
-* Fixed misspelling in ECDF plot
+* Fixed misspelling in ECDF plot.
+* Updated citation file.
+* Maxima calculation in Reimink plot works
 
 # detzrcr 0.2.0
 * Updated citation file.
