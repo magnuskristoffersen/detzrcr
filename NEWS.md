@@ -1,3 +1,5 @@
+# detzrcr 0.2.1.9000
+
 # detzrc 0.2.1
 * Fixed misspelling in ECDF plot.
 * Updated citation file.
