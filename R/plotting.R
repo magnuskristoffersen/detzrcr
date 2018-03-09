@@ -224,6 +224,7 @@ plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
 #' @export
 #'
 plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
+                    x_errors=FALSE, y_errors=FALSE, error_bars=FALSE,
                     contours=FALSE, contour_data=NULL, combine_contours=FALSE,
                     constants) {
   if (plot_type == 'ehf') {
@@ -236,6 +237,21 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
     gplot <- gplot + plot_bw_theme() +
       plot_labels(xlab='Age (Ma)',
                   ylab=expression(paste('Initial ', epsilon["Hf"])))
+    if (error_bars) {
+      if (x_errors) {
+        gplot <- gplot + ggplot2::geom_errorbarh(data=dat,
+                                                 ggplot2::aes_string(xmin='xmin',
+                                                                     xmax='xmax',
+                                                                     y='ehf_i',
+                                                                     x='age'))
+      }
+      if (y_errors) {
+        gplot <- gplot + ggplot2::geom_errorbar(data=dat,
+                                                ggplot2::aes_string(ymin='ymin',
+                                                                    ymax='ymax',
+                                                                    x='age'))
+      }
+    }
     if (contours & !is.null(contour_data)) {
       old_names <- c('sample', 'age', 'ehf_i')
       new_names <- c('s', 'a', 'e')
@@ -276,6 +292,22 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
         plot_labels(xlab='Age (Ma)',
                     ylab=expression(paste("Initial "^{176},"Hf/",
                                           ""^{177},"Hf")))
+      if (error_bars) {
+        if (x_errors) {
+          gplot <- gplot + ggplot2::geom_errorbarh(data=dat,
+                                                   ggplot2::aes_string(xmin='xmin',
+                                                                       xmax='xmax',
+                                                                       y='hf_i',
+                                                                       x='age'))
+        }
+        if (y_errors) {
+          gplot <- gplot + ggplot2::geom_errorbar(data=dat,
+                                                  ggplot2::aes_string(ymin='ymin',
+                                                                      ymax='ymax',
+                                                                      x='age'))
+        }
+      }
+
       if (contours & !is.null(contour_data)) {
         old_names <- c('sample', 'age', 'hf_i')
         new_names <- c('s', 'a', 'h')
