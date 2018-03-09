@@ -214,7 +214,12 @@ plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
 #' @param range range to display
 #' @param plot_type 'ehf'=epsilon-Hf; 'hfhf'=176/177Hf
 #' @param guide logical, show legend?
+#' @param x_errors logical, include x errorbars
+#' @param y_errors logical, include y errorbars
+#' @param error_bars logical, include errorbars
 #' @param contours logical, plot contours?
+#' @param x_bandwidth bandwidth 2dkde x-direction
+#' @param y_bandwidth bandwidth 2dkde y-direction
 #' @param contour_data data.frame containing data to contour
 #' @param combine_contours logical combine contouring data
 #' @param constants vector of constants which must be in the order

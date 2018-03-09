@@ -5,8 +5,9 @@
 \title{Plot Lu-Hf data}
 \usage{
 plot_hf(dat, range = c(0, 4560), plot_type = "ehf", guide = TRUE,
-  contours = FALSE, contour_data = NULL, combine_contours = FALSE,
-  constants)
+  x_errors = FALSE, y_errors = FALSE, error_bars = FALSE,
+  contours = FALSE, x_bandwidth = NULL, y_bandwidth = NULL,
+  contour_data = NULL, combine_contours = FALSE, constants)
 }
 \arguments{
 \item{dat}{data.frame}
@@ -17,7 +18,17 @@ plot_hf(dat, range = c(0, 4560), plot_type = "ehf", guide = TRUE,
 
 \item{guide}{logical, show legend?}
 
+\item{x_errors}{logical, include x errorbars}
+
+\item{y_errors}{logical, include y errorbars}
+
+\item{error_bars}{logical, include errorbars}
+
 \item{contours}{logical, plot contours?}
+
+\item{x_bandwidth}{bandwidth 2dkde x-direction}
+
+\item{y_bandwidth}{bandwidth 2dkde y-direction}
 
 \item{contour_data}{data.frame containing data to contour}
 
