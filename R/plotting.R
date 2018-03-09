@@ -225,7 +225,8 @@ plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
 #'
 plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                     x_errors=FALSE, y_errors=FALSE, error_bars=FALSE,
-                    contours=FALSE, contour_data=NULL, combine_contours=FALSE,
+                    contours=FALSE, x_bandwidth=NULL, y_bandwidth=NULL,
+                    contour_data=NULL, combine_contours=FALSE,
                     constants) {
   if (plot_type == 'ehf') {
     lines <- hf_lines(range=range, plot_type='ehf', constants)
@@ -261,14 +262,16 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
         gplot <- gplot + ggplot2::geom_density2d(data=contour_data,
                                                  ggplot2::aes_string(x='a',
                                                                      y='e'),
-                                                 h=c(30, 2.5)*4)
+                                                 h=c(x_bandwidth,
+                                                     y_bandwidth)*4)
           gplot <- gplot + ggplot2::guides(color=FALSE)
       } else {
         gplot <- gplot + ggplot2::geom_density2d(data=contour_data,
                                                  ggplot2::aes_string(x='a',
                                                                      y='e',
                                                                      color='s'),
-                                                 h=c(30, 2.5)*4)
+                                                 h=c(x_bandwidth,
+                                                     y_bandwidth)*4)
         gplot <- gplot + ggplot2::guides(color=FALSE)
       }
     }
@@ -317,13 +320,14 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
           gplot <- gplot + ggplot2::geom_density2d(data=contour_data,
                                                    ggplot2::aes_string(x='a',
                                                                        y='h'),
-                                                   h=c(30, 0.00025)*4) +
+                                                   h=c(x_bandwidth,
+                                                       y_bandwidth)*4) +
             ggplot2::guides(color=FALSE)
         } else {
           gplot <- gplot + ggplot2::geom_density2d(
             data=contour_data,
             ggplot2::aes_string(x='a', y='h', color='s'),
-            h=c(30, 0.00025)*4)
+            h=c(x_bandwidth, y_bandwidth)*4)
           gplot <- gplot + ggplot2::guides(color=FALSE)
 
         }
