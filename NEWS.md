@@ -1,4 +1,6 @@
-# detzrcr 0.2.1.9000
+# detzrcr 0.2.2
+* Added optional Hf errorbars
+* Added bandwidth selection in Hf plot
 
 # detzrc 0.2.1
 * Fixed misspelling in ECDF plot.
