@@ -12,7 +12,7 @@ plot_dens(dat, bw = 30, type = "kde", age_range = c(0, 4560),
 
 \item{bw}{density bandwidth}
 
-\item{type}{'kde': traditional KDE 'pdd': detrial zircon PDD}
+\item{type}{'kde': traditional KDE 'pdd': detrital zircon PDD}
 
 \item{age_range}{range over which to calculate density}
 

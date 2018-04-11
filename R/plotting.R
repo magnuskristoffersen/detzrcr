@@ -4,7 +4,7 @@
 #'
 #' @param dat data.frame
 #' @param bw density bandwidth
-#' @param type 'kde': traditional KDE 'pdd': detrial zircon PDD
+#' @param type 'kde': traditional KDE 'pdd': detrital zircon PDD
 #' @param age_range range over which to calculate density
 #' @param facet logical, facet samples?
 #' @param step specify x-axis steps
@@ -42,7 +42,7 @@ plot_dens <- function(dat, bw=30, type='kde',
 #' @param dat data.frame
 #' @param bw density bandwidth
 #' @param binwidth histogram binwidth
-#' @param type 'kde': traditional KDE 'pdd': detrial zircon PDD
+#' @param type 'kde': traditional KDE 'pdd': detrital zircon PDD
 #' @param age_range range over which to calculate density
 #' @param facet logical, facet samples?
 #' @param step specify x-axis steps

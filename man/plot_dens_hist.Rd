@@ -14,7 +14,7 @@ plot_dens_hist(dat, bw = 30, binwidth = 50, type = "kde",
 
 \item{binwidth}{histogram binwidth}
 
-\item{type}{'kde': traditional KDE 'pdd': detrial zircon PDD}
+\item{type}{'kde': traditional KDE 'pdd': detrital zircon PDD}
 
 \item{age_range}{range over which to calculate density}
 
