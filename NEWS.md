@@ -1,3 +1,5 @@
+# detzrcr 0.2.2.9000
+
 # detzrcr 0.2.2
 * Added optional Hf errorbars
 * Added bandwidth selection in Hf plot
