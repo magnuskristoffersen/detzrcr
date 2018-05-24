@@ -40,6 +40,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                    c(KDE='kde',
                      PDP='pdd')),
       shiny::checkboxInput('hist', label = 'Histogram', value = TRUE),
+      shiny::checkboxInput('fixed_y', label= 'Fixed y-axis', value = FALSE),
       selectInput('dens_type', 'Plot type',
                   c('All samples in one'='dens_facet',
                     'Individual samples'='dens_ind',
@@ -463,7 +464,8 @@ server <- shiny::shinyServer(function(input, output) {
        if (input$hist == TRUE) {
          p <- plot_dens_hist(new_data, binwidth=input$binwidth, bw=input$bw,
                              type=input$type, age_range=input$xlim,
-                             facet=facet, step=input$xstep) +
+                             facet=facet, fixed_y=input$fixed_y,
+                             step=input$xstep) +
            plot_text_options(font_name = input$font_name,
                              title_size = input$title_size,
                              label_size = input$label_size,
@@ -472,7 +474,7 @@ server <- shiny::shinyServer(function(input, output) {
        } else {
          p <- plot_dens(new_data, bw=input$bw,
                         type=input$type, age_range=input$xlim,
-                        facet=facet, step=input$xstep) +
+                        facet=facet, fixed_y=input$fixed_y, step=input$xstep) +
            plot_text_options(font_name = input$font_name,
                              title_size = input$title_size,
                              label_size = input$label_size,

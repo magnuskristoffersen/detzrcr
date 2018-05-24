@@ -7,11 +7,13 @@
 #' @param type 'kde': traditional KDE 'pdd': detrital zircon PDD
 #' @param age_range range over which to calculate density
 #' @param facet logical, facet samples?
+#' @param fixed_y logical, fixed y-axis?
 #' @param step specify x-axis steps
 #' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens <- function(dat, bw=30, type='kde',
-                           age_range=c(0, 4560), facet=FALSE, step=200) {
+                           age_range=c(0, 4560),
+                           facet=FALSE, fixed_y=FALSE, step=200) {
   if (facet) {
     l <- lapply(split(dat, factor(dat$sample)), calc_dens, bw=bw,
                 type=type, age_range=age_range)
@@ -19,7 +21,11 @@ plot_dens <- function(dat, bw=30, type='kde',
     gplot <- ggplot2::ggplot()
     gplot <- gplot + ggplot2::geom_path(data=dens,
                                         ggplot2::aes_string(x='x', y='y'))
-    gplot <- gplot + ggplot2::facet_grid(sample ~ ., scale='free_y')
+      if (fixed_y) {
+        gplot <- gplot + ggplot2::facet_grid(sample ~ .)
+      } else {
+        gplot <- gplot + ggplot2::facet_grid(sample ~ ., scale='free_y')
+      }
     gplot <- gplot + plot_labels(ylab = 'Density') + plot_bw_theme() +
       plot_axis_lim(xlim=age_range, step=step)
     return(gplot)
@@ -45,11 +51,13 @@ plot_dens <- function(dat, bw=30, type='kde',
 #' @param type 'kde': traditional KDE 'pdd': detrital zircon PDD
 #' @param age_range range over which to calculate density
 #' @param facet logical, facet samples?
+#' @param fixed_y logical, fixed y-axis?
 #' @param step specify x-axis steps
 #' @export
 #' @return  ggplot2 1d density plot with histogram
 plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
-                              age_range=c(0, 4560), facet=FALSE, step=200) {
+                              age_range=c(0, 4560), facet=FALSE,
+                              fixed_y=FALSE, step=200) {
   if (facet) {
     l <- lapply(split(dat, factor(dat$sample)), calc_dens_hist, bw=bw,
                 binwidth=binwidth, type=type, age_range=age_range)
@@ -61,7 +69,11 @@ plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
       fill='grey60',
       breaks=seq(0, 4560,
                  binwidth))
-    gplot <- gplot + ggplot2::facet_grid(sample ~ ., scale='free_y')
+      if (fixed_y) {
+        gplot <- gplot + ggplot2::facet_grid(sample ~ .)
+      } else {
+      gplot <- gplot + ggplot2::facet_grid(sample ~ ., scale='free_y')
+        }
     gplot <- gplot + ggplot2::geom_path(data=dens,
                                         ggplot2::aes_string(x='x', y='y'))
     gplot <- gplot + plot_labels(ylab = 'Count') + plot_bw_theme() +
