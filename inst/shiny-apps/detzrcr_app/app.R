@@ -48,8 +48,10 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
       shiny::uiOutput('dens_switch'),
       shiny::numericInput('binwidth', 'Binwidth', 50),
       shiny::numericInput('bw', "Bandwidth", 30),
-      shiny::numericInput('xstart', "X-axis start (Ma)", 200),
-      shiny::numericInput('xstop', "X-axis start (Ma)", 4000),
+      shiny::numericInput('xstart', "X-axis start (Ma)",
+                          value=200,min=0,max=4600,step=100),
+      shiny::numericInput('xstop', "X-axis start (Ma)",
+                          value=4000,min=0,max=4600,step=100),
       shiny::numericInput('xstep', 'X step', 200),
       shiny::numericInput('densWidth', 'Image Width (cm)', 15),
       shiny::numericInput('densHeight', 'Image Height (cm)', 15),
@@ -71,8 +73,10 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                     'Combine samples'='ecdf_combine_plot')),
       shiny::uiOutput("ecdf_switch"),
       shiny::checkboxInput('ecdf_conf', label='Confidence bands', value=FALSE),
-      shiny::numericInput('ecdf_xstart', 'X-axis start (Ma)', 200),
-      shiny::numericInput('ecdf_xstop', 'X-axis stop (Ma)', 4000),
+      shiny::numericInput('ecdf_xstart', 'X-axis start (Ma)',
+                          value=200,min=0,max=4600,step=100),
+      shiny::numericInput('ecdf_xstop', 'X-axis stop (Ma)',
+                          value=4000,min=0,max=4600,step=100),
       shiny::numericInput('ecdf_xstep', 'X-axis step (Ma)', 200),
       shiny::checkboxInput("ecdf_legend", label = "Show legend", value = TRUE),
       shiny::numericInput('ecdf_width', 'Image Width (cm)', 15),
@@ -92,10 +96,14 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                             'Model age'='uqlq_tdm')),
       shiny::uiOutput('uqlq_samples'),
       shiny::numericInput('uqlq_xstep', 'X step', 500),
-      shiny::numericInput('uqlq_xstart', 'X-axis start (Ma)', 200),
-      shiny::numericInput('uqlq_xstop', 'X-axis stop (Ma)', 4000),
-      shiny::numericInput('uqlq_ystart', 'Y-axis start (Ma)', 200),
-      shiny::numericInput('uqlq_ystop', 'Y-axis stop (Ma)', 4000),
+      shiny::numericInput('uqlq_xstart', 'X-axis start (Ma)',
+                          value=200,min=0,max=4600,step=100),
+      shiny::numericInput('uqlq_xstop', 'X-axis stop (Ma)',
+                          value=4000,min=0,max=4600,step=100),
+      shiny::numericInput('uqlq_ystart', 'Y-axis start (Ma)',
+                          value=200,min=0,max=4600,step=100),
+      shiny::numericInput('uqlq_ystop', 'Y-axis stop (Ma)',
+                          value=4000,min=0,max=4600,step=100),
       shiny::checkboxInput('uqlq_conf',
                            label='Confidence limits',
                            value=FALSE),
@@ -129,8 +137,10 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                           c('Epsilon Hf'='ehf_plot',
                             'Hf/Hf'='hfhf_plot')),
       shiny::uiOutput('hf_samples'),
-      shiny::numericInput('hf_xstart', 'X-axis start (Ma)', 200),
-      shiny::numericInput('hf_xstop', 'X-axis stop (Ma)', 4000),
+      shiny::numericInput('hf_xstart', 'X-axis start (Ma)',
+                          value=200,min=0,max=4600,step=100),
+      shiny::numericInput('hf_xstop', 'X-axis stop (Ma)',
+                          value=4000,min=0,max=4600,step=100),
       shiny::numericInput('hf_xstep', 'X step', 200),
       shiny::uiOutput("hf_switch"),
       shiny::tags$hr(),
@@ -829,11 +839,6 @@ server <- shiny::shinyServer(function(input, output) {
       if (input$hf_type == 'hfhf_plot') {
         shiny::sliderInput('hf_ylim', 'Y-axis range',
                            min=0.279, max=0.283, value = c(0.28, 0.283))
-      } else {
-        if (input$hf_type == 'quant_plot') {
-          shiny::sliderInput('quant_ylim', 'Y-axis range',
-                             min=0, max=4560, value=c(200, 4000))
-          }
         }
       }
   })

@@ -1,9 +1,9 @@
 ## Test environments
-local osx install (10.13.4), R 3.4.4
+local osx install (10.13.5), R 3.5.0
 
-winbuilder, R version 3.5.0 beta (2018-04-10 r74578)
+winbuilder, R Under development (unstable) (2018-06-05 r74852)
 
-ubuntu 14.04.5 LTS (on travis-ci), R 3.4.2
+ubuntu 14.04.5 LTS (on travis-ci), R 3.5.0
 
 ## R CMD check --as-cran results
 There were no ERRORs, WARNINGs or NOTEs.
