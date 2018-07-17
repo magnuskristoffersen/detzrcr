@@ -260,8 +260,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
         gplot <- gplot + ggplot2::geom_errorbarh(data=dat,
                                                  ggplot2::aes_string(xmin='xmin',
                                                                      xmax='xmax',
-                                                                     y='ehf_i',
-                                                                     x='age'))
+                                                                     y='ehf_i'))
       }
       if (y_errors) {
         gplot <- gplot + ggplot2::geom_errorbar(data=dat,
@@ -317,8 +316,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
           gplot <- gplot + ggplot2::geom_errorbarh(data=dat,
                                                    ggplot2::aes_string(xmin='xmin',
                                                                        xmax='xmax',
-                                                                       y='hf_i',
-                                                                       x='age'))
+                                                                       y='hf_i'))
         }
         if (y_errors) {
           gplot <- gplot + ggplot2::geom_errorbar(data=dat,
