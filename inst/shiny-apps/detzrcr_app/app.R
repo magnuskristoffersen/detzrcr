@@ -151,6 +151,9 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
         condition = 'input.error_bars == true',
         shiny::checkboxInput('x_error_bars',
                              label = 'X-direction error bars',
+                             value = TRUE),
+        shiny::checkboxInput('y_error_bars',
+                             label = 'Y-direction error bars',
                              value = TRUE)
       ),
       shiny::tags$hr(),
