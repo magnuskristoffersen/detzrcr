@@ -1,3 +1,5 @@
+# detzrcr 0.2.4.9000
+
 # detzrcr 0.2.4
 * Fixed error in y-axis slider for Hf plot
 * Added option for y-axis erro bar for Hf plot
