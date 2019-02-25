@@ -1,3 +1,7 @@
+# detzrcr 0.2.4
+* Fixed error in y-axis slider for Hf plot
+* Added option for y-axis erro bar for Hf plot
+
 # detzrcr 0.2.3
 * Added option to use fixed y-axis in KDE/PDP plots
 * Changed axis limit sliders to numeric input
