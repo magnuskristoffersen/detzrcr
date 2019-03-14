@@ -688,27 +688,21 @@ server <- shiny::shinyServer(function(input, output) {
     print(reimink_plot())
   })
   output$downloadDensplot <- shiny::downloadHandler(
-    filename = function() {
-      paste('kde', '.pdf', sep='')
-    },
+    filename = 'kde.pdf',
     content = function(file) {
       ggplot2::ggsave(file, plot = dens_plot(), width=input$densWidth,
                       height=input$densHeight, colormodel='cmyk', units='cm')
     }
   )
   output$download_ecdf_plot <- shiny::downloadHandler(
-    filename = function() {
-      paste('ecdf', '.pdf', sep='')
-    },
+    filename = 'ecdf.pdf',
     content = function(file) {
       ggplot2::ggsave(file, plot = ecdf_plot(), width=input$ecdf_width,
                       height=input$ecdf_height, colormodel='cmyk', units='cm')
     }
   )
   output$download_hf_plot <- shiny::downloadHandler(
-    filename = function() {
-      paste('hf', '.pdf', sep='')
-    },
+    filename = 'hf.pdf',
     content = function(file) {
       ggplot2::ggsave(file, plot = hf_plot(), width=input$hf_width,
                       height=input$hf_height, colormodel='cmyk', units='cm',
@@ -716,9 +710,7 @@ server <- shiny::shinyServer(function(input, output) {
     }
   )
   output$download_uqlq_plot <- shiny::downloadHandler(
-    filename = function() {
-      paste('uqlq', '.pdf', sep='')
-    },
+    filename = 'uqlq.pdf',
     content = function(file) {
       ggplot2::ggsave(file, plot = uqlq_plot(), width=input$uqlq_width,
                       height=input$uqlq_height, colormodel='cmyk', units='cm',
@@ -726,33 +718,25 @@ server <- shiny::shinyServer(function(input, output) {
     }
   )
   output$download_likeness_table <- shiny::downloadHandler(
-    filename = function() {
-      paste('likeness', '.csv', sep='')
-    },
+    filename = 'likeness.csv',
     content = function(file) {
       utils::write.csv(likeness_table(), file)
     }
   )
   output$download_satkoski_2d <- shiny::downloadHandler(
-    filename = function() {
-      paste('L2', '.csv', sep='')
-    },
+    filename = 'L2.csv',
     content = function(file) {
       utils::write.csv(satkoski_2d_table(), file)
     }
   )
   output$download_o_table <- shiny::downloadHandler(
-    filename = function() {
-      paste('otable', '.csv', sep='')
-    },
+    filename = 'otable.csv',
     content = function(file) {
       utils::write.csv(o_table(), file)
     }
   )
   output$download_o_plot <- shiny::downloadHandler(
-    filename = function() {
-      paste('oplot', '.pdf', sep='')
-    },
+    filename = 'oplot.pdf',
     content = function(file) {
       ggplot2::ggsave(file, plot = o_plot(), width=input$o_width,
                       height=input$o_height, colormodel='cmyk', units='cm')
@@ -760,9 +744,7 @@ server <- shiny::shinyServer(function(input, output) {
 
   )
   output$download_reimink_plot <- shiny::downloadHandler(
-    filename = function() {
-      paste('reimink', '.pdf', sep='')
-    },
+    filename = 'reimink.pdf',
     content = function(file) {
       ggplot2::ggsave(file, plot = reimink_plot(), width=input$reimink_width,
                       height=input$reimink_height, colormodel='cmyk',
@@ -776,9 +758,7 @@ server <- shiny::shinyServer(function(input, output) {
     }
   )
   output$download_hf_table <- shiny::downloadHandler(
-    filename = function() {
-      paste('hf', '.csv', sep='')
-    },
+    filename = 'hf.csv',
     content = function(file) {
       utils::write.csv(hf_table(), file)
     }
