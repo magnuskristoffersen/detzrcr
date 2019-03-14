@@ -688,21 +688,30 @@ server <- shiny::shinyServer(function(input, output) {
     print(reimink_plot())
   })
   output$downloadDensplot <- shiny::downloadHandler(
-    filename = 'kde.pdf',
+    filename = function(){
+      paste('kde-', format(Sys.time(), "%d%m%y-%H%M%S"), '.pdf', sep='')
+
+    },
     content = function(file) {
       ggplot2::ggsave(file, plot = dens_plot(), width=input$densWidth,
                       height=input$densHeight, colormodel='cmyk', units='cm')
     }
   )
   output$download_ecdf_plot <- shiny::downloadHandler(
-    filename = 'ecdf.pdf',
+    filename = function(){
+      paste('ecdf-', format(Sys.time(), "%d%m%y-%H%M%S"), '.pdf', sep='')
+
+    },
     content = function(file) {
       ggplot2::ggsave(file, plot = ecdf_plot(), width=input$ecdf_width,
                       height=input$ecdf_height, colormodel='cmyk', units='cm')
     }
   )
   output$download_hf_plot <- shiny::downloadHandler(
-    filename = 'hf.pdf',
+    filename = function(){
+      paste('hf-', format(Sys.time(), "%d%m%y-%H%M%S"), '.pdf', sep='')
+
+    },
     content = function(file) {
       ggplot2::ggsave(file, plot = hf_plot(), width=input$hf_width,
                       height=input$hf_height, colormodel='cmyk', units='cm',
@@ -710,7 +719,10 @@ server <- shiny::shinyServer(function(input, output) {
     }
   )
   output$download_uqlq_plot <- shiny::downloadHandler(
-    filename = 'uqlq.pdf',
+    filename = function(){
+      paste('uqlq-', format(Sys.time(), "%d%m%y-%H%M%S"), '.pdf', sep='')
+
+    },
     content = function(file) {
       ggplot2::ggsave(file, plot = uqlq_plot(), width=input$uqlq_width,
                       height=input$uqlq_height, colormodel='cmyk', units='cm',
@@ -718,25 +730,37 @@ server <- shiny::shinyServer(function(input, output) {
     }
   )
   output$download_likeness_table <- shiny::downloadHandler(
-    filename = 'likeness.csv',
+    filename = function(){
+      paste('likeness-', format(Sys.time(), "%d%m%y-%H%M%S"), '.csv', sep='')
+
+    },
     content = function(file) {
       utils::write.csv(likeness_table(), file)
     }
   )
   output$download_satkoski_2d <- shiny::downloadHandler(
-    filename = 'L2.csv',
+    filename = function(){
+      paste('L2-', format(Sys.time(), "%d%m%y-%H%M%S"), '.csv', sep='')
+
+    },
     content = function(file) {
       utils::write.csv(satkoski_2d_table(), file)
     }
   )
   output$download_o_table <- shiny::downloadHandler(
-    filename = 'otable.csv',
+    filename = function(){
+      paste('otable-', format(Sys.time(), "%d%m%y-%H%M%S"), '.csv', sep='')
+
+    },
     content = function(file) {
       utils::write.csv(o_table(), file)
     }
   )
   output$download_o_plot <- shiny::downloadHandler(
-    filename = 'oplot.pdf',
+    filename = function(){
+      paste('oplot-', format(Sys.time(), "%d%m%y-%H%M%S"), '.pdf', sep='')
+
+    },
     content = function(file) {
       ggplot2::ggsave(file, plot = o_plot(), width=input$o_width,
                       height=input$o_height, colormodel='cmyk', units='cm')
@@ -744,7 +768,10 @@ server <- shiny::shinyServer(function(input, output) {
 
   )
   output$download_reimink_plot <- shiny::downloadHandler(
-    filename = 'reimink.pdf',
+    filename = function(){
+      paste('reimink-', format(Sys.time(), "%d%m%y-%H%M%S"), '.pdf', sep='')
+
+    },
     content = function(file) {
       ggplot2::ggsave(file, plot = reimink_plot(), width=input$reimink_width,
                       height=input$reimink_height, colormodel='cmyk',
@@ -752,13 +779,19 @@ server <- shiny::shinyServer(function(input, output) {
     }
   )
   output$download_reimink_table <- shiny::downloadHandler(
-    filename = 'likelihood.csv',
+    filename = function(){
+      paste('likelihood-', format(Sys.time(), "%d%m%y-%H%M%S"), '.csv', sep='')
+
+    },
     content = function(file) {
       utils::write.csv(reimink_table(), file)
     }
   )
   output$download_hf_table <- shiny::downloadHandler(
-    filename = 'hf.csv',
+    filename = function(){
+      paste('hf-', format(Sys.time(), "%d%m%y-%H%M%S"), '.hf', sep='')
+
+    },
     content = function(file) {
       utils::write.csv(hf_table(), file)
     }
