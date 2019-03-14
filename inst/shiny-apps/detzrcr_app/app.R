@@ -318,6 +318,9 @@ server <- shiny::shinyServer(function(input, output) {
         dat <- check_conc(dat, disc_lim=input$disc_limit)
       }
     }
+    if ('sample' %in% names(dat)) {
+      dat$sample <- as.factor(dat$sample)
+    }
     return(dat)
   })
   likeness_table <- shiny::reactive({
