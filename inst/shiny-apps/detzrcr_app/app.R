@@ -308,18 +308,22 @@ server <- shiny::shinyServer(function(input, output) {
 
         }
       }
-      if (input$disc) {
-        dat <- check_conc(dat, disc_lim=input$disc_limit)
-      }
     } else {
       dat <- utils::read.csv(system.file("extdata", "Natal_group.csv",
                                            package="detzrcr"))
-      if (input$disc) {
-        dat <- check_conc(dat, disc_lim=input$disc_limit)
-      }
     }
     if ('sample' %in% names(dat)) {
       dat$sample <- as.factor(dat$sample)
+    }
+    if (input$disc) {
+      if (is.factor(dat$disc)) {
+        dat$disc <- suppressWarnings(as.numeric(as.character(dat$disc)))
+        nas <- which(is.na(dat$disc))
+        dat <- dat[-nas, ]
+      }
+      if (!is.null(input$disc_limit)) {
+        dat <-check_conc(dat, disc_lim=input$disc_limit)
+      }
     }
     return(dat)
   })
