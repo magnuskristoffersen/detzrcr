@@ -20,7 +20,8 @@ plot_dens <- function(dat, bw=30, type='kde',
     dens <- do.call(rbind.data.frame, l)
     gplot <- ggplot2::ggplot()
     gplot <- gplot + ggplot2::geom_path(data=dens,
-                                        ggplot2::aes_string(x='x', y='y'))
+                                        ggplot2::aes_string(x='x', y='y'),
+                                        na.rm=TRUE)
       if (fixed_y) {
         gplot <- gplot + ggplot2::facet_grid(sample ~ .)
       } else {
@@ -34,7 +35,8 @@ plot_dens <- function(dat, bw=30, type='kde',
                            age_range=age_range)
     gplot <- ggplot2::ggplot()
     gplot <- gplot + ggplot2::geom_path(data=dens,
-                                        ggplot2::aes_string(x='x', y='y'))
+                                        ggplot2::aes_string(x='x', y='y'),
+                                        na.rm=TRUE)
     gplot <- gplot + plot_labels(ylab = 'Density') + plot_bw_theme() +
       plot_axis_lim(xlim=age_range, step=step)
     return(gplot)
@@ -68,14 +70,16 @@ plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
       color='grey90',
       fill='grey60',
       breaks=seq(0, 4560,
-                 binwidth))
+                 binwidth),
+      na.rm=TRUE)
       if (fixed_y) {
         gplot <- gplot + ggplot2::facet_grid(sample ~ .)
       } else {
       gplot <- gplot + ggplot2::facet_grid(sample ~ ., scale='free_y')
         }
     gplot <- gplot + ggplot2::geom_path(data=dens,
-                                        ggplot2::aes_string(x='x', y='y'))
+                                        ggplot2::aes_string(x='x', y='y'),
+                                        na.rm=TRUE)
     gplot <- gplot + plot_labels(ylab = 'Count') + plot_bw_theme() +
       plot_axis_lim(xlim=age_range, step=step)
     return(gplot)
@@ -88,7 +92,7 @@ plot_dens_hist <- function(dat, bw=30, binwidth=50, type='kde',
         color='grey90',
         fill='grey60',
         breaks=seq(0, 4560,
-                   binwidth))
+                   binwidth), na.rm=TRUE)
       gplot <- gplot + ggplot2::geom_path(data=dens,
                                           ggplot2::aes_string(x='x', y='y'))
       gplot <- gplot + plot_labels(ylab = 'Count') + plot_bw_theme() +
@@ -187,29 +191,31 @@ plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
     gplot <- ggplot2::ggplot() +
       ggplot2::geom_line(data=conf_data,
                          ggplot2::aes_string(x='x', y='y',
-                                             color='sample')) +
+                                             color='sample'), na.rm=TRUE) +
       plot_bw_theme() + plot_labels(ylab = 'Probability')
     if (conf) {
       gplot <- gplot +
         ggplot2::geom_line(data=conf_data,
                            ggplot2::aes_string(x='x', y='low', color='sample'),
-                           linetype=2) +
+                           linetype=2, na.rm=TRUE) +
         ggplot2::geom_line(data=conf_data,
                            ggplot2::aes_string(x='x', y='high', color='sample'),
-                           linetype=2)
+                           linetype=2, na.rm=TRUE)
     }
   } else {
     conf_data <- calc_dkw(dat, column=column, alpha=alpha)
     gplot <- ggplot2::ggplot()
     gplot <- gplot + ggplot2::geom_line(data=conf_data,
-                                ggplot2::aes_string(x='x', y='y')) +
+                                ggplot2::aes_string(x='x', y='y'), na.rm=TRUE) +
       plot_bw_theme() + plot_labels(ylab = 'Probability')
     if (conf) {
       gplot <- gplot +
         ggplot2::geom_line(data=conf_data,
-                           ggplot2::aes_string(x='x', y='low'), linetype=2) +
+                           ggplot2::aes_string(x='x', y='low'), linetype=2,
+                           na.rm=TRUE) +
         ggplot2::geom_line(data=conf_data,
-                           ggplot2::aes_string(x='x', y='high'), linetype=2)
+                           ggplot2::aes_string(x='x', y='high'), linetype=2,
+                           na.rm=TRUE)
     }
   }
   if (guide == FALSE) {
@@ -250,7 +256,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
     gplot <- ggplot2::ggplot()
     gplot <- gplot +
       ggplot2::geom_line(data=lines, ggplot2::aes_string(x='x', y='line',
-                                                   linetype='type'))
+                                                   linetype='type'), na.rm=TRUE)
     gplot <- gplot + ggplot2::scale_linetype_manual(values=c(1, 1))
     gplot <- gplot + plot_bw_theme() +
       plot_labels(xlab='Age (Ma)',
@@ -260,13 +266,15 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
         gplot <- gplot + ggplot2::geom_errorbarh(data=dat,
                                                  ggplot2::aes_string(xmin='xmin',
                                                                      xmax='xmax',
-                                                                     y='ehf_i'))
+                                                                     y='ehf_i'),
+                                                 na.rm=TRUE)
       }
       if (y_errors) {
         gplot <- gplot + ggplot2::geom_errorbar(data=dat,
                                                 ggplot2::aes_string(ymin='ymin',
                                                                     ymax='ymax',
-                                                                    x='age'))
+                                                                    x='age'),
+                                                na.rm=TRUE)
       }
     }
     if (contours & !is.null(contour_data)) {
@@ -279,7 +287,8 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                                  ggplot2::aes_string(x='a',
                                                                      y='e'),
                                                  h=c(x_bandwidth,
-                                                     y_bandwidth)*4)
+                                                     y_bandwidth)*4,
+                                                 na.rm=TRUE)
           gplot <- gplot + ggplot2::guides(color=FALSE)
       } else {
         gplot <- gplot + ggplot2::geom_density2d(data=contour_data,
@@ -287,7 +296,8 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                                                      y='e',
                                                                      color='s'),
                                                  h=c(x_bandwidth,
-                                                     y_bandwidth)*4)
+                                                     y_bandwidth)*4,
+                                                 na.rm=TRUE)
         gplot <- gplot + ggplot2::guides(color=FALSE)
       }
     }
@@ -297,7 +307,8 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                               fill='sample',
                                               shape='sample'),
                           color='black',
-                          size=3)
+                          size=3,
+                          na.rm=TRUE)
     gplot <- gplot + plot_point_scale()
     gplot <- gplot + ggplot2::guides(linetype=FALSE)
   } else {
@@ -305,7 +316,8 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
       lines <- hf_lines(range=range, plot_type='hfhf', constants=constants)
       gplot <- ggplot2::ggplot() +
         ggplot2::geom_line(data=lines, ggplot2::aes_string(x='x', y='line',
-                                                           linetype='type'))
+                                                           linetype='type'),
+                           na.rm=TRUE)
       gplot <- gplot + ggplot2::scale_linetype_manual(values=c(1, 1))
       gplot <- gplot + plot_bw_theme() +
         plot_labels(xlab='Age (Ma)',
@@ -316,13 +328,15 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
           gplot <- gplot + ggplot2::geom_errorbarh(data=dat,
                                                    ggplot2::aes_string(xmin='xmin',
                                                                        xmax='xmax',
-                                                                       y='hf_i'))
+                                                                       y='hf_i'),
+                                                   na.rm=TRUE)
         }
         if (y_errors) {
           gplot <- gplot + ggplot2::geom_errorbar(data=dat,
                                                   ggplot2::aes_string(ymin='ymin',
                                                                       ymax='ymax',
-                                                                      x='age'))
+                                                                      x='age'),
+                                                  na.rm=TRUE)
         }
       }
 
@@ -336,13 +350,14 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                                    ggplot2::aes_string(x='a',
                                                                        y='h'),
                                                    h=c(x_bandwidth,
-                                                       y_bandwidth)*4) +
+                                                       y_bandwidth)*4,
+                                                   na.rm=TRUE) +
             ggplot2::guides(color=FALSE)
         } else {
           gplot <- gplot + ggplot2::geom_density2d(
             data=contour_data,
             ggplot2::aes_string(x='a', y='h', color='s'),
-            h=c(x_bandwidth, y_bandwidth)*4)
+            h=c(x_bandwidth, y_bandwidth)*4, na.rm=TRUE)
           gplot <- gplot + ggplot2::guides(color=FALSE)
 
         }
@@ -354,7 +369,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                                 y='hf_i',
                                                 fill='sample',
                                                 shape='sample'),
-                            color='black', size=3)
+                            color='black', size=3, na.rm=TRUE)
       gplot <- gplot + plot_point_scale()
       gplot <- gplot + ggplot2::guides(linetype=FALSE)
       }
@@ -383,27 +398,30 @@ plot_quantiles <- function(dat, column='t_dm2', conf=FALSE, alpha=0.05, type=8,
   quants <- calc_quantiles(dat=dat, column=column, alpha=alpha, type=type)
   line <- data.frame(x=seq(0, 4560), y=seq(0, 4560))
   gplot <- ggplot2::ggplot() +
-    ggplot2::geom_line(data=line, ggplot2::aes_string(x='x', y='y'))
+    ggplot2::geom_line(data=line, ggplot2::aes_string(x='x', y='y'), na.rm=TRUE)
   if (mix & !is.null(mix_data)) {
     gplot <- gplot + ggplot2::geom_line(data=mix_data,
                                         ggplot2::aes_string(x='lq', y='uq'),
-                                        color='red')
+                                        color='red', na.rm=TRUE)
   }
   if (conf) {
     l <- lapply(split(dat, factor(dat$sample)), quant_bounds, column=column,
                 alpha=alpha)
     quant_data <- do.call(rbind.data.frame, l)
+    print(quant_data)
     gplot <- gplot + ggplot2::geom_errorbar(data=quant_data,
                                             ggplot2::aes_string(x='x',
                                                                 ymin='ymin',
                                                                 ymax='ymax',
-                                                                width=0))
+                                                                width=0),
+                                            na.rm=TRUE)
     gplot <- gplot + ggplot2::geom_errorbarh(data=quant_data,
                                              ggplot2::aes_string(x='x',
                                                                  y='y',
                                                                  xmin='xmin',
                                                                  xmax='xmax',
-                                                                 height=0))
+                                                                 height=0),
+                                             na.rm=TRUE)
   }
   gplot <- gplot +
     ggplot2::geom_point(data=quants, ggplot2::aes_string(x='twentyfive',
@@ -411,7 +429,8 @@ plot_quantiles <- function(dat, column='t_dm2', conf=FALSE, alpha=0.05, type=8,
                                                          fill='sample',
                                                          shape='sample'),
                         color='black',
-                        size=3)
+                        size=3,
+                        na.rm=TRUE)
   gplot <- gplot + plot_bw_theme() + plot_labels(xlab='Lower quartile (Ma)',
                                                  ylab='Upper quartile (Ma)')
     gplot <- gplot + plot_point_scale()
@@ -441,7 +460,7 @@ plot_tile <- function(dat, type) {
   tiles <- make_tiling(dat, type=type)
   gplot <- ggplot2::ggplot(data=tiles) +
     ggplot2::geom_tile(ggplot2::aes_string(x='x', y='y', fill='z'),
-                       color='black') +
+                       color='black', na.rm=TRUE) +
     plot_labels(xlab='', ylab='') +
     ggplot2::guides(fill=FALSE) +
     ggplot2::scale_fill_manual(values=c('#1a9641', 'white', '#d7191c'),
@@ -461,7 +480,8 @@ plot_tile <- function(dat, type) {
 #'
 plot_reimink <- function(dat) {
   gplot <- ggplot2::ggplot(data=dat, ggplot2::aes_string(x='x', y='y',
-                                                         color='type')) +
+                                                         color='type'),
+                           na.rm=TRUE) +
     ggplot2::geom_line() + ggplot2::geom_point() + plot_bw_theme() +
     plot_labels(xlab='Age (Ma)', ylab = 'Likelihood')
 }
