@@ -408,7 +408,6 @@ plot_quantiles <- function(dat, column='t_dm2', conf=FALSE, alpha=0.05, type=8,
     l <- lapply(split(dat, factor(dat$sample)), quant_bounds, column=column,
                 alpha=alpha)
     quant_data <- do.call(rbind.data.frame, l)
-    print(quant_data)
     gplot <- gplot + ggplot2::geom_errorbar(data=quant_data,
                                             ggplot2::aes_string(x='x',
                                                                 ymin='ymin',
