@@ -29,7 +29,8 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
       shiny::checkboxInput('example_data', 'Display example data', value=FALSE)
     ),
     shiny::mainPanel(
-      shiny::tableOutput('head')
+      shiny::tableOutput('head'),
+      shiny::textOutput('nas')
     )
   )),
 
@@ -320,6 +321,11 @@ server <- shiny::shinyServer(function(input, output) {
         dat$disc <- suppressWarnings(as.numeric(as.character(dat$disc)))
         nas <- which(is.na(dat$disc))
         dat <- dat[-nas, ]
+        nas_txt <- paste(nas, collapse=', ')
+        nas_txt <- paste('Removed row(s)', nas_txt, 'because disc-column contain non-numeric values', sep=' ')
+        output$nas <- shiny::renderPrint({
+          print(nas_txt)
+        })
       }
       if (!is.null(input$disc_limit)) {
         dat <-check_conc(dat, disc_lim=input$disc_limit)
