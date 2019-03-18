@@ -802,7 +802,7 @@ server <- shiny::shinyServer(function(input, output) {
   )
   output$download_hf_table <- shiny::downloadHandler(
     filename = function(){
-      paste('hf-', format(Sys.time(), "%d%m%y-%H%M%S"), '.hf', sep='')
+      paste('hf-', format(Sys.time(), "%d%m%y-%H%M%S"), '.csv', sep='')
 
     },
     content = function(file) {
