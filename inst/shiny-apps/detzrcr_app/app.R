@@ -317,6 +317,7 @@ server <- shiny::shinyServer(function(input, output) {
       dat$sample <- as.factor(dat$sample)
     }
     if (input$disc) {
+      nas <- NULL
       if (is.factor(dat$disc)) {
         dat$disc <- suppressWarnings(as.numeric(as.character(dat$disc)))
         nas <- which(is.na(dat$disc))
@@ -324,7 +325,12 @@ server <- shiny::shinyServer(function(input, output) {
         nas_txt <- paste(nas, collapse=', ')
         nas_txt <- paste('Removed row(s)', nas_txt, 'because disc-column contain non-numeric values', sep=' ')
         output$nas <- shiny::renderPrint({
-          print(nas_txt)
+          cat(nas_txt)
+        })
+      }
+      if (is.null(nas)) {
+        output$nas <- shiny::renderPrint({
+          cat('')
         })
       }
       if (!is.null(input$disc_limit)) {
