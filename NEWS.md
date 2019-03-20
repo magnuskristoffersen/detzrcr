@@ -1,8 +1,15 @@
-# detzrcr 0.2.4.9000
+# detzrcr 0.2.5
+* Initial epsilon Hf as input data now works.
+* Saving plots/tables automatically adds date and time to filenames to avoid
+  overwriting. NB! Filenames still have to be manually fixed when using RStudio
+  itegrated browser on Windows.
+* Sample names can now start with a number.
+* Automatically removes rows with non-numerical values in discordance-column.
+  The row numbers of removed rows are printed.
 
 # detzrcr 0.2.4
 * Fixed error in y-axis slider for Hf plot
-* Added option for y-axis erro bar for Hf plot
+* Added option for y-axis error bar for Hf plot
 
 # detzrcr 0.2.3
 * Added option to use fixed y-axis in KDE/PDP plots
