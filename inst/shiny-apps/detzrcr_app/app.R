@@ -873,7 +873,7 @@ server <- shiny::shinyServer(function(input, output) {
     } else {
       if (input$hf_type == 'hfhf_plot') {
         shiny::sliderInput('hf_ylim', 'Y-axis range',
-                           min=0.279, max=0.283, value = c(0.28, 0.283))
+                           min=0.279, max=0.2833, value = c(0.28, 0.2831))
         }
       }
   })
