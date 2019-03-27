@@ -4,7 +4,10 @@
 \alias{run_detzrcr}
 \title{Launch shiny interface}
 \usage{
-run_detzrcr()
+run_detzrcr(...)
+}
+\arguments{
+\item{...}{Pass arguments on to shiny::runApp}
 }
 \description{
 Launch shiny interface
