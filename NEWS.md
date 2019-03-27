@@ -6,6 +6,7 @@
 * Sample names can now start with a number.
 * Automatically removes rows with non-numerical values in discordance-column.
   The row numbers of removed rows are printed.
+* Arguments can be passed through run_detzrcr to shiny::runApp.
 
 # detzrcr 0.2.4
 * Fixed error in y-axis slider for Hf plot
