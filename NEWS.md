@@ -1,3 +1,5 @@
+# detzrcr 0.2.5.9000
+
 # detzrcr 0.2.5
 * Initial epsilon Hf as input data now works.
 * Saving plots/tables automatically adds date and time to filenames to avoid
