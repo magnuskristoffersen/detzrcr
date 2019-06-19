@@ -270,7 +270,11 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
     shiny::fluidRow(
       column(4,
              shiny::selectInput('font_name', 'Font',
-                                c('Helvetica', 'Courier', 'Times')),
+                                if (.Platform$OS.type == 'windows')
+                                  c('Helvetica' = 'sans', 'Courier' = 'mono',
+                                    'Times'= 'serif')
+                                else
+                                  c('Helvetica', 'Courier', 'Times')),
              shiny::tags$hr(),
              shiny::sliderInput('title_size', 'Axes title size (pts)',
                                 min = 5, max = 20, value = 10),
