@@ -186,31 +186,31 @@ plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
                 alpha=alpha)
     conf_data <- do.call(rbind.data.frame, l)
     gplot <- ggplot2::ggplot() +
-      ggplot2::geom_line(data=conf_data,
+      ggplot2::geom_step(data=conf_data,
                          ggplot2::aes_string(x='x', y='y',
                                              color='sample'), na.rm=TRUE) +
       plot_bw_theme() + plot_labels(ylab = 'Probability')
     if (conf) {
       gplot <- gplot +
-        ggplot2::geom_line(data=conf_data,
+        ggplot2::geom_step(data=conf_data,
                            ggplot2::aes_string(x='x', y='low', color='sample'),
                            linetype=2, na.rm=TRUE) +
-        ggplot2::geom_line(data=conf_data,
+        ggplot2::geom_step(data=conf_data,
                            ggplot2::aes_string(x='x', y='high', color='sample'),
                            linetype=2, na.rm=TRUE)
     }
   } else {
     conf_data <- calc_dkw(dat, column=column, alpha=alpha)
     gplot <- ggplot2::ggplot()
-    gplot <- gplot + ggplot2::geom_line(data=conf_data,
+    gplot <- gplot + ggplot2::geom_step(data=conf_data,
                                 ggplot2::aes_string(x='x', y='y'), na.rm=TRUE) +
       plot_bw_theme() + plot_labels(ylab = 'Probability')
     if (conf) {
       gplot <- gplot +
-        ggplot2::geom_line(data=conf_data,
+        ggplot2::geom_step(data=conf_data,
                            ggplot2::aes_string(x='x', y='low'), linetype=2,
                            na.rm=TRUE) +
-        ggplot2::geom_line(data=conf_data,
+        ggplot2::geom_step(data=conf_data,
                            ggplot2::aes_string(x='x', y='high'), linetype=2,
                            na.rm=TRUE)
     }
