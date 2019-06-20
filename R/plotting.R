@@ -126,13 +126,9 @@ plot_labels <- function(xlab = 'Age (Ma)', ylab = 'Density') {
 #' @export
 #'
 plot_axis_lim <- function(xlim = c(0, 4560), step=200, ylim=NULL) {
-  p_x_lim <- list(ggplot2::scale_x_continuous(limits=xlim,
-                                           breaks=seq(xlim[1], xlim[2], step),
-                                           expand=ggplot2::expand_scale(mult=
-                                                                    c(0, .005))
-                                           ),
-                  ggplot2::scale_y_continuous(limits=ylim)
-  )
+  p_x_lim <- list(ggplot2::coord_cartesian(xlim=xlim, ylim=ylim),
+                  ggplot2::scale_x_continuous(
+                                           breaks=seq(xlim[1], xlim[2], step)))
 }
 
 #' Modify text options of plots
