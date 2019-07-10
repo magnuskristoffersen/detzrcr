@@ -1,4 +1,10 @@
-# detzrcr 0.2.5.9000
+# detzrcr 0.2.6
+* Changed correlation average in reimink-calculation to median in accordance
+  with what is actually stated in Reimink et al. (2016), JGS 173, 577-585.
+* Fixed Windows-specific font warnings.
+* Fixed issue where the last digit(s) of the upper limit label of the x-axis was
+  not always shown.
+* Changed ecdf-plot to plot as step function.
 
 # detzrcr 0.2.5
 * Initial epsilon Hf as input data now works.
