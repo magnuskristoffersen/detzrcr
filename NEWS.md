@@ -1,3 +1,5 @@
+# detzrcr 0.2.6.9000
+
 # detzrcr 0.2.6
 * Changed correlation average in reimink-calculation to median in accordance
   with what is actually stated in Reimink et al. (2016), JGS 173, 577-585.
