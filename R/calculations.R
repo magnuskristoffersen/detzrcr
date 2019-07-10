@@ -667,8 +667,8 @@ reimink <- function(dat, step=5) {
   t2 <- seq(step, 4500, step)
   grid <- expand.grid(t1, t2)
   grid <- grid[grid$Var2 > grid$Var1,]
-  dat$sigma75 <- median(dat$sigma75)
-  dat$sigma68 <- median(dat$sigma68)
+  dat$sigma75 <- stats::median(dat$sigma75)
+  dat$sigma68 <- stats::median(dat$sigma68)
   result <- calc_p_apply(dat, grid$Var2, grid$Var1)
   lower <- stats::aggregate(result$p_disc, by=list(result$t1), max)
   upper <- stats::aggregate(result$p_disc, by=list(result$t2), max)
