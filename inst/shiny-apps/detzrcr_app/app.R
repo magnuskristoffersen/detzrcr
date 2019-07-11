@@ -42,7 +42,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
                      PDP='pdd')),
       shiny::checkboxInput('hist', label = 'Histogram', value = TRUE),
       shiny::checkboxInput('fixed_y', label= 'Fixed y-axis', value = FALSE),
-      selectInput('dens_type', 'Plot type',
+      shiny::selectInput('dens_type', 'Plot type',
                   c('All samples in one'='dens_facet',
                     'Individual samples'='dens_ind',
                     'Combine samples'='dens_combine')),
@@ -68,7 +68,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
       shiny::radioButtons('ecdf_input_type', 'Type',
                           c('Age'='age',
                             'Model age'='t_dm2')),
-      selectInput('ecdf_type', 'Plot type',
+      shiny::selectInput('ecdf_type', 'Plot type',
                   c('All samples in one'='same_plot',
                     'Individual samples'='ind_plot',
                     'Combine samples'='ecdf_combine_plot')),
@@ -241,7 +241,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
   # Start of Constants tab
   shiny::tabPanel('Constants', shiny::fluidPage(
     shiny::fluidRow(
-      column(4,
+      shiny::column(4,
              shiny::numericInput('lambda_lu',
                                  '176Lu decay constant',
                                  lambda_lu),
@@ -268,7 +268,7 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
   # Start of Plot options tab
   shiny::tabPanel('Plot options', shiny::fluidPage(
     shiny::fluidRow(
-      column(4,
+      shiny::column(4,
              shiny::selectInput('font_name', 'Font',
                                 if (.Platform$OS.type == 'windows')
                                   c('Helvetica' = 'sans', 'Courier' = 'mono',
@@ -290,15 +290,15 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
   )),
   shiny::tabPanel('About', shiny::fluidPage(
     shiny::fluidRow(
-      column(12, align='center',
-             h3(paste('detzrcr', as.character(packageVersion('detzrcr')))),
-             tags$br(),
-             tags$div(class='header', checked=NA,
-                      tags$a(href='https://cran.r-project.org/package=detzrcr',
-                             'https://cran.r-project.org/package=detzrcr'),
-                      tags$br(),
-                      tags$a(href='https://github.com/magnuskristoffersen/detzrcr',
-                             'https://github.com/magnuskristoffersen/detzrcr')))
+      shiny::column(12, align='center',
+                    shiny::h3(paste('detzrcr', as.character(packageVersion('detzrcr')))),
+                    shiny::tags$br(),
+                    shiny::tags$div(class='header', checked=NA,
+                                    shiny::tags$a(href='https://cran.r-project.org/package=detzrcr',
+                                                  'https://cran.r-project.org/package=detzrcr'),
+                             shiny::tags$br(),
+                             shiny::tags$a(href='https://github.com/magnuskristoffersen/detzrcr',
+                                           'https://github.com/magnuskristoffersen/detzrcr')))
     )
   ))
   ))
@@ -1003,7 +1003,7 @@ server <- shiny::shinyServer(function(input, output) {
     shiny::selectInput('reimink_samples', 'Select samples', samples,
                        multiple=FALSE, selectize=FALSE)
   })
-  output$reimink_maxima_lower <- renderText({
+  output$reimink_maxima_lower <- shiny::renderText({
     reimink_data <- reimink_table()
     if (!is.null(reimink_data)) {
         lower <- reimink_data[reimink_data$type == 'lower',]
@@ -1011,7 +1011,7 @@ server <- shiny::shinyServer(function(input, output) {
         lower[lower_maxima, ]$x
     }
   })
-  output$reimink_maxima_upper <- renderText({
+  output$reimink_maxima_upper <- shiny::renderText({
     reimink_data <- reimink_table()
     if (!is.null(reimink_data)) {
         upper <- reimink_data[reimink_data$type == 'upper',]
