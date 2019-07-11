@@ -287,6 +287,19 @@ ui <- shiny::fluidPage(shiny::tabsetPanel(
              shiny::tags$hr()
       )
     )
+  )),
+  shiny::tabPanel('About', shiny::fluidPage(
+    shiny::fluidRow(
+      column(12, align='center',
+             h3(paste('detzrcr', as.character(packageVersion('detzrcr')))),
+             tags$br(),
+             tags$div(class='header', checked=NA,
+                      tags$a(href='https://cran.r-project.org/package=detzrcr',
+                             'https://cran.r-project.org/package=detzrcr'),
+                      tags$br(),
+                      tags$a(href='https://github.com/magnuskristoffersen/detzrcr',
+                             'https://github.com/magnuskristoffersen/detzrcr')))
+    )
   ))
   ))
 
