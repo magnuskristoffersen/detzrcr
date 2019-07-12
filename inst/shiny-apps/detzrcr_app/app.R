@@ -296,7 +296,10 @@ ui <- shiny::fluidPage(shiny::navbarPage("detzrcr",
                                                                         'https://cran.r-project.org/package=detzrcr'),
                                                           shiny::tags$br(),
                                                           shiny::tags$a(href='https://github.com/magnuskristoffersen/detzrcr',
-                                                                        'https://github.com/magnuskristoffersen/detzrcr')))
+                                                                        'https://github.com/magnuskristoffersen/detzrcr'),
+                                                          shiny::tags$br(),
+                                                          shiny::tags$a(href='https://cran.r-project.org/web/packages/detzrcr/vignettes/detzrcr-vignette.html',
+                                                                        'https://cran.r-project.org/web/packages/detzrcr/vignettes/detzrcr-vignette.html')))
                           ))
                         ))
 ))
