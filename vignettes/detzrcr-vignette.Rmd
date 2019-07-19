@@ -16,7 +16,8 @@ vignette: >
 
 The latest version of [R](https://r-project.org) must be installed and
 [Rstudio](https://rstudio.com) is recommended.
-The released version of the package can be installed from [CRAN](https://CRAN.R-project.org/package=detzrcr)
+The released version of the package can be installed from
+[CRAN](https://CRAN.R-project.org/package=detzrcr)
 
 ```{r, eval=FALSE}
 install.packages("detzrcr")
@@ -77,7 +78,7 @@ vs. age
 * Export publication quality figures (as pdf)
 * Calculate similarity measures
     + Satkoski likeness (Satkoski et al. 2013)
-    + 1-O (Andersen et al. 2016)
+    + 1-O (Andersen et al. 2016a)
 * Export similarity and Hf tables as csv files
 
 ## Usage
@@ -86,14 +87,15 @@ vs. age
 based user interface where the user can simply upload a data file and output
 publication quality figures (using `ggplot2`) and tables.
 
-Data is uploaded in the `Data input` tab (Fig. \ref{fig1}). From this tab a concordance
-filter can be applied to the data (defaults to $\pm$ 10%). The different features
-of the R-package can then be used by selecting the appropriate panel tab in the
-user interface. By selecting the `Density distribution` tab the user can
-plot the U-Pb age data as KDEs (user selectable fixed bandwidth) or PDPs
-(local variable bandwidth based on the absolute $1\sigma$ uncertainty). Which
-samples to plot and in what order can be selected from the `Select sample` menu
-(Fig. fig2). This feature is also available for all other plot and table options.
+Data is uploaded in the `Data input` tab (Fig. \ref{fig1}). From this tab a
+concordance filter can be applied to the data (defaults to $\pm$ 10%). The
+different featuresof the R-package can then be used by selecting the appropriate
+panel tab in the user interface. By selecting the `Density distribution` tab the
+user can plot the U-Pb age data as KDEs (user selectable fixed bandwidth) or
+PDPs (local variable bandwidth based on the absolute $1\sigma$ uncertainty).
+Which samples to plot and in what order can be selected from the `Select sample`
+menu (Fig. fig2). This feature is also available for all other plot and table
+options.
 
 ![Fig. 2: Density distribution tab](kde.png)
 
@@ -109,7 +111,7 @@ added (Fig. 3).
 Hf data can be plotted from the `Lu-Hf` tab as initial $\epsilon$Hf vs. age or
 initial $^{176}$Hf/$^{177}$Hf vs. age, where sample contours can be added.
 The implemented similarity measures are found in the `Likeness` and `1-O` tabs
-where the likeness (Satkoski et al. 2013) and 1-O (Andersen et al. 2016)
+where the likeness (Satkoski et al. 2013) and 1-O (Andersen et al. 2016a)
 parameters are calculated and displayed. Likeness can be calculated in both 1
 dimension (U-Pb age only) and 2 dimensions (U-Pb age and initial $\epsilon$Hf).
 1-O can be calculated for U-Pb age and Hf model age. In each of these panels the
@@ -138,12 +140,24 @@ the aformentioned decay constant and CHUR values)
 ## Reimink intercepts
 
 The method of Reimink et al. (2016) to find the most likely time of lead loss in
-suites of discordant detrital zircon is added to the package. To use this feature the input data must include $^{207}Pb/^{235}U$, $1\sigma$ absolute error of $^{207}Pb/^{235}U$, $^{206}Pb/^{238}U$, $1\sigma$ absolute error of $^{206}Pb/^{238}U$, and error correlation with the column names r75, sigma75, r68, sigma68 and rho, respectively.
+suites of discordant detrital zircon is added to the package. To use this
+feature the input data must include $^{207}Pb/^{235}U$, $1\sigma$ absolute
+error of $^{207}Pb/^{235}U$, $^{206}Pb/^{238}U$, $1\sigma$ absolute error of
+$^{206}Pb/^{238}U$, and error correlation with the column names r75, sigma75,
+r68, sigma68 and rho, respectively.
+
+### Data source
+All data shown herein are taken form Andersen et al. (2016b).
 
 ### References
-Andersen, T., Elburg, M., Cawthorn-Blazeby, A., 2016. U–Pb and Lu–Hf zircon data
+Andersen, T., Elburg, M., Cawthorn-Blazeby, A., 2016a. U–Pb and Lu–Hf zircon data
 in young sediments reflect sedimentary recycling in eastern South Africa. J.
 Geol. Soc. London. 173, 337–351. https://dx.doi.org/10.1144/jgs2015-006
+
+Andersen, T., Kristoffersen, M., Elburg, M.A., 2016b. How far can we trust
+provenance and crustal evolution information from detrital zircons? A south
+African case study. Gondwana Research 34, 129–148.
+https://doi.org/10.1016/j.gr.2016.03.003
 
 Bouvier, A., Vervoort, J.D., Patchett, P.J., 2008. The Lu-Hf and Sm-Nd isotopic
 composition of CHUR: Constraints from unequilibrated chondrites and implications
@@ -158,11 +172,15 @@ Griffin, W.L., Belousova, E.A., Shee, S.R., Pearson, N.J., O’Reilly, S.Y., 200
 Archean crustal evolution in the northern Yilgam Craton: U-Pb and Hf-isotope
 evidence from detrital zircons. Precambrian Res. 131, 231–282.
 
-Reimink, J. R., Davies, J. H. F. L., Waldron, J. W. F., & Rojas, X. (2016). Dealing with discordance: a novel approach for analysing U-Pb detrital zircon datasets. Journal of the Geological Society, 2015-114. https://doi.org/10.1144/jgs2015-114
+Reimink, J. R., Davies, J. H. F. L., Waldron, J. W. F., & Rojas, X. (2016).
+Dealing with discordance: a novel approach for analysing U-Pb detrital zircon
+datasets. Journal of the Geological Society, 2015-114.
+https://doi.org/10.1144/jgs2015-114
 
 Satkoski, A.M., Wilkinson, B.H., Hietpas, J., Samson, S.D., 2013. Likeness among
 detrital zircon populations — An approach to the comparison of age frequency
-data in time and space. GSA Bull. 125, 1783–1799. https://dx.doi.org/10.1130/B30888.1
+data in time and space. GSA Bull. 125, 1783–1799.
+https://dx.doi.org/10.1130/B30888.1
 
 Söderlund, U., Patchett, P.J., Vervoort, J.D., Isachsen, C.E., 2004. The 176Lu
 decay constant determined by Lu-Hf and U-Pb isotope systematics of Precambrian
