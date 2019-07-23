@@ -19,7 +19,8 @@ Imports: ggplot2,
     MASS,
     stats,
     graphics,
-    utils
+    utils,
+    DT
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

@@ -27,7 +27,7 @@ ui <- shiny::fluidPage(shiny::navbarPage("detzrcr",
                             shiny::checkboxInput('example_data', 'Display example data', value=FALSE)
                           ),
                           shiny::mainPanel(
-                            shiny::tableOutput('head'),
+                            DT::dataTableOutput('head'),
                             shiny::textOutput('nas')
                           )
                         )),
@@ -711,10 +711,11 @@ server <- shiny::shinyServer(function(input, output) {
     }
   })
   # Output
-  output$head <- shiny::renderTable({
+  output$head <- DT::renderDataTable(DT::datatable({
     new_data <- csv_data()
-    utils::head(new_data)
-  })
+    new_data
+  }))
+
   output$dens_plot <- shiny::renderPlot({
     print(dens_plot())
   })
