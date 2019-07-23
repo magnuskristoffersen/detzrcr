@@ -83,7 +83,7 @@ vs. age
 
 ## Usage
 `detzrcr` has been designed to be easy to use with no prior knowledge of
-`R` required. We therefor chose to build the package as a `shiny` 
+`R` required. We therefore chose to build the package as a `shiny` 
 based user interface where the user can simply upload a data file and output
 publication quality figures (using `ggplot2`) and tables.
 
