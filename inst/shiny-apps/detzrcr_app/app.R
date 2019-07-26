@@ -392,6 +392,7 @@ server <- shiny::shinyServer(function(input, output) {
       }
     }
   })
+
   o_table <- shiny::reactive({
     new_data <- csv_data()
     if (!is.null(new_data)) {
@@ -403,21 +404,23 @@ server <- shiny::shinyServer(function(input, output) {
         input$luhf_dm,
         input$luhf_zrc
       )
-      hf_data <- calc_hf(new_data, constants=constants)
       if(!is.null(input$o_samples)) {
-        hf_data <- hf_data[hf_data$sample %in% input$o_samples, ]
-        hf_data$sample <- factor(hf_data$sample,
+        new_data <- new_data[new_data$sample %in% input$o_samples, ]
+        new_data$sample <- factor(new_data$sample,
                                   levels=input$o_samples)
       }
-      if (input$o_type == 'combine') {
-        combine_matrices(o_param_matrix_age(hf_data),
-                         o_param_matrix_tdm(hf_data))
+      if (input$o_type == 'age') {
+        o_param_matrix_age(new_data)
+
       } else {
-        if (input$o_type == 'age') {
-          o_param_matrix_age(hf_data)
+        if (input$o_type == 'tdm') {
+          hf_data <- calc_hf(new_data, constants=constants)
+          o_param_matrix_tdm(hf_data)
         } else {
-          if (input$o_type == 'tdm') {
-            o_param_matrix_tdm(hf_data)
+          if (input$o_type == 'combine') {
+            hf_data <- calc_hf(new_data, constants=constants)
+            combine_matrices(o_param_matrix_age(new_data),
+                             o_param_matrix_tdm(hf_data))
           }
         }
       }
@@ -435,13 +438,27 @@ server <- shiny::shinyServer(function(input, output) {
         input$luhf_dm,
         input$luhf_zrc
       )
-      new_data <- calc_hf(new_data, constants=constants)
+      if ('hfhf' %in% names(new_data)) {
+        hf_data <- calc_hf(new_data, constants=constants)
+      }
       if(!is.null(input$o_samples)) {
-        new_data <- new_data[new_data$sample %in% input$o_samples, ]
+        new_data <- new_data[new_data$sample %in% input$o_samples,]
         new_data$sample <- factor(new_data$sample,
                                   levels=input$o_samples)
+
+        if ('hfhf' %in% names(new_data)) {
+          hf_data <- hf_data[hf_data$sample %in% input$o_samples, ]
+          hf_data$sample <- factor(hf_data$sample,
+                                    levels=input$o_samples)
+        }
+
       }
-      plot_tile(new_data, type=input$o_type) +
+      if ('hfhf' %in% names(new_data)) {
+        dat <- list(age=new_data, hf=hf_data)
+      } else {
+        dat <- list(age=new_data)
+      }
+      plot_tile(dat, type=input$o_type) +
         plot_text_options(font_name = input$font_name,
                           title_size = input$title_size,
                           label_size = input$label_size,
@@ -954,15 +971,7 @@ server <- shiny::shinyServer(function(input, output) {
                        multiple=TRUE, selectize=TRUE)
   })
   output$o_samples <- shiny::renderUI({
-    constants <- c(
-      input$lambda_lu,
-      input$hfhf_chur,
-      input$luhf_chur,
-      input$hfhf_dm,
-      input$luhf_dm,
-      input$luhf_zrc
-    )
-    new_data <- calc_hf(csv_data(), constants=constants)
+    new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
     shiny::selectInput('o_samples', 'Select samples', samples,
                        multiple=TRUE, selectize=TRUE)
@@ -976,7 +985,7 @@ server <- shiny::shinyServer(function(input, output) {
       input$luhf_dm,
       input$luhf_zrc
     )
-    new_data <- calc_hf(csv_data(), constants=constants)
+    new_data <- csv_data()
     samples <- as.vector(unique(new_data$sample))
     shiny::selectInput('likeness_samples', 'Select samples', samples,
                        multiple=TRUE, selectize=TRUE)

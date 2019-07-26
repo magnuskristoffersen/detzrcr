@@ -618,7 +618,7 @@ tiling <- function(z) {
 #'
 make_tiling <- function(dat, type) {
   if (type == 'age') {
-    mat <- o_param_matrix_age(dat)
+    mat <- o_param_matrix_age(dat$age)
     mat <- mat[, rev(seq_len(ncol(mat)))]
     tile_mat <- data.frame(x=rownames(mat)[row(mat)], y=colnames(mat)[col(mat)],
                            z=as.factor(tiling(c(mat))))
@@ -626,7 +626,7 @@ make_tiling <- function(dat, type) {
     tile_mat$y <- factor(tile_mat$y, levels=colnames(mat))
   }
   if (type == 'tdm') {
-    mat <- o_param_matrix_tdm(dat)
+    mat <- o_param_matrix_tdm(dat$hf)
     mat <- mat[, rev(seq_len(ncol(mat)))]
     tile_mat <- data.frame(x=rownames(mat)[row(mat)], y=colnames(mat)[col(mat)],
                            z=as.factor(tiling(c(mat))))
@@ -634,8 +634,8 @@ make_tiling <- function(dat, type) {
     tile_mat$y <- factor(tile_mat$y, levels=colnames(mat))
   }
   if (type == 'combine') {
-    mat_age <- o_param_matrix_age(dat)
-    mat_tdm <- o_param_matrix_tdm(dat)
+    mat_age <- o_param_matrix_age(dat$age)
+    mat_tdm <- o_param_matrix_tdm(dat$hf)
     mat_age[lower.tri(mat_age)] <- NA
     mat <- mat_age
     mat[is.na(mat)] <- mat_tdm[is.na(mat)]
