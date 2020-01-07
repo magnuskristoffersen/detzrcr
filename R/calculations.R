@@ -541,7 +541,7 @@ quant_bounds <- function(dat, column='t_dm2', alpha=0.05) {
                         ties='ordered')$y
     lq_dist <- stats::quantile(column, probs=c(0.25), type=8, na.rm=TRUE)
     uq_dist <- stats::quantile(column, probs=c(0.75), type=8, na.rm=TRUE)
-    data.frame(x=lq_dist, y=uq_dist, ymin=ll, ymax=lu, xmin=ul, xmax=uu, sample)
+    data.frame(x=lq_dist, y=uq_dist, ymin=uu, ymax=lu, xmin=ul,  xmax=ll, sample)
   }
 }
 
