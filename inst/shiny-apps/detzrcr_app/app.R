@@ -337,7 +337,7 @@ server <- shiny::shinyServer(function(input, output) {
     }
     if (input$disc) {
       nas <- NULL
-      if (is.factor(dat$disc)) {
+      if ((is.character(dat$disc)) | (is.factor(dat$disc))) {
         dat$disc <- suppressWarnings(as.numeric(as.character(dat$disc)))
         nas <- which(is.na(dat$disc))
         dat <- dat[-nas, ]
