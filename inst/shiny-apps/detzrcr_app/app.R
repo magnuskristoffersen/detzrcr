@@ -331,6 +331,7 @@ server <- shiny::shinyServer(function(input, output) {
       dat <- utils::read.csv(system.file("extdata", "Natal_group.csv",
                                            package="detzrcr"))
     }
+    names(dat) <- tolower(names(dat))
     if ('sample' %in% names(dat)) {
       dat$sample <- as.factor(dat$sample)
     }
