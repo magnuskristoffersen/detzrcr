@@ -533,10 +533,10 @@ quant_bounds <- function(dat, column='t_dm2', alpha=0.05) {
                         ties='ordered')$y
     lu <- stats::approx(x=sort_age_low$y, y=sort_age_low$x, xout=c(0.75),
                         ties='ordered')$y
-    if(is.na(lu)) lu <- max(sort_age_low$x)
+    if(is.na(lu)) lu <- 4560
     ul <- stats::approx(x=sort_age_high$y, y=sort_age_high$x, xout=c(0.25),
                         ties='ordered')$y
-    if(is.na(ul)) ul <- min(sort_age_high$x)
+    if(is.na(ul)) ul <- 0
     uu <- stats::approx(x=sort_age_high$y, y=sort_age_high$x, xout=c(0.75),
                         ties='ordered')$y
     lq_dist <- stats::quantile(column, probs=c(0.25), type=8, na.rm=TRUE)
