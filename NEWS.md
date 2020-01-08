@@ -1,4 +1,20 @@
-# detzrcr 0.2.6.9000
+# detzrcr 0.3.0
+* Added Zenodo DOI.
+* Added a simple About page with version number, and links to the detzrcr CRAN
+page, github repository and vignette
+* The user-interface now uses Navbar.
+* Changed table rendering to DataTable.
+* 1-O table and 1-O plot do no longer ignore Hf-data. 
+* Automatic removal of non-numerical values in discordance-column should now
+work properly.
+* Column names in input-data now ignore case (i.e. are forced to lower case).
+* Fixed error where ymin and xmax in the confidence bounds for quantile plots
+were swapped.
+* If no lower bound or upper bound for the lower quantile or upper quantile
+confidence bounds are found, the bounds now now default to 0 and 4560 Ma,
+respectively.
+* Added option to display number of total analyses, number of concordant
+analyses and number of Hf analyses.
 
 # detzrcr 0.2.6
 * Changed correlation average in reimink-calculation to median in accordance
@@ -12,7 +28,7 @@
 * Initial epsilon Hf as input data now works.
 * Saving plots/tables automatically adds date and time to filenames to avoid
   overwriting. NB! Filenames still have to be manually fixed when using RStudio
-  itegrated browser on Windows.
+  integrated browser on Windows.
 * Sample names can now start with a number.
 * Automatically removes rows with non-numerical values in discordance-column.
   The row numbers of removed rows are printed.
