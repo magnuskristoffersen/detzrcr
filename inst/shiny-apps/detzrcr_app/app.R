@@ -24,11 +24,18 @@ ui <- shiny::fluidPage(shiny::navbarPage("detzrcr",
                                                  value = FALSE),
                             shiny::uiOutput('show_disc_limit'),
                             shiny::tags$hr(),
-                            shiny::checkboxInput('example_data', 'Display example data', value=FALSE)
+                            shiny::checkboxInput('example_data',
+                                                 'Display example data',
+                                                 value=FALSE),
+                            shiny::tags$hr(),
+                            shiny::checkboxInput('sample_freq',
+                                                 'Show sample frequencies',
+                                                 value=FALSE)
                           ),
                           shiny::mainPanel(
                             DT::dataTableOutput('head'),
-                            shiny::textOutput('nas')
+                            shiny::textOutput('nas'),
+                            shiny::tableOutput('numbers')
                           )
                         )),
 
@@ -307,6 +314,9 @@ ui <- shiny::fluidPage(shiny::navbarPage("detzrcr",
 server <- shiny::shinyServer(function(input, output) {
   # Reactives
   csv_data <- shiny::reactive({
+    numbers <- NULL
+    n_conc <- NULL
+    n_hf <- NULL
     if (input$example_data == FALSE) {
       inFile <- input$file1
       if (is.null(inFile)) {
@@ -335,6 +345,7 @@ server <- shiny::shinyServer(function(input, output) {
     if ('sample' %in% names(dat)) {
       dat$sample <- as.factor(dat$sample)
     }
+    n_analyses <- aggregate(dat$sample, by = dat['sample'], length)
     if (input$disc) {
       nas <- NULL
       if ((is.character(dat$disc)) | (is.factor(dat$disc))) {
@@ -342,7 +353,8 @@ server <- shiny::shinyServer(function(input, output) {
         nas <- which(is.na(dat$disc))
         dat <- dat[-nas, ]
         nas_txt <- paste(nas, collapse=', ')
-        nas_txt <- paste('Removed row(s)', nas_txt, 'because disc-column contain non-numeric values', sep=' ')
+        nas_txt <- paste('Removed row(s)', nas_txt, 'because disc-column
+                         contains non-numeric values', sep=' ')
         output$nas <- shiny::renderPrint({
           cat(nas_txt)
         })
@@ -352,9 +364,54 @@ server <- shiny::shinyServer(function(input, output) {
           cat('')
         })
       }
-      if (!is.null(input$disc_limit)) {
-        dat <-check_conc(dat, disc_lim=input$disc_limit)
+    }
+    if (input$sample_freq) {
+      if ('hfhf' %in% names(dat)) {
+        hf <- dat[which(!is.na(dat$hfhf)), ]
+        n_hf <- aggregate(hf$sample, by = hf['sample'], length)
       }
+      if ('ehf_i' %in% names(dat)) {
+        hf <- dat[which(!is.na(dat$ehf_i)), ]
+        n_hf <- aggregate(hf$sample, by = dat['sample'], length)
+      }
+      if (!is.null(input$disc_limit)) {
+        dat <- check_conc(dat, disc_lim=input$disc_limit)
+        n_conc <- aggregate(dat$sample, by = dat['sample'], length)
+      }
+      if (is.null(n_conc) &
+          is.null(n_hf)) {
+        output$numbers <- shiny::renderTable({
+          names(n_analyses) <- c('sample', 'n_analyses')
+          n_analyses
+        })
+      }
+      if (!is.null(n_conc) & (is.null(n_hf))) {
+        output$numbers <- shiny::renderTable({
+          numbers <- merge(n_analyses, n_conc, by = 'sample')
+          names(numbers) <- c('sample', 'n_analyses', 'n_conc')
+          numbers
+        })
+      }
+      if (!is.null(n_hf) & is.null(n_conc)) {
+        output$numbers <- shiny::renderTable({
+          numbers <- merge(n_analyses, n_hf, by = 'sample')
+          names(numbers) <- c('sample', 'n_analyses', 'n_hf')
+          numbers
+        })
+      }
+      if (!is.null(n_hf) & !is.null(n_conc)) {
+        output$numbers <- shiny::renderTable({
+          numbers <- merge(n_analyses, n_conc, by = 'sample')
+          numbers <- merge(numbers, n_hf, by = 'sample')
+          names(numbers) <- c('sample', 'n_analyses', 'n_conc', 'n_hf')
+          numbers
+        })
+      }
+    } else {
+      numbers <- NULL
+      output$numbers <- shiny::renderTable({
+        numbers
+      })
     }
     return(dat)
   })
