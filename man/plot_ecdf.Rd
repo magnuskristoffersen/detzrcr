@@ -4,8 +4,14 @@
 \alias{plot_ecdf}
 \title{Plot ecdf}
 \usage{
-plot_ecdf(dat, mult_ecdf = FALSE, column = "age", conf = FALSE,
-  guide = TRUE, alpha = 0.05)
+plot_ecdf(
+  dat,
+  mult_ecdf = FALSE,
+  column = "age",
+  conf = FALSE,
+  guide = TRUE,
+  alpha = 0.05
+)
 }
 \arguments{
 \item{dat}{data.frame}

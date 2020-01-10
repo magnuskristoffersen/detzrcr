@@ -4,8 +4,13 @@
 \alias{plot_text_options}
 \title{Modify text options of plots}
 \usage{
-plot_text_options(font_name = "Helvetica", title_size = 10,
-  label_size = 7, legend_size = 10, strip_text_y_size = 8)
+plot_text_options(
+  font_name = "Helvetica",
+  title_size = 10,
+  label_size = 7,
+  legend_size = 10,
+  strip_text_y_size = 8
+)
 }
 \arguments{
 \item{font_name}{Name of font to use}

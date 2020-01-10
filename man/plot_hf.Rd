@@ -4,10 +4,21 @@
 \alias{plot_hf}
 \title{Plot Lu-Hf data}
 \usage{
-plot_hf(dat, range = c(0, 4560), plot_type = "ehf", guide = TRUE,
-  x_errors = FALSE, y_errors = FALSE, error_bars = FALSE,
-  contours = FALSE, x_bandwidth = NULL, y_bandwidth = NULL,
-  contour_data = NULL, combine_contours = FALSE, constants)
+plot_hf(
+  dat,
+  range = c(0, 4560),
+  plot_type = "ehf",
+  guide = TRUE,
+  x_errors = FALSE,
+  y_errors = FALSE,
+  error_bars = FALSE,
+  contours = FALSE,
+  x_bandwidth = NULL,
+  y_bandwidth = NULL,
+  contour_data = NULL,
+  combine_contours = FALSE,
+  constants
+)
 }
 \arguments{
 \item{dat}{data.frame}

@@ -4,9 +4,16 @@
 \alias{plot_dens_hist}
 \title{Plot 1d density with histogram}
 \usage{
-plot_dens_hist(dat, bw = 30, binwidth = 50, type = "kde",
-  age_range = c(0, 4560), facet = FALSE, fixed_y = FALSE,
-  step = 200)
+plot_dens_hist(
+  dat,
+  bw = 30,
+  binwidth = 50,
+  type = "kde",
+  age_range = c(0, 4560),
+  facet = FALSE,
+  fixed_y = FALSE,
+  step = 200
+)
 }
 \arguments{
 \item{dat}{data.frame}

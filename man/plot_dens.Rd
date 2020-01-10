@@ -4,8 +4,15 @@
 \alias{plot_dens}
 \title{Plot 1d density}
 \usage{
-plot_dens(dat, bw = 30, type = "kde", age_range = c(0, 4560),
-  facet = FALSE, fixed_y = FALSE, step = 200)
+plot_dens(
+  dat,
+  bw = 30,
+  type = "kde",
+  age_range = c(0, 4560),
+  facet = FALSE,
+  fixed_y = FALSE,
+  step = 200
+)
 }
 \arguments{
 \item{dat}{data.frame}

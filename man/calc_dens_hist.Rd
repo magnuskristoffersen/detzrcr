@@ -4,8 +4,13 @@
 \alias{calc_dens_hist}
 \title{Calculate scaled 1d density}
 \usage{
-calc_dens_hist(dat, binwidth = 50, bw = 30, type = "kde",
-  age_range = c(0, 4560))
+calc_dens_hist(
+  dat,
+  binwidth = 50,
+  bw = 30,
+  type = "kde",
+  age_range = c(0, 4560)
+)
 }
 \arguments{
 \item{dat}{data.frame}

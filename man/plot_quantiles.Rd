@@ -4,8 +4,16 @@
 \alias{plot_quantiles}
 \title{Plot quantiles}
 \usage{
-plot_quantiles(dat, column = "t_dm2", conf = FALSE, alpha = 0.05,
-  type = 8, guide = TRUE, mix = FALSE, mix_data = NULL)
+plot_quantiles(
+  dat,
+  column = "t_dm2",
+  conf = FALSE,
+  alpha = 0.05,
+  type = 8,
+  guide = TRUE,
+  mix = FALSE,
+  mix_data = NULL
+)
 }
 \arguments{
 \item{dat}{data.frame}
