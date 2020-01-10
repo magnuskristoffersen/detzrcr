@@ -1,3 +1,5 @@
+# detzrcr 0.3.0.9000
+
 # detzrcr 0.3.0
 * Added Zenodo DOI.
 * Added a simple About page with version number, and links to the detzrcr CRAN
