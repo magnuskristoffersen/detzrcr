@@ -359,6 +359,9 @@ server <- shiny::shinyServer(function(input, output) {
           cat(nas_txt)
         })
       }
+      if (!is.null(input$disc_limit)) {
+        dat <- check_conc(dat, disc_lim=input$disc_limit)
+      }
       if (is.null(nas)) {
         output$nas <- shiny::renderPrint({
           cat('')
