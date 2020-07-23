@@ -4,7 +4,9 @@
 \name{u238_u235_ratio}
 \alias{u238_u235_ratio}
 \title{Atomic ratio of 238U and 235U.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 u238_u235_ratio
 }

@@ -4,7 +4,9 @@
 \name{lambda_lu}
 \alias{lambda_lu}
 \title{Decay constant of 176Lu.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 lambda_lu
 }

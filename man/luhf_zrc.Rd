@@ -4,7 +4,9 @@
 \name{luhf_zrc}
 \alias{luhf_zrc}
 \title{176Lu/177Hf value of average continental crust.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 luhf_zrc
 }

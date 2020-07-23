@@ -4,7 +4,9 @@
 \name{hfhf_chur}
 \alias{hfhf_chur}
 \title{176Hf/177Hf value of CHUR.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 hfhf_chur
 }

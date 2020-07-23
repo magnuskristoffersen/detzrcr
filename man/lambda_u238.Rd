@@ -4,7 +4,9 @@
 \name{lambda_u238}
 \alias{lambda_u238}
 \title{Decay constants of 238U.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 lambda_u238
 }

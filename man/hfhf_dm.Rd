@@ -4,7 +4,9 @@
 \name{hfhf_dm}
 \alias{hfhf_dm}
 \title{176Lu/177Hf value of DM.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 hfhf_dm
 }

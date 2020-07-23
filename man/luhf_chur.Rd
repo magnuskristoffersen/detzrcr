@@ -4,7 +4,9 @@
 \name{luhf_chur}
 \alias{luhf_chur}
 \title{176Lu/177Hf value of CHUR.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 luhf_chur
 }
