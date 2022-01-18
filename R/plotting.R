@@ -216,7 +216,7 @@ plot_ecdf <- function(dat, mult_ecdf=FALSE, column='age', conf=FALSE,
     }
   }
   if (guide == FALSE) {
-    gplot <- gplot + ggplot2::guides(color=FALSE)
+    gplot <- gplot + ggplot2::guides(color="none")
   }
   gplot
 }
@@ -286,7 +286,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                                  h=c(x_bandwidth,
                                                      y_bandwidth)*4,
                                                  na.rm=TRUE)
-          gplot <- gplot + ggplot2::guides(color=FALSE)
+          gplot <- gplot + ggplot2::guides(color="none")
       } else {
         gplot <- gplot + ggplot2::geom_density2d(data=contour_data,
                                                  ggplot2::aes_string(x='a',
@@ -295,7 +295,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                                  h=c(x_bandwidth,
                                                      y_bandwidth)*4,
                                                  na.rm=TRUE)
-        gplot <- gplot + ggplot2::guides(color=FALSE)
+        gplot <- gplot + ggplot2::guides(color="none")
       }
     }
     gplot <- gplot +
@@ -307,7 +307,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                           size=3,
                           na.rm=TRUE)
     gplot <- gplot + plot_point_scale()
-    gplot <- gplot + ggplot2::guides(linetype=FALSE)
+    gplot <- gplot + ggplot2::guides(linetype="none")
   } else {
     if (plot_type == 'hfhf') {
       lines <- hf_lines(range=range, plot_type='hfhf', constants=constants)
@@ -349,13 +349,13 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                                    h=c(x_bandwidth,
                                                        y_bandwidth)*4,
                                                    na.rm=TRUE) +
-            ggplot2::guides(color=FALSE)
+            ggplot2::guides(color="none")
         } else {
           gplot <- gplot + ggplot2::geom_density2d(
             data=contour_data,
             ggplot2::aes_string(x='a', y='h', color='s'),
             h=c(x_bandwidth, y_bandwidth)*4, na.rm=TRUE)
-          gplot <- gplot + ggplot2::guides(color=FALSE)
+          gplot <- gplot + ggplot2::guides(color="none")
 
         }
 
@@ -368,11 +368,11 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
                                                 shape='sample'),
                             color='black', size=3, na.rm=TRUE)
       gplot <- gplot + plot_point_scale()
-      gplot <- gplot + ggplot2::guides(linetype=FALSE)
+      gplot <- gplot + ggplot2::guides(linetype="none")
       }
   }
   if (guide == FALSE) {
-    gplot <- gplot + ggplot2::guides(fill=FALSE, shape=FALSE)
+    gplot <- gplot + ggplot2::guides(fill="none", shape="none")
   }
   gplot
 }
@@ -430,7 +430,7 @@ plot_quantiles <- function(dat, column='t_dm2', conf=FALSE, alpha=0.05, type=8,
                                                  ylab='Upper quartile (Ma)')
     gplot <- gplot + plot_point_scale()
   if (guide == FALSE) {
-    gplot <- gplot + ggplot2::guides(fill=FALSE, shape=FALSE)
+    gplot <- gplot + ggplot2::guides(fill="none", shape="none")
   }
   gplot
 }
@@ -457,7 +457,7 @@ plot_tile <- function(dat, type) {
     ggplot2::geom_tile(ggplot2::aes_string(x='x', y='y', fill='z'),
                        color='black', na.rm=TRUE) +
     plot_labels(xlab='', ylab='') +
-    ggplot2::guides(fill=FALSE) +
+    ggplot2::guides(fill="none") +
     ggplot2::scale_fill_manual(values=c('#1a9641', 'white', '#d7191c'),
                       na.value='grey80', limits=c(0, 1, 2), drop=FALSE) +
     plot_bw_theme() + ggplot2::theme(axis.text.x =
