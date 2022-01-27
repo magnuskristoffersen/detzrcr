@@ -459,7 +459,7 @@ plot_tile <- function(dat, type) {
     plot_labels(xlab='', ylab='') +
     ggplot2::guides(fill="none") +
     ggplot2::scale_fill_manual(values=c('#1a9641', 'white', '#d7191c'),
-                      na.value='grey80', limits=c(0, 1, 2), drop=FALSE) +
+                      na.value='grey80', limits=factor(c(0, 1, 2)), drop=FALSE) +
     plot_bw_theme() + ggplot2::theme(axis.text.x =
                                        ggplot2::element_text(angle = 90,
                                                              hjust = 1)) +
