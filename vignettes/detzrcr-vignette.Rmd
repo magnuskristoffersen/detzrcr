@@ -134,7 +134,7 @@ Default values are as follows
 (Bouvier et al. 2008)
 * Depleted mantle values: $^{176}$Lu/$^{177}$Hf$=0.0388$,
 $^{176}$Hf/$^{177}$Hf$=0.28325$ (from Griffin et al. (2004) modified to 
-the aformentioned decay constant and CHUR values)
+the aforementioned decay constant and CHUR values)
 * $^{176}$Lu/$^{177}$Hf value used in two step depleted model age $=0.015$
 
 ## Reimink intercepts
@@ -147,7 +147,7 @@ $^{206}Pb/^{238}U$, and error correlation with the column names r75, sigma75,
 r68, sigma68 and rho, respectively.
 
 ### Data source
-All data shown herein are taken form Andersen et al. (2016b).
+All data shown herein are taken from Andersen et al. (2016b).
 
 ### References
 Andersen, T., Elburg, M., Cawthorn-Blazeby, A., 2016a. U–Pb and Lu–Hf zircon data
