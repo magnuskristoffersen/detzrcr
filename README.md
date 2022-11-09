@@ -1,8 +1,10 @@
 # detzrcr
 
-[![Build Status](https://travis-ci.org/magnuskristoffersen/detzrcr.svg?branch=master)](https://travis-ci.org/magnuskristoffersen/detzrcr)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/magnuskristoffersen/detzrcr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/magnuskristoffersen/detzrcr/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/detzrcr)](https://cran.r-project.org/package=detzrcr)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3324801.svg)](https://doi.org/10.5281/zenodo.3324801)
+<!-- badges: end -->
 
 detzrcr is an R-package for plotting and running statistical tests on univariate
 (U-Pb age) and bivariate (U-Pb age and Lu-Hf data) detrital zircon data for
