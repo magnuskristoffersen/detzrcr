@@ -485,3 +485,9 @@ plot_reimink <- function(dat) {
     ggplot2::geom_line() + ggplot2::geom_point() + plot_bw_theme() +
     plot_labels(xlab='Age (Ma)', ylab = 'Likelihood')
 }
+
+# Added to suppress "Namespace in Imports field not imported from: ‘utils’
+# All declared Imports should be used." note in R CMD check
+ignore_unused_imports <- function() {
+  utils::globalVariables
+}
