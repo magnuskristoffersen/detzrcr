@@ -41,7 +41,7 @@ calc_dens <- function(dat, bw=30, type='kde', age_range=c(0, 4560)) {
       y <- sapply(x, FUN=function(x) sum(stats::dnorm(x, dat$age, dat$uncert)))
       y <- y / length(x)
     } else {
-      stop('Cannot calculate pdd without individual uncertainty each grain')
+      stop('Cannot calculate pdd without individual uncertainty for each grain')
     }
   }
   dens <- data.frame(x=x, y=y)
