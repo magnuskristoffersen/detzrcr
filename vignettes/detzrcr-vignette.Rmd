@@ -14,8 +14,8 @@ vignette: >
 ---
 ## Installing and running the package
 
-The latest version of [R](https://r-project.org) must be installed and
-[Rstudio](https://rstudio.com) is recommended.
+The latest version of [R](https://www.r-project.org/) must be installed and
+[Rstudio](https://posit.co/) is recommended.
 The released version of the package can be installed from
 [CRAN](https://CRAN.R-project.org/package=detzrcr)
 
