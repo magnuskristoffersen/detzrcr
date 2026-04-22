@@ -258,7 +258,7 @@ plot_hf <- function(dat, range=c(0, 4560), plot_type='ehf', guide=TRUE,
     gplot <- ggplot2::ggplot()
     gplot <- gplot +
       ggplot2::geom_line(data=lines, ggplot2::aes(x=.data$x, y=.data$line,
-                                                   linetype='type'), na.rm=TRUE)
+                                                   linetype=.data$type), na.rm=TRUE)
     gplot <- gplot + ggplot2::scale_linetype_manual(values=c(1, 1))
     gplot <- gplot + plot_bw_theme() +
       plot_labels(xlab='Age (Ma)',
