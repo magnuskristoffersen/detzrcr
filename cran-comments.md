@@ -1,11 +1,10 @@
 ## Test environments
-local osx install (10.15.6), R 4.0.2
+local Fedora Linux 43 (Workstation Edition) - kernel 6.19.12-200.fc43.x86_64,
+R 4.5.3
 
-winbuilder, R Under development (unstable) (2020-01-03 r77630)
+winbuilder, R version 4.6.0 RC (2026-04-20 r89921 ucrt)
 
-rhub: Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-
-r-devel docker image, using R Under development (unstable) (2020-07-23 r78900)
+macbuilder, R Under development (unstable) (2026-03-22 r89674)
 
 ## R CMD check --as-cran results
 There were no ERRORs, WARNINGs or NOTEs. 

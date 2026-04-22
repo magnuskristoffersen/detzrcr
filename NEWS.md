@@ -1,3 +1,7 @@
+# detzrcr 0.3.2
+* Fixed one typo in error message.
+* Replaced ggplot2::aes_string() usage as the function is deprecated. 
+
 # detzrcr 0.3.1
 * Fixed bug where the sample frequency summary overwrites data.
 
