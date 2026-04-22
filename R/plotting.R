@@ -490,4 +490,5 @@ plot_reimink <- function(dat) {
 # All declared Imports should be used." note in R CMD check
 ignore_unused_imports <- function() {
   utils::globalVariables
+  DT::renderDataTable
 }
