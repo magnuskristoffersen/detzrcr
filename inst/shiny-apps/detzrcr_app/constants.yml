@@ -1,0 +1,20 @@
+default:
+  lambda_lu: 1.867e-11
+  luhf_chur: 0.0336
+  hfhf_chur: 0.282785
+  luhf_dm: 0.0388
+  hfhf_dm: 0.28325
+  luhf_zrc: 0.015
+  lambda_u235: 9.8485e-10
+  lambda_u238: 1.55125e-10
+  u238_u235_ratio: 137.88
+user:
+  lambda_lu: 1.867e-11
+  luhf_chur: 0.0336
+  hfhf_chur: 0.282785
+  luhf_dm: 0.0388
+  hfhf_dm: 0.28325
+  luhf_zrc: 0.015
+  lambda_u235: 9.8485e-10
+  lambda_u238: 1.55125e-10
+  u238_u235_ratio: 137.88

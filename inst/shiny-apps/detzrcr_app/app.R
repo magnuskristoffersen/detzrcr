@@ -1,3 +1,4 @@
+consts <- yaml::read_yaml('constants.yml')
 ui <- shiny::fluidPage(shiny::navbarPage("detzrcr",
                         shiny::tabPanel('Data Input', shiny::sidebarLayout(
                           shiny::sidebarPanel(
@@ -249,24 +250,27 @@ ui <- shiny::fluidPage(shiny::navbarPage("detzrcr",
                             shiny::column(4,
                                           shiny::numericInput('lambda_lu',
                                                               '176Lu decay constant',
-                                                              lambda_lu),
+                                                              consts$user$lambda_lu),
                                           shiny::tags$hr(),
                                           shiny::numericInput('luhf_chur',
                                                               '176Lu/177Hf CHUR',
-                                                              luhf_chur),
+                                                              consts$user$luhf_chur),
                                           shiny::numericInput('hfhf_chur',
                                                               '176Hf/177Hf CHUR',
-                                                              hfhf_chur),
+                                                              consts$user$hfhf_chur),
                                           shiny::tags$hr(),
                                           shiny::numericInput('luhf_dm',
                                                               '176Lu/177Hf DM',
-                                                              luhf_dm),
+                                                              consts$user$luhf_dm),
                                           shiny::numericInput('hfhf_dm',
                                                               '176hf/177Hf DM',
-                                                              hfhf_dm),
+                                                              consts$user$hfhf_dm),
                                           shiny::numericInput('luhf_zrc',
                                                               '176Lu/177Hf',
-                                                              luhf_zrc)
+                                                              consts$user$luhf_zrc),
+                                          shiny::tags$hr(),
+                                          shiny::actionButton('reset', 'Reset'),
+                                          shiny::actionButton('save', 'Save')
                             )
                           )
                         )),
@@ -311,7 +315,24 @@ ui <- shiny::fluidPage(shiny::navbarPage("detzrcr",
                         ))
 ))
 
-server <- shiny::shinyServer(function(input, output) {
+server <- shiny::shinyServer(function(input, output, session) {
+  shiny::observeEvent(input$reset, {
+    shiny::updateNumericInput(session, 'lambda_lu', value=consts$default$lambda_lu)
+    shiny::updateNumericInput(session, 'luhf_chur ', value=consts$default$luhf_chur)
+    shiny::updateNumericInput(session, 'hfhf_chur ', value=consts$default$hfhf_chur)
+    shiny::updateNumericInput(session, 'luhf_dm', value=consts$default$luhf_dm)
+    shiny::updateNumericInput(session, 'hfhf_dm', value=consts$default$hfhf_dm)
+    shiny::updateNumericInput(session, 'luhf_zrc', value=consts$default$luhf_zrc)
+    })
+  shiny::observeEvent(input$save, {
+    consts$user$lambda_lu <- input$lambda_lu
+    consts$user$luhf_chur <- input$luhf_chur
+    consts$user$hfhf_chur <- input$hfhf_chur
+    consts$user$luhf_dm <- input$luhf_dm
+    consts$user$hfhf_dm <- input$hfhf_dm
+    consts$user$luhf_zrc <- input$luhf_zrc
+    yaml::write_yaml(consts, file='constants.yml')
+  })
   # Reactives
   csv_data <- shiny::reactive({
     numbers <- NULL
