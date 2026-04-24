@@ -37,7 +37,7 @@ run_detzrcr()
 
 For the sake of simplicity input data is required to be a csv-file which
 contains at least a column containing the U-Pb age data. This column must be
-called age, associated uncertainty and discordancy (if included) must be in
+called age, associated uncertainty and discordance (if included) must be in
 columns uncert and disc, respectively. All ages must be in Ma.
 
 The file can contain the Lu-Hf data in two ways:
@@ -45,7 +45,7 @@ measured 176/177Hf and measured Lu/Hf in columns called hfhf and luhf,
 respectively; or a column with initial epsilon-Hf with the name ehf_i.
 
 Several samples can be included in the csv-file and which one(s) to plot can
-be choosen interactively in the user interface. For this to work a column
+be chosen interactively in the user interface. For this to work a column
 called sample must be present, and each analysis (i.e. each row) must contain
 the name of the sample it belongs to in this column.
 
