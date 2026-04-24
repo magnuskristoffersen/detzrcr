@@ -1,3 +1,7 @@
+# detzrcr 0.3.3
+* User set calculation constants can now be saved, and reset to default values.
+* Fixed error where needed package was not imported.
+
 # detzrcr 0.3.2
 * Fixed one typo in error message.
 * Replaced ggplot2::aes_string() usage as the function is deprecated. 
