@@ -19,11 +19,11 @@ Install either from CRAN
 install.packages("detzrcr")
 ```
 
-or install the development version from github (requires devtools)
+or install the development version from github (requires remotes)
 
 ```R
-# install.packages("devtools")
-devtools::install_github("magnuskristoffersen/detzrcr")
+# install.packages("remotes")
+remotes::install_github("magnuskristoffersen/detzrcr")
 ```
 
 ## Use package
