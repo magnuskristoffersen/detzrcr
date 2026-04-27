@@ -491,4 +491,5 @@ plot_reimink <- function(dat) {
 ignore_unused_imports <- function() {
   utils::globalVariables
   DT::renderDataTable
+  yaml::write_yaml
 }
