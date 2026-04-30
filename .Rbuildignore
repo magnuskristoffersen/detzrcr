@@ -10,3 +10,5 @@
 ^\.Rapp\.history$
 ^LICENCE$
 ^\.github$
+^\.positai$
+^\.claude$
