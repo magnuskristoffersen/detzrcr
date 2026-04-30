@@ -1,10 +1,10 @@
 ## Test environments
-local Fedora Linux 43 (Workstation Edition) - kernel 6.19.12-200.fc43.x86_64,
+local Fedora Linux 43 (Workstation Edition) - kernel 6.19.14-200.fc43.x86_64,
 R 4.5.3
 
-winbuilder, R version 4.6.0 RC (2026-04-20 r89921 ucrt)
+winbuilder, R Under development (unstable) (2026-04-29 r89977 ucrt)
 
-macbuilder, R Under development (unstable) (2026-03-22 r89674)
+macbuilder, R version 4.6.0 Patched (2026-04-24 r89963)
 
 ## R CMD check --as-cran results
 There were no ERRORs, WARNINGs or NOTEs. 
